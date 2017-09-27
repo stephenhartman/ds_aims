@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>DePaul School</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -78,8 +78,10 @@
             @endif
 
             <div class="content">
+			<img class="img img-fluid img-rounded mx-auto" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
+            <br><br><br><br><br><br>
                 <div class="title m-b-md">
-                    Laravel
+                    DePaul School
                 </div>
 
                 <div class="links">

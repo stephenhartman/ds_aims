@@ -4,8 +4,6 @@ set shiftwidth=4
 set softtabstop=4
 set nu expandtab
 set number
-set swapfile
-set dir=~/tmp
 let g:spacejam_autocmd=''
 map <leader>gf :CtrlPClearAllCaches<cr> :CtrlP features_wip<cr>
 
