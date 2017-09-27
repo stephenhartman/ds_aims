@@ -13,6 +13,8 @@
                         </div>
                     @endif
                     You are logged in!
+					Click here for POSTS!
+					 <a href="posts/create">Click here for POSTS!</a> 
                 </div>
             </div>
         </div>

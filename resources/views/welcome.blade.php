@@ -78,6 +78,8 @@
             @endif
 
             <div class="content">
+			<img class="img img-fluid img-rounded mx-auto" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
+            <br><br><br><br><br><br>
                 <div class="title m-b-md">
                     DePaul School
                 </div>

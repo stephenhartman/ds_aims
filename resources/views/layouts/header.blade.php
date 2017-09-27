@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
-                Bar Application
+                DePaul Home
             </a>
         </div>
 
@@ -22,11 +22,11 @@
             @if (!Auth::guest())
                 @if (Auth::user()->is_admin)
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('orders/') }}">Order Queue</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('orders/') }}">Search Students</a>
                     </li>
                 @else
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('orders/create') }}">Place an Order</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('orders/create') }}">Students</a>
                     </li>
                 @endif
             @endif
