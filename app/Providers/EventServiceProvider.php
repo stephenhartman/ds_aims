@@ -8,7 +8,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The events listener mappings for the application.
+     * The event listener mappings for the application.
      *
      * @var array
      */
