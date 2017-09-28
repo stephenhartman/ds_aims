@@ -22,11 +22,11 @@
             @if (!Auth::guest())
                 @if (Auth::user()->is_admin)
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('orders/') }}">Search Students</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('#') }}">Search Students</a>
                     </li>
                 @else
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('orders/create') }}">Students</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('#') }}">Edit Your Infromation</a>
                     </li>
                 @endif
             @endif
