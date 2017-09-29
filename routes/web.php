@@ -23,4 +23,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController');
 
-Route::resource('/users', 'UserController', ['only' => ['index', 'show']]);
+Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
+Route::get('/users', 'UserController@anyData')->name('datatables.data');
