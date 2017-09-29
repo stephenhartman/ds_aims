@@ -28,8 +28,8 @@ class UserController extends Controller
     public function index()
     {
         if (Auth::user()->is_admin) {
-            $users = User::where('is_admin', 0);
-            return view('users.index', compact('users'));
+            //$users = User::where('is_admin', 0);
+            return view('users.index');
         }
         Session::flash('error', 'You are not authorized to view this page.');
         return redirect()->route('home');
@@ -54,8 +54,8 @@ class UserController extends Controller
      *
      *  @return \Illuminate\Http\JsonResponse
      */
-    public function anyData()
+    public function data()
     {
-        return Datatables::of(User::query())->make(true);
+        return DataTables::of(User::query())->make(true);
     }
 }
