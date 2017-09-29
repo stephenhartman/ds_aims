@@ -13,6 +13,9 @@
                         <div class="col-md-2">
                             <a class="btn btn-sm btn-primary" href="{{ route('posts.create') }}">Create new post</a>
                         </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-sm btn-primary" href="{{ route('events.create') }}">Create new event</a>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">

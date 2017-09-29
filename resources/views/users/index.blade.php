@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <table class="table table-bordered" id="users-table">
+        <table class="table table-bordered dataTable" id="users-table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -21,7 +21,7 @@
 @push('scripts')
     <script>
 $(function() {
-    $('#users-table').DataTable({
+    $('#users-table').dataTable({
         processing: true,
         serverSide: true,
         ajax: '{{ url('users-data') }}',
