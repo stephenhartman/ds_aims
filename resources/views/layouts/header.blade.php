@@ -11,8 +11,8 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                DePaul Home
+            <a class="navbar-brand" href="{{ url('/home') }}">
+                DePaul Alumni System
             </a>
         </div>
 
@@ -22,11 +22,17 @@
             @if (!Auth::guest())
                 @if (Auth::user()->is_admin)
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('#') }}">Search Students</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('users') }}">Search Students</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
                     </li>
                 @else
                     <li>
-                        <a class="btn btn-secondary" href="{{ URL::to('#') }}">Edit Your Infromation</a>
+                        <a class="btn btn-secondary" href="{{ URL::to('#') }}">Edit Your Information</a>
                     </li>
                 @endif
             @endif
