@@ -24,6 +24,18 @@ This is a client project for the DePaul School of Jacksonville.
 
 ## Installation
 
+### Homestead
+
+1. Read [documentation](https://laravel.com/docs/5.5/homestead)
+
+2. Once you start homestead (`vagrant up` in shell), you will need to boot the virtualbox and login
+
+3. Create the database as below, but the default user is `homestead`
+
+4. Seed and migrate as below
+
+5. To access the application, visit http://homestead.app
+
 ### Mac OSX
 
 1. Clone [the repository](https://github.com/stephenhartman/ds_aims) into project folder of choice
@@ -68,14 +80,35 @@ brew install node
 - Download [mysql](https://www.mysql.com/downloads/) or use command line `brew install mysql`
 - Start daemon `mysqld` or use GUI tool to start the server on localhost
 - Log into mysql `mysql -u root`
-- Create the database `mysql> create database vol_db;`
-- Make sure you create the user, example `mysql> CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';`
-- Grant permissions for that user `mysql> GRANT ALL PRIVILEGES ON vol_db . * TO 'newuser'@'localhost';`
+- Create the database `mysql> create database dsaims_dev;`
+- Make sure you create the user, example `mysql> CREATE USER 'homestead'@'localhost' IDENTIFIED BY 'secret';`
+- Grant permissions for that user `mysql> GRANT ALL PRIVILEGES ON dsaims_dev . * TO 'homestead'@'localhost';`
     - The first variable after `ON` is the database and the second variable after `.` is the table, * for all tables.
 - Reset permissions `mysql> FLUSH PRIVILEGES;`
 
-8. Migrate and seed database from shell
+8. Start up the database
+
+- `mysql -u homestead -p`
+- Enter password
+- `mysql> use dsaims_dev;`
+- `mysql> exit;`
+
+9. Update composer in the project folder
+
+- `composer install` the first time, `composer update` subsequent times
+
+10. Start the local web server
+
+- `php artisan serve`
+
+10. Migrate and seed database from shell
 ```
 php artisan migrate
 php artisan db:seed
 ```
+
+11. Access the development environment
+
+- http://localhost:8000
+
+
