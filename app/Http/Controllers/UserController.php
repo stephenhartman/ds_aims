@@ -39,6 +39,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\User  $user
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -54,8 +55,16 @@ class UserController extends Controller
      *
      *  @return \Illuminate\Http\JsonResponse
      */
-    public function data()
+    public function data(DataTables $datatables)
     {
-        return DataTables::of(User::query())->make(true);
+        $builder = User::query()->select('id', 'name', 'email', 'created_at', 'updated_at');
+
+        return $datatables->eloquent($builder)
+            ->editColumn('name', function ($user) {
+                return "<a>" . $user->name . "</a>";
+            })
+            ->addColumn('action', 'user.tables.users-action')
+            ->rawColumns([1, 5])
+            ->make();
     }
 }

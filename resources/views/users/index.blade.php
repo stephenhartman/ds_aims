@@ -31,8 +31,14 @@ $(function() {
         { data: 'email', name: 'email' },
         { data: 'created_at', name: 'created_at' },
         { data: 'updated_at', name: 'updated_at' }
+        ],
+        buttons: [
+            'excel', 'pdf'
         ]
     });
+
+    table.buttons().container()
+        .appendTo( $('.col-sm-6:eq(0)', table.table().container()));
 });
     </script>
 @endpush
