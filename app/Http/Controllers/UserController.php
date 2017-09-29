@@ -60,9 +60,6 @@ class UserController extends Controller
         $builder = User::query()->select('id', 'name', 'email', 'created_at', 'updated_at');
 
         return $datatables->eloquent($builder)
-            ->editColumn('name', function ($user) {
-                return "<a>" . $user->name . "</a>";
-            })
             ->addColumn('action', 'user.tables.users-action')
             ->rawColumns([1, 5])
             ->make();
