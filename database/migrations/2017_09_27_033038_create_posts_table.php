@@ -17,6 +17,8 @@ class CreatePostsTable extends Migration
             $table->increments('id');
  			$table->string('title');
 			$table->text('body');
+			$table->text('alumni');
+			$table->text('donation');
 			$table->timestamps();
 			
         });
