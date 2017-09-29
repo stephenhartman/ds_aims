@@ -24,13 +24,7 @@
             </div>
             @include('layouts.footer')
         </div>
-        <!-- JQuery -->
-        <script src="//code.jquery.com/jquery.js"></script>
 
-        <!-- Datatables -->
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
-        <!-- Compiled js -->
         <script src="{{ asset('js/app.js') }}"></script>
         <!-- App scripts -->
         @stack('scripts')
