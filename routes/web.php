@@ -24,7 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController');
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
-Route::post('/users-data', 'UserController@data');
+Route::get('/users-data', 'UserController@data');
 
 Route::resource('events', 'EventController');
 

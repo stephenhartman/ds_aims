@@ -8,10 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'DePaul School AIMS') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 </head>
 <body>
     <div id="app">
@@ -23,13 +24,7 @@
             </div>
             @include('layouts.footer')
         </div>
-        <!-- JQuery -->
-        <script src="//code.jquery.com/jquery.js"></script>
 
-        <!-- Datatables -->
-        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-        <script src="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
-        <!-- Compiled js -->
         <script src="{{ asset('js/app.js') }}"></script>
         <!-- App scripts -->
         @stack('scripts')
