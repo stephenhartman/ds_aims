@@ -42,6 +42,8 @@ class PostController extends Controller
 		$this->validate($request, array(  
 			'title' => 'required|max:255',
 			'body' => 'required'
+			
+			
 		));
 		
 		//store the database
@@ -49,6 +51,9 @@ class PostController extends Controller
 		
 		$post->title = $request->title;
 		$post->body = $request->body;
+		
+		$post->alumni = $request->alumni;
+		$post->donation = $request->donation;
 		
 		
 		$post->save();

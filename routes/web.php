@@ -25,3 +25,6 @@ Route::resource('posts', 'PostController');
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::post('/users-data', 'UserController@data');
+
+Route::resource('events', 'EventController');
+
