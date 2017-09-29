@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        $users = factory(App\User::class, 25)->make();
+        $users = factory(App\User::class, 25)->create();
     }
 }
