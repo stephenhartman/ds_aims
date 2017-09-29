@@ -4,6 +4,8 @@
 
 @section('content')
     <div class="container">
+        <h2>All Users</h2>
+        <hr>
         <table class="table table-bordered dataTable" id="users-table">
             <thead>
                 <tr>
