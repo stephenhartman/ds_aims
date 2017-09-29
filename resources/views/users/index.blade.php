@@ -3,26 +3,28 @@
 @section('title', '| Users')
 
 @section('content')
-    <table class="table table-bordered" id="users-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-            </tr>
-        </thead>
-    </table>
+    <div class="container">
+        <table class="table table-bordered" id="users-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
 $(function() {
-    $('#users-table').Datatable({
+    $('#users-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('users.data') }}',
+        ajax: '{{ url('users-data') }}',
         columns: [
         { data: 'id', name: 'id' },
         { data: 'name', name: 'name' },
