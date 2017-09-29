@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -47,5 +48,14 @@ class UserController extends Controller
         }
         Session::flash('error', 'You are not authorized to view this page.');
         return redirect()->route('home');
+    }
+    /**
+     * Process datatables ajax request.
+     *
+     *  @return \Illuminate\Http\JsonResponse
+     */
+    public function anyData()
+    {
+        return Datatables::of(User::query())->make(true);
     }
 }
