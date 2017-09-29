@@ -5,7 +5,6 @@ set softtabstop=4
 set nu expandtab
 set number
 let g:spacejam_autocmd=''
-map <leader>gf :CtrlPClearAllCaches<cr> :CtrlP features_wip<cr>
 
 "Plug for php"
 call plug#begin()
