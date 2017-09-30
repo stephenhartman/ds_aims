@@ -24,7 +24,7 @@
             @endif
 
             <div class="content">
-			<img class="img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
+			<img class="img img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
             <br><br>
                 <div class="title m-b-md">
                     DePaul School
