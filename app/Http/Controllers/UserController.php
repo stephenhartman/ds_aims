@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use Carbon;
 
 class UserController extends Controller
 {
@@ -59,7 +60,11 @@ class UserController extends Controller
     {
         $builder = User::query()->select('id', 'name', 'email', 'last_login_at');
 
-        return $datatables->eloquent($builder)
+            return $datatables->eloquent($builder)
+                ->editColumn('last_login_at', function ($user) {
+                    if ($user->last_login_at !== null)
+                    return Carbon::parse($user->last_login_at)->format('m/d/Y g:i A ');
+                })
             ->addColumn('action', 'user.tables.users-action')
             ->rawColumns([1, 5])
             ->make();
