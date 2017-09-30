@@ -24,18 +24,10 @@
             @endif
 
             <div class="content">
-			<img class="img img-fluid img-rounded mx-auto" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
-            <br><br><br><br><br><br>
+			<img class="img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
+            <br><br>
                 <div class="title m-b-md">
                     DePaul School
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
