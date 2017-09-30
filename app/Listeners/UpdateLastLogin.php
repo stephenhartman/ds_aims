@@ -3,7 +3,6 @@
 namespace App\Listeners;
 
 use Carbon;
-use App\Events\UpdateUser;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
