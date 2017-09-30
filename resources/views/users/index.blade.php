@@ -12,8 +12,7 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th>Last Login At</th>
                 </tr>
             </thead>
         </table>
@@ -31,8 +30,7 @@ $(function() {
         { data: 'id', name: 'id' },
         { data: 'name', name: 'name' },
         { data: 'email', name: 'email' },
-        { data: 'created_at', name: 'created_at' },
-        { data: 'updated_at', name: 'updated_at' }
+        { data: 'last_login_at', name: 'last_login_at' },
         ],
         buttons: [
             'excel', 'pdf'
