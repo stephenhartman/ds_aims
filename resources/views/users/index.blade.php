@@ -38,7 +38,7 @@ $(function() {
             titleAttr: 'Copy'
         },
         {
-            extend:    'excelHtml5',
+            extend:    'excel',
             text:      'Export to Excel <i class="fa fa-table"></i>',
             titleAttr: 'Excel'
         },
@@ -50,8 +50,13 @@ $(function() {
         {
             extend:    'print',
             text:      'Print <i class="fa fa-print"></i>',
-            titleAttr: 'CSV'
-        }
+            titleAttr: 'Print'
+        },
+        {
+            extend:    'pdf',
+            text:      'Export to PDF <i class="fa fa-print"></i>',
+            titleAttr: 'PDF'
+        },
         ],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
