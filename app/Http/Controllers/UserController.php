@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Carbon;
+use Html;
 
 class UserController extends Controller
 {
@@ -64,6 +65,12 @@ class UserController extends Controller
                 ->editColumn('last_login_at', function ($user) {
                     if ($user->last_login_at !== null)
                     return Carbon::parse($user->last_login_at)->format('m/d/Y g:i A ');
+                })
+                ->editColumn('name', function ($user) {
+                    return Html::linkAction('UserController@show', $user->name, $user->id) ;
+                })
+                ->editColumn('email', function ($user) {
+                    return Html::mailto($user->email) ;
                 })
             ->addColumn('action', 'user.tables.users-action')
             ->rawColumns([1, 5])

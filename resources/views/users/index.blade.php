@@ -6,8 +6,8 @@
     <div class="container">
         <h2>All Users</h2>
         <hr>
-        <table class="table table-bordered dataTable" id="users-table">
-            <thead>
+        <table class="table table-bordered table-striped table-responsive dataTable" id="users-table">
+            <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -22,23 +22,52 @@
 @push('scripts')
     <script>
 $(function() {
-    $('#users-table').dataTable({
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var table = $('#users-table').dataTable({
+        dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [
+        {
+            extend:    'copyHtml5',
+            text:      'Copy <i class="fa fa-files-o"></i>',
+            titleAttr: 'Copy'
+        },
+        {
+            extend:    'excelHtml5',
+            text:      'Export to Excel <i class="fa fa-table"></i>',
+            titleAttr: 'Excel'
+        },
+        {
+            extend:    'csvHtml5',
+            text:      'Export to CSV <i class="fa fa-table"></i>',
+            titleAttr: 'CSV'
+        },
+        {
+            extend:    'print',
+            text:      'Print <i class="fa fa-print"></i>',
+            titleAttr: 'CSV'
+        }
+        ],
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
         serverSide: true,
-        ajax: '{{ url('users-data') }}',
+        responsive: true,
+        ajax: {
+            "url": '{{ url('users-data') }}',
+            "type": 'POST',
+        },
         columns: [
-        { data: 'id', name: 'id' },
-        { data: 'name', name: 'name' },
-        { data: 'email', name: 'email' },
-        { data: 'last_login_at', name: 'last_login_at' },
+        { data: 'id' },
+        { data: 'name' },
+        { data: 'email' },
+        { data: 'last_login_at' },
         ],
-        buttons: [
-            'excel', 'pdf'
-        ]
     });
-
-    table.buttons().container()
-        .appendTo( $('.col-sm-6:eq(0)', table.table().container()));
 });
     </script>
 @endpush
