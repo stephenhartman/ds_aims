@@ -6,8 +6,8 @@
     <div class="container">
         <h2>All Users</h2>
         <hr>
-        <table class="table table-bordered dataTable" id="users-table">
-            <thead>
+        <table class="table table-bordered table-striped table-responsive dataTable" id="users-table">
+            <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -22,23 +22,34 @@
 @push('scripts')
     <script>
 $(function() {
-    $('#users-table').dataTable({
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    var table = $('#users-table').dataTable({
+        "dom": 'lBftip',
+        'buttons': [
+            'csvHtml5',
+            'excelHtml5',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape'
+            }
+        ],
         processing: true,
         serverSide: true,
-        ajax: '{{ url('users-data') }}',
+        ajax: {
+            "url": '{{ url('users-data') }}',
+            "type": 'POST',
+        },
         columns: [
         { data: 'id', name: 'id' },
         { data: 'name', name: 'name' },
         { data: 'email', name: 'email' },
         { data: 'last_login_at', name: 'last_login_at' },
         ],
-        buttons: [
-            'excel', 'pdf'
-        ]
     });
-
-    table.buttons().container()
-        .appendTo( $('.col-sm-6:eq(0)', table.table().container()));
 });
     </script>
 @endpush
