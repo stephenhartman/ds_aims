@@ -8,7 +8,7 @@ let g:spacejam_autocmd=''
 
 "Plug for php"
 call plug#begin()
-Plug 'tpope/vim-dispatch' | Plug 'tpope/vim-projectionist' | Plug 'noahfrederick/vim-composer' | Plug 'noahfrederick/vim-laravel' | Plug 'jwalton512/vim-blade' | Plug 'StanAngeloff/php.vim' | Plug 'vim-syntastic/syntastic'
+Plug 'tpope/vim-dispatch' | Plug 'tpope/vim-projectionist' | Plug 'noahfrederick/vim-composer' | Plug 'noahfrederick/vim-laravel' | Plug 'jwalton512/vim-blade' | Plug 'StanAngeloff/php.vim' | Plug 'vim-syntastic/syntastic' | Plug 'tpope/vim-fugitive'
 call plug#end()
 
 autocmd BufNewFile,BufRead *.blade.php set ft=html | set ft=phtml | set ft=blade
