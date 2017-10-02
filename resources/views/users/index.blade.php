@@ -32,7 +32,7 @@ $(function() {
                 "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [
-            'excel', 'copy', 'print', 'csvHtml5'
+            'excelHtml5', 'copyHtml5', 'print', 'csvHtml5'
         ],
         processing: true,
         serverSide: true,
