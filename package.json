@@ -22,7 +22,10 @@
         "datatables.net-autofill-bs": "^2.0.0",
         "datatables.net-bs": "^1.10.16",
         "datatables.net-buttons-bs": "^1.4.2",
+        "datatables.net-buttons-dt": "^1.4.2",
         "datatables.net-keytable-bs": "^2.3.2",
-        "datatables.net-responsive-bs": "^2.2.0"
+        "datatables.net-responsive-bs": "^2.2.0",
+        "jszip": "^3.1.4",
+        "pdfmake": "^0.1.33"
     }
 }
