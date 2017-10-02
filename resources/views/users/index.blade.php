@@ -29,11 +29,31 @@ $(function() {
     });
     var table = $('#users-table').dataTable({
         dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [
-            'excelHtml5', 'copyHtml5', 'print', 'csvHtml5'
+        {
+            extend:    'copyHtml5',
+            text:      'Copy <i class="fa fa-files-o"></i>',
+            titleAttr: 'Copy'
+        },
+        {
+            extend:    'excelHtml5',
+            text:      'Export to Excel <i class="fa fa-table"></i>',
+            titleAttr: 'Excel'
+        },
+        {
+            extend:    'csvHtml5',
+            text:      'Export to CSV <i class="fa fa-table"></i>',
+            titleAttr: 'CSV'
+        },
+        {
+            extend:    'print',
+            text:      'Print <i class="fa fa-print"></i>',
+            titleAttr: 'CSV'
+        }
         ],
+        lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
         serverSide: true,
         responsive: true,
