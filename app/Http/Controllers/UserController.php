@@ -69,6 +69,9 @@ class UserController extends Controller
                 ->editColumn('name', function ($user) {
                     return Html::linkAction('UserController@show', $user->name, $user->id) ;
                 })
+                ->editColumn('email', function ($user) {
+                    return Html::mailto($user->email) ;
+                })
             ->addColumn('action', 'user.tables.users-action')
             ->rawColumns([1, 5])
             ->make();
