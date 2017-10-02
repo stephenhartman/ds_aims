@@ -28,17 +28,15 @@ $(function() {
         }
     });
     var table = $('#users-table').dataTable({
-        "dom": 'lBftip',
-        'buttons': [
-            'csvHtml5',
-            'excelHtml5',
-            {
-                extend: 'pdfHtml5',
-                orientation: 'landscape'
-            }
+        dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [
+            'excel', 'copy', 'print', 'csvHtml5'
         ],
         processing: true,
         serverSide: true,
+        responsive: true,
         ajax: {
             "url": '{{ url('users-data') }}',
             "type": 'POST',
