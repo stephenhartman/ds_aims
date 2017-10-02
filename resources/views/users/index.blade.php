@@ -42,10 +42,10 @@ $(function() {
             "type": 'POST',
         },
         columns: [
-        { data: 'id', name: 'id' },
-        { data: 'name', name: 'name' },
-        { data: 'email', name: 'email' },
-        { data: 'last_login_at', name: 'last_login_at' },
+        { data: 'id' },
+        { data: 'name' },
+        { data: 'email' },
+        { data: 'last_login_at' },
         ],
     });
 });
