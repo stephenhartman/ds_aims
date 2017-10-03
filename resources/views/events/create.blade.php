@@ -3,9 +3,10 @@
 @section('title', '| Events')
 
 @section('content')
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Schedule new event</h1>
+            <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Create new event</h1>
             <hr>
             {!! Form::open(['route' => 'events.store']) !!}
                 {{Form::label('event_name','Event Name')}}
