@@ -33,7 +33,7 @@ $(function() {
             "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         buttons: [
         {
-            extend:    'copyHtml5',
+            extend:    'copy',
             text:      'Copy <i class="fa fa-files-o"></i>',
             titleAttr: 'Copy'
         },
@@ -43,7 +43,7 @@ $(function() {
             titleAttr: 'Excel'
         },
         {
-            extend:    'csvHtml5',
+            extend:    'csv',
             text:      'Export to CSV <i class="fa fa-table"></i>',
             titleAttr: 'CSV'
         },
@@ -56,7 +56,7 @@ $(function() {
             extend:    'pdf',
             text:      'Export to PDF <i class="fa fa-print"></i>',
             titleAttr: 'PDF'
-        },
+        }
         ],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
