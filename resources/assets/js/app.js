@@ -7,13 +7,12 @@
 
 require('./bootstrap');
 require( 'jquery' );
-require( 'datatables.net-bs' );
-require( 'datatables.net-buttons' );
-require( 'datatables.net-buttons-bs' );
 require( 'jszip' );
+require( 'datatables.net-bs' );
+require( 'datatables.net-buttons-bs' );
 require( 'datatables.net-buttons/js/buttons.html5.js' );
+require( 'datatables.net-buttons/js/buttons.flash.js' );
 require( 'datatables.net-buttons/js/buttons.print.js' );
-require( 'datatables.net-autofill-bs' );
 require( 'datatables.net-responsive-bs' );
 
 window.Vue = require('vue');
