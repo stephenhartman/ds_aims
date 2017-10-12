@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '| Events')
+@section('title', $event->name )
 
 @section('content')
     <div class="row">
