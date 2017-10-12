@@ -186,6 +186,11 @@ return [
          * Datatables Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+
+        /*
+         * DebugBar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
@@ -238,6 +243,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Carbon' => Carbon\Carbon::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
