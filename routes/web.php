@@ -27,3 +27,6 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 Route::resource('events', 'EventController');
+
+Route::get('login/google', 'Auth\LoginController@redirectToProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
