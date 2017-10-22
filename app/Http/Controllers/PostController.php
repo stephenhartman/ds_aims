@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
+use Auth;
 
 class PostController extends Controller
 {
@@ -36,33 +37,44 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+	public function store(Request $request)
+
     {
         //validate the data
+
 		$this->validate($request, array(  
+
 			'title' => 'required|max:255',
+
 			'body' => 'required'
-			
-			
+
 		));
-		
+
 		//store the database
+
 		$post = new Post;
+
 		
 		$post->title = $request->title;
 		$post->body = $request->body;
 		
 		$post->alumni = $request->alumni;
-		$post->donation = $request->donation;
-		
-		
+		$post->user_id = Auth::User()->id;
+
 		$post->save();
+
 		
+
 		return redirect()->route('posts.show', compact('post'));
+
 		//redirect to another page
-		
-		
+
     }
+	
+	
+	
+	
 
     /**
      * Display the specified resource.
