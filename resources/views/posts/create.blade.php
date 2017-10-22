@@ -8,23 +8,22 @@
         <div class="col-md-8 col-md-offset-2">
 
 
-            <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Volunteer information - Create New Post</h1>
-            <p>You may enter a description of what the volunteer is donating to the school</p>
+            <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Administrator posts - Create New Post</h1>
+            <p>Administrator posts feature stories relevant to dyslexia and how DePaul school has positively helped the students.</p>
             <hr>
 
             {!! Form::open(array('route' => 'posts.store')) !!}
-            {{ Form::label('title', 'Volunteer Title:') }}
+            {{ Form::label('title', 'Post Title:') }}
             {{ Form::text('title', null, array('class' => 'form-control')) }}
 
 
-            {{ Form::select('alumni', ['Admin' => 'Administrator', 'Alum' => 'Alumni'], 'Alum') }}
+            {{ Form::select('alumni', ['Admin' => 'Administrator', 'Alum' => 'Alumni'], 'Admin') }}
 
-            {{ Form::label('body', "How would you like to help DePaul school?:") }}
+            {{ Form::label('body', "Create a desired post regarding news relevant to the school, positive alumni
+stories, and feature information.") }}
             {{ Form::textarea('body', null, array('class' => 'form-control' ) ) }}
 
 
-            {{ Form::label('donation', "Description of volunteer activity or donation:") }}
-            {{ Form::textarea('donation', null, array('class' => 'form-control' ) ) }}
 
             {{ Form::submit('Enter post into the database', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;'     )) }}
 
