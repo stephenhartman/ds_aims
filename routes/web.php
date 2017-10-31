@@ -28,5 +28,8 @@ Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 Route::resource('events', 'EventController');
 
-Route::get('login/google', 'Auth\LoginController@redirectToProvider');
-Route::get('login/google/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('login/google', 'Auth\LoginController@redirectToGoogleProvider');
+Route::get('auth/google/callback', 'Auth\LoginController@handleGoogleProviderCallback');
+
+Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleFacebookProviderCallback');

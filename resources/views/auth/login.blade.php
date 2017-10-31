@@ -18,7 +18,7 @@
                                 </form>
                             </div>
                             <div class="col-md-3">
-                                <form action="#">
+                                <form action="login/facebook">
                                     <button class="loginBtn loginBtn--facebook">
                                         Login with Facebook
                                     </button>

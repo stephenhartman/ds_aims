@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\OAuthDriver;
+use App\OAuthUser;
+use App\User;
+use function MongoDB\BSON\toJSON;
 use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
