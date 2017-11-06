@@ -11,14 +11,14 @@
                                 <div class="panel-title">Login</div>
                             </div>
                             <div class="col-md-3">
-                                <form action="login/google">
+                                <form action="auth/google">
                                     <button class="loginBtn loginBtn--google">
                                         Login with Google
                                     </button>
                                 </form>
                             </div>
                             <div class="col-md-3">
-                                <form action="login/facebook">
+                                <form action="auth/facebook">
                                     <button class="loginBtn loginBtn--facebook">
                                         Login with Facebook
                                     </button>
