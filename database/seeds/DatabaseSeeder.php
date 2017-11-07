@@ -22,8 +22,6 @@ class DatabaseSeeder extends Seeder
                 [
                     'name' => 'Admin',
                     'email' => 'admin@example.com',
-                    'provider' => 'none',
-                    'provider_id' => str_random('10'),
                     'password' => bcrypt('secret'),
                     'is_admin' => 1,
                 ]

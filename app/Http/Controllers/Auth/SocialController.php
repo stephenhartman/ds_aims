@@ -56,11 +56,11 @@ class SocialController extends Controller
     {
         $authUser = User::where('provider_id', $user->id)->first();
         if($authUser) {
-            Session::flash('message', 'Successfully logged in!  Welcome '.$authUser->name.'!');
+            Session::flash('success', 'Successfully logged in!  Welcome '.$authUser->name.'!');
             return $authUser;
         }
 
-        Session::flash('message', 'You have successfully registered with your '.studly_case($provider).' Account.');
+        Session::flash('success', 'You have successfully registered with your '.studly_case($provider).' Account.');
         return User::create([
             'name'          => $user->name,
             'email'         => $user->email,

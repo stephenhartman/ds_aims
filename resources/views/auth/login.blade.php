@@ -4,27 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="panel-title">Login</div>
-                            </div>
-                            <div class="col-md-3">
-                                <form action="auth/google">
-                                    <button class="loginBtn loginBtn--google">
-                                        Login with Google
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="col-md-3">
-                                <form action="auth/facebook">
-                                    <button class="loginBtn loginBtn--facebook">
-                                        Login with Facebook
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        <div class="panel-title">Login</div>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -80,6 +62,15 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <div class="panel-title">Login with Social Media</div>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook btn-primary btn-block"><i class="fa fa-facebook"></i> Facebook</a>
+                                <a href="{{ url('/auth/google') }}" class="btn btn-google btn-danger btn-block"><i class="fa fa-google"></i> Google</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
