@@ -17,9 +17,9 @@ class InviteUser extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $user User to email
      */
-    public function __construct()
+    public function __construct($user)
     {
         $this->user = $user;
     }
