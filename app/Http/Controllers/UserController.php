@@ -59,15 +59,15 @@ class UserController extends Controller
      */
     public function data(DataTables $datatables)
     {
-        $builder = User::query()->select('id', 'name', 'email', 'last_login_at');
+        $builder = User::query()->select('id', 'first_name', 'last_name', 'email', 'last_login_at');
 
             return $datatables->eloquent($builder)
                 ->editColumn('last_login_at', function ($user) {
                     if ($user->last_login_at !== null)
                     return Carbon::parse($user->last_login_at)->format('m/d/Y g:i A ');
                 })
-                ->editColumn('name', function ($user) {
-                    return Html::linkAction('UserController@show', $user->name, $user->id) ;
+                ->editColumn('last_name', function ($user) {
+                    return Html::linkAction('UserController@show', $user->last_name, $user->id) ;
                 })
                 ->editColumn('email', function ($user) {
                     return Html::mailto($user->email) ;
