@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
-use Carbon;
+use \Carbon\Carbon;
 use Html;
 
 class UserController extends Controller
@@ -15,7 +14,6 @@ class UserController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -41,7 +39,6 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\User  $user
-     *
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -53,9 +50,10 @@ class UserController extends Controller
         return redirect()->route('home');
     }
     /**
-     * Process datatables ajax request.
+     * Process DataTables ajax request.
      *
-     *  @return \Illuminate\Http\JsonResponse
+     * @param $datatables DataTables object
+     * @return \Illuminate\Http\JsonResponse
      */
     public function data(DataTables $datatables)
     {
