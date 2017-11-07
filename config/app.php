@@ -188,11 +188,6 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
-         * DebugBar
-         */
-        Barryvdh\Debugbar\ServiceProvider::class,
-
-        /*
          * Socialite for Social authorization
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
@@ -248,7 +243,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Carbon' => Carbon\Carbon::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
