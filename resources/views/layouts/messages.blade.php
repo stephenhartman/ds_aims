@@ -1,5 +1,11 @@
 <div class="row">
     <div class="col-md-12">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         @if(Session::has('success'))
             <div class="alert alert-success" role="alert">
                 <strong>Success!</strong> {{Session::get('success')}}
