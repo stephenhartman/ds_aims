@@ -23,11 +23,13 @@
             @endif
 
             <div class="content">
-			<img class="img img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image"/>
-            <br><br>
-                <div class="title m-b-md">
-                    DePaul School
-                </div>
+                <a href="{{ url('/home') }}" style="color:black; text-decoration:none">
+                    <div class="title">
+                        DePaul School Alumni Outreach System
+                    </div>
+                    <br>
+                    <img class="img img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image">
+                </a>
             </div>
         </div>
     </body>
