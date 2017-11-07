@@ -27,3 +27,7 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 Route::resource('events', 'EventController');
+
+Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
+Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
+

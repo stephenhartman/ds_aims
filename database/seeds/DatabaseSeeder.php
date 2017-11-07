@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
         if ($admin_user === null) {
             DB::table('users')->insert(
                 [
-                'name' => 'Admin',
-                'email' => 'admin@example.com',
-                'password' => bcrypt('secret'),
-                'is_admin' => 1,
+                    'name' => 'Admin',
+                    'email' => 'admin@example.com',
+                    'password' => bcrypt('secret'),
+                    'is_admin' => 1,
                 ]
             );
         }
