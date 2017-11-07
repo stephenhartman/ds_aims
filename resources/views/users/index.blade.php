@@ -10,8 +10,7 @@
             <thead class="thead-inverse">
                 <tr>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Last Login At</th>
                 </tr>
@@ -69,8 +68,7 @@ $(function() {
         },
         columns: [
         { data: 'id' },
-        { data: 'first_name' },
-        { data: 'last_name' },
+        { data: 'name' },
         { data: 'email' },
         { data: 'last_login_at' },
         ],

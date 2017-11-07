@@ -20,9 +20,10 @@ class DatabaseSeeder extends Seeder
         if ($admin_user === null) {
             DB::table('users')->insert(
                 [
-                    'first_name' => 'Admin',
-                    'last_name' => 'User',
+                    'name' => 'Admin',
                     'email' => 'admin@example.com',
+                    'provider' => 'none',
+                    'provider_id' => str_random('10'),
                     'password' => bcrypt('secret'),
                     'is_admin' => 1,
                 ]

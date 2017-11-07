@@ -28,6 +28,6 @@ Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 Route::resource('events', 'EventController');
 
-Route::get('auth/{driver}', ['as' => 'socialAuth', 'uses' => 'Auth\SocialController@redirectToProvider']);
-Route::get('auth/{driver}/callback', ['as' => 'socialAuthCallback', 'uses' => 'Auth\SocialController@handleProviderCallback']);
+Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
+Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
