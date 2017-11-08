@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Session;
 
 class SocialController extends Controller
@@ -56,16 +57,20 @@ class SocialController extends Controller
     {
         $authUser = User::where('provider_id', $user->id)->first();
         if($authUser) {
-            Session::flash('success', 'Successfully logged in!  Welcome '.$authUser->name.'!');
+            Session::flash('success', 'Successfully logged in!  Welcome back '.$authUser->name.'!');
             return $authUser;
         }
 
         Session::flash('success', 'You have successfully registered with your '.studly_case($provider).' Account.');
-        return User::create([
+        $user =  User::create([
             'name'          => $user->name,
             'email'         => $user->email,
             'provider'      => $provider,
             'provider_id'   => $user->id
         ]);
+        $user
+            ->roles()
+            ->attach(Role::where('name', 'alumni')->first());
+        return $user;
     }
 }
