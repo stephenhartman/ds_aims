@@ -36527,6 +36527,12 @@ var app = new Vue({
     el: '#app'
 });
 
+if (false) {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+}
+
 /***/ }),
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
