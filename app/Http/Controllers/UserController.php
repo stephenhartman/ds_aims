@@ -27,8 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->is_admin) {
-            //$users = User::where('is_admin', 0);
+        if (Auth::user()->hasRole('admin')) {
             return view('users.index');
         }
         Session::flash('error', 'You are not authorized to view this page.');
@@ -43,11 +42,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Auth::user()->is_admin) {
+        if (Auth::user()->hasRole('admin'))
             return view('users.show', compact('user'));
+        elseif (Auth::user() == $user )
+            return view('users.show', compact('user'));
+        else {
+            Session::flash('error', 'You are not authorized to view this page.');
+            return redirect()->route('home');
         }
-        Session::flash('error', 'You are not authorized to view this page.');
-        return redirect()->route('home');
     }
     /**
      * Process DataTables ajax request.
