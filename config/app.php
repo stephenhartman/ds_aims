@@ -192,10 +192,6 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
 
-        /*
-         * DebugBar
-         */
-        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*
