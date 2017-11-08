@@ -31,3 +31,8 @@ Route::resource('events', 'EventController');
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
+//Admin Routes
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+});
+

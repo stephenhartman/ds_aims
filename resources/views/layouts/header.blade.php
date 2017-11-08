@@ -20,7 +20,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav nav">
                 @if (!Auth::guest())
-                    @if (Auth::user()->is_admin)
+                    @if (Auth::user()->hasRole('admin'))
                         <li>
                             <a class="btn btn-secondary" href="{{ URL::to('users') }}">Search Students</a>
                         </li>
@@ -49,6 +49,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ route('users.show', Auth::user()) }}">Edit Profile</a>
+                            </li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
