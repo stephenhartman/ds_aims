@@ -1,4 +1,4 @@
-@extends('home')
+@extends('layouts.app')
 
 @section('title', 'Users')
 
@@ -60,7 +60,6 @@ $(function() {
         ],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
-        serverSide: true,
         responsive: true,
         ajax: {
             "url": '{{ url('users-data') }}',
