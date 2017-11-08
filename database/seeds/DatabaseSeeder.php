@@ -16,19 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $admin_user = App\User::where('email', 'admin@example.com')->first();
-        if ($admin_user === null) {
-            DB::table('users')->insert(
-                [
-                    'name' => 'Admin',
-                    'email' => 'admin@example.com',
-                    'password' => bcrypt('secret'),
-                    'is_admin' => 1,
-                ]
-            );
-        }
+        // Role comes before User seeder here.
+        $this->call(RoleTableSeeder::class);
+        // User seeder will use the roles above created.
+        $this->call(UserTableSeeder::class);
 
-        $users = factory(App\User::class, 100)->create();
         $posts = factory(App\Post::class, 25)->create();
         $events = factory(App\Event::class, 25)->create();
     }
