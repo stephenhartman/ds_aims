@@ -245,7 +245,6 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'DebugBar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
