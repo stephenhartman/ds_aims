@@ -36,8 +36,59 @@ class User extends Authenticatable
         'settings' => 'array'
     ];
 
+    /**
+     * One user to many posts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * Many users to many roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Authorize roles within the scope of a controller
+     *
+     * @param $roles
+     * @return bool
+     */
+    public function authorizeRoles($roles)
+    {
+        if (is_array($roles)) {
+            return $this->hasAnyRole($roles);
+        }
+        return $this->hasRole($roles) || redirect('/welcome')->with('status', 'Unauthorized!');
+    }
+
+    /**
+     * Check multiple roles
+     *
+     * @param $roles
+     * @return bool
+     */
+    public function hasAnyRole($roles)
+    {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
+
+    /**
+     * Check a single role
+     *
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        return null !== $this->roles()->where('name', $role)->first();
     }
 }
