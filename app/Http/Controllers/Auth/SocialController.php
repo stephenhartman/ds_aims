@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Role;
 use Illuminate\Support\Facades\Session;
 
 class SocialController extends Controller
@@ -41,6 +42,16 @@ class SocialController extends Controller
         $user = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($user, $provider);
+        if($authUser->provider == 'none') {
+            Session::flash('error', 'You already created an account using '.$user->email.'.  Please sign in
+                using your email and password');
+            return redirect('login');
+        }
+        elseif($authUser->provider != $provider) {
+            Session::flash('error', 'You already created an account using '.studly_case($authUser->provider).'.  Please sign in
+                using that social media account.');
+            return redirect('login');
+        }
         Auth::login($authUser, true);
         return redirect($this->redirectTo);
     }
@@ -55,17 +66,26 @@ class SocialController extends Controller
     public function findOrCreateUser($user, $provider)
     {
         $authUser = User::where('provider_id', $user->id)->first();
-        if($authUser) {
-            Session::flash('success', 'Successfully logged in!  Welcome '.$authUser->name.'!');
+        $emailUser = User::where('email', $user->email)->first();
+        if($authUser ) {
+            Session::flash('success', 'Successfully logged in!  Welcome back '.$authUser->name.'!');
             return $authUser;
         }
 
+        if($emailUser) {
+            return $emailUser;
+        }
+
         Session::flash('success', 'You have successfully registered with your '.studly_case($provider).' Account.');
-        return User::create([
+        $user =  User::create([
             'name'          => $user->name,
             'email'         => $user->email,
             'provider'      => $provider,
             'provider_id'   => $user->id
         ]);
+        $user
+            ->roles()
+            ->attach(Role::where('name', 'alumni')->first());
+        return $user;
     }
 }

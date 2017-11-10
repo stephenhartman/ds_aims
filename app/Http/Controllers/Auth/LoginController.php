@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Laravel\Socialite\Facades\Socialite;
-use App\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,5 +35,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Redirect authenticated users
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function authenticated(Request $request)
+    {
+        // Logic that determines where to send the user
+        if($request->user()->hasRole('alumni')){
+            return redirect('/home');
+        }
+        if($request->user()->hasRole('admin')){
+            return redirect('/admin/home');
+        }
     }
 }

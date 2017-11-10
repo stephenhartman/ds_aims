@@ -191,6 +191,7 @@ return [
          * Socialite for Social authorization
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+
     ],
 
     /*
