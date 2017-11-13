@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Post;
+
 class HomeController extends Controller
 {
     /**
@@ -23,9 +25,11 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+		$posts = Post::orderBy('id', 'desc')->paginate(3);
+    	
         if ($request->user()->hasRole('admin'))
-            return view('admin.home');
+            return view('admin.home')->withPosts($posts);
         else
-            return view('home');
+            return view('home')->withPosts($posts);
     }
 }
