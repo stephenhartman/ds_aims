@@ -10,6 +10,7 @@
 
             <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Administrator posts - Create New Post</h1>
             <p>Administrator posts feature stories relevant to dyslexia and how DePaul school has positively helped the students.</p>
+			
             <hr>
 
             {!! Form::open(array('route' => 'posts.store')) !!}
@@ -22,14 +23,16 @@
             {{ Form::label('body', "Create a desired post regarding news relevant to the school, positive alumni
 stories, and feature information.") }}
             {{ Form::textarea('body', null, array('class' => 'form-control' ) ) }}
+					
 
+            {{ Form::submit('Enter post into the database', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
 
-
-            {{ Form::submit('Enter post into the database', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;'     )) }}
-
+			
+			<a class="btn btn-primary form-control" href="{{ route('home') }}">{!! Form::close() !!}<p>Cancel</p></a>
             {!! Form::close() !!}
 
         </div>
+		
     </div>
 
 @endsection

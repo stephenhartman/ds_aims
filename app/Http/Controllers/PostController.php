@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -18,7 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+        return view('posts.index')->withPosts($posts);
     }
 
     /**
@@ -93,9 +95,12 @@ class PostController extends Controller
      * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        // find the post in the database and save as a var
+        $post = Post::find($id);
+        // return the view and pass in the var we previously created
+        return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -105,19 +110,41 @@ class PostController extends Controller
      * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the data
+        $this->validate($request, array(
+                'title' => 'required|max:255',
+                'body'  => 'required'
+            ));
+        // Save the data to the database
+        $post = Post::find($id);
+
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+
+        $post->save();
+
+        // set flash data with success message
+        Session::flash('success', 'This post was successfully saved.');
+
+        // redirect with flash data to posts.show
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Post  $post
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->delete();
+
+        Session::flash('success', 'The post was successfully deleted.');
+        return redirect()->route('posts.index');
     }
 }
