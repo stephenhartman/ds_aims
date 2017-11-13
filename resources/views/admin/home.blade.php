@@ -23,6 +23,21 @@
                 <div class="panel-body">
                     You are logged in!
                 </div>
+				
+				<div>
+						
+							@foreach ($posts as $post)
+							<div class="row">
+		
+							<div class="col-md-8 col-md-offset-2">
+							<p>{{ $post->title }}</p>
+							<p>{{ $post->body }}</p>
+							<hr>
+						</div>
+						</div>
+						@endforeach
+				
+				
             </div>
         </div>
     </div>
