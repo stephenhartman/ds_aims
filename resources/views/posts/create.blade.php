@@ -7,7 +7,6 @@
     <div class ="row">
         <div class="col-md-8 col-md-offset-2">
 
-
             <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Administrator posts - Create New Post</h1>
             <p>Administrator posts feature stories relevant to dyslexia and how DePaul school has positively helped the students.</p>
 			
@@ -28,8 +27,10 @@ stories, and feature information.") }}
             {{ Form::submit('Enter post into the database', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
 
 			
-			<a class="btn btn-primary form-control" href="{{ route('home') }}">{!! Form::close() !!}<p>Cancel</p></a>
-            {!! Form::close() !!}
+			<a class="btn btn-primary form-control" href="{{ route('posts.index') }}">{!! Form::close() !!}<p>View All Posts</p></a>
+            <a class="btn btn-primary form-control" href="{{ route('home') }}">{!! Form::close() !!}<p>Cancel</p></a>
+			
+			{!! Form::close() !!}
 
         </div>
 		
