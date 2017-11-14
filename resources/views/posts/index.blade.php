@@ -23,24 +23,30 @@
 				<th>#</th>
 				<th>Title</th>
 				<th>Body</th>
-				<th>Created At</th>
+				<th>Created On</th>
 				<th></th>
 				</thead>
 				<tbody>
 				@foreach ($posts as $post)
 					<tr>
 						<th>{{ $post->id }}</th>
-						<td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
+						<td>{{ $post->title }}</td>
 						<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 						<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
 						<td>
-						@if (Auth::user()->hasRole('admin'))
-							<a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a> <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a></td>
-						@endif
+							<a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a>
+							@if (Auth::user()->hasRole('admin'))
+								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a></td>
+							@endif
 					</tr>
 				@endforeach
 				</tbody>
 			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="text-center">
+			{{ $posts->links() }}
 		</div>
 	</div>
 @stop
