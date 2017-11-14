@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-		$posts = Post::orderBy('id', 'desc')->paginate(3);
+		$posts = Post::orderBy('updated_at', 'desc')->paginate(3);
     	
         if ($request->user()->hasRole('admin'))
             return view('admin.home')->withPosts($posts);

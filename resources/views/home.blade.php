@@ -18,7 +18,7 @@
                         <h3>The latest news from The DePaul School</h3>
                     </div>
                     @include('layouts.posts', ['posts' => $posts])
-                    <br>
+                    <hr>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <a class="btn btn-primary btn-block" href="{{ URL::to('posts') }}">More Posts</a>
