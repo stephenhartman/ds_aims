@@ -26,14 +26,21 @@
                 <th>Event Type</th>
                 <th>Event Date</th>
                 <th>Event Time</th>
+                <th></th>
                 </thead>
                 <tbody>
                 @foreach ($events as $event)
                     <tr>
-                        <td> <a href="{{URL::to('events/' . $event->id) }}"> {{ $event->name }}</a></td>
-                        <td> {{$event->type}}</td>
-                        <td> {{$event->date}}</td>
-                        <td> {{$event->time}}</td>
+                        <td> {{ $event->name }}</td>
+                        <td> {{ $event->type }}</td>
+                        <td> {{ $event->date }}</td>
+                        <td> {{ $event->time }}</td>
+                        <td>
+                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-default btn-block btn-sm">View</a>
+                            @if (Auth::user()->hasRole('admin'))
+                                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
+                            @endif
+                        </td>
                         <td> <a href="http://google.com">Sign up for this event!</a> </td>
                     </tr>
                 @endforeach
