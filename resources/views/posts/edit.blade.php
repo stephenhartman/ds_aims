@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', '| Edit DePaul Administrator Post')
+@section('title', 'Edit Post')
 
 @section('content')
+	{!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
 	<div class="row">
-		{!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
 		<div class="col-md-8 col-md-offset-2">
 			{{ Form::label('title', 'Title:') }}
 			{{ Form::text('title', null, ["class" => 'form-control input-lg']) }}
@@ -22,10 +22,10 @@
 					</div>
 					<div class="col-sm-6">
 						{{ Form::submit('Save Changes', ['class' => 'btn btn-success btn-lg btn-block']) }}
+						{{ Form::close() }}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	{!! Form::close() !!}
 @stop
