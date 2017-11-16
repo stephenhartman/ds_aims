@@ -38,8 +38,9 @@
 						<td>
 							<a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-block btn-sm">View</a>
 							@if (Auth::user()->hasRole('admin'))
-								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-block btn-sm">Edit</a></td>
+								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
 							@endif
+						</td>
 					</tr>
 				@endforeach
 				</tbody>
