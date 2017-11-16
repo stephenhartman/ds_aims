@@ -41,43 +41,22 @@ class PostController extends Controller
      */
 
 	public function store(Request $request)
-
     {
         //validate the data
-
-		$this->validate($request, array(  
-
+		$this->validate($request, array(
 			'title' => 'required|max:255',
-
 			'body' => 'required'
-
 		));
 
-		//store the database
-
 		$post = new Post;
-
-		
 		$post->title = $request->title;
 		$post->body = $request->body;
-		
 		$post->alumni = $request->alumni;
 		$post->user_id = Auth::User()->id;
-
 		$post->save();
 
-		
-
 		return redirect()->route('posts.show', compact('post'));
-
-		//redirect to another page
-
     }
-	
-	
-	
-	
-
     /**
      * Display the specified resource.
      *
@@ -90,10 +69,10 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the Post
      *
-     * @param  Post  $post
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
     public function edit($id)
     {
@@ -107,7 +86,7 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  Post  $post
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -126,7 +105,7 @@ class PostController extends Controller
         $post->save();
 
         // set flash data with success message
-        Session::flash('success', 'This post was successfully saved.');
+        Session::flash('success', 'The post was successfully saved.');
 
         // redirect with flash data to posts.show
         return redirect()->route('posts.show', $post->id);

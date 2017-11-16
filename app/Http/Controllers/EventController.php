@@ -7,6 +7,7 @@ use App\Event;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 
 
 class EventController extends Controller
@@ -55,7 +56,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Event $event
      * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
@@ -66,8 +67,8 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Event $event
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Event $event)
     {
@@ -77,9 +78,9 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Event $event
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, Event $event)
     {
@@ -87,8 +88,10 @@ class EventController extends Controller
         $event->type = $request->event_type;
         $event->date = $request->event_date;
         $event->time = $request->event_time;
-
         $event->save();
+
+        // set flash data with success message
+        Session::flash('success', 'The event was successfully saved.');
 
         return redirect()->route('events.show', $event->id);
     }
@@ -96,7 +99,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Event $event
      * @return \Illuminate\Http\Response
      */
     public function destroy(Event $event)
