@@ -4,15 +4,28 @@
 
 @section('content')
     <div class="row">
-
-        <div class="col-md-8 col-md-offset-2">
-            <h1>Event calendar</h1>
+        <div class="col-md-8 col-md-offset-1">
+            <h1>Event Calendar</h1>
+        </div>
+        <div class="col-md-2">
+            @if (Auth::user()->hasRole('admin'))
+                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
+            @endif
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
             <table class="table">
                 <thead>
-                    <th>Event Name</th>
-                    <th>Event Type</th>
-                    <th>Event Date</th>
-                    <th>Event Time</th>
+                <th>Event Name</th>
+                <th>Event Type</th>
+                <th>Event Date</th>
+                <th>Event Time</th>
                 </thead>
                 <tbody>
                 @foreach ($events as $event)
@@ -26,9 +39,6 @@
                 @endforeach
                 </tbody>
             </table>
-            <div class="col-md-2">
-                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary" style="margin-top: 18px">New Event</a>
-            </div>
         </div>
     </div>
 @endsection
