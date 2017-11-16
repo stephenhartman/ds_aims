@@ -21,18 +21,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('posts', 'PostController');
+Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
+Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
-
-Route::resource('events', 'EventController');
 
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
+    Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
+    Route::resource('events', 'EventController', ['except' => 'index', 'show']);
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
 });
 
