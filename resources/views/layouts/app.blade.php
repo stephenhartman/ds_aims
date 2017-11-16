@@ -22,9 +22,9 @@
                 <div id="main">
                     @yield('content')
                 </div>
-                @include('layouts.footer')
             </div>
         </div>
+        @include('layouts.footer')
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
