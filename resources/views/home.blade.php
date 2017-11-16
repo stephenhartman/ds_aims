@@ -15,21 +15,18 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        You are logged in!
+                        <h3>The latest news from The DePaul School</h3>
                     </div>
-							<div>
-						
-							@foreach ($posts as $post)
-							<div class="row">
-		
-							<div class="col-md-8 col-md-offset-2">
-							<p>{{ $post->title }}</p>
-							<p>{{ $post->body }}</p>
-							<hr>
-						</div>
-						</div>
-						@endforeach
-					
+                    @include('layouts.posts', ['posts' => $posts])
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <a class="btn btn-primary btn-block" href="{{ URL::to('posts') }}">More Posts</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                    </div>
                 </div>
             </div>
         </div>
