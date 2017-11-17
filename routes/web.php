@@ -19,6 +19,13 @@ Route::get(
 
 Auth::routes();
 
+//Admin Routes
+Route::middleware(['admin'])->group(function () {
+    Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
+    Route::resource('events', 'EventController', ['except' => 'index', 'show']);
+    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
@@ -30,10 +37,4 @@ Route::match(['get', 'post'], '/users-data', 'UserController@data');
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
-//Admin Routes
-Route::middleware(['admin'])->group(function () {
-    Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
-    Route::resource('events', 'EventController', ['except' => 'index', 'show']);
-    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
-});
 
