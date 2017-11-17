@@ -10,8 +10,8 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     </head>
-    <body>
         <div class="flex-center position-ref full-height">
+            <navbar class="navbar navbar-default navbar-fixed-top">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -21,14 +21,14 @@
                     @endauth
                 </div>
             @endif
-
+            </navbar>
             <div class="content">
                 <a href="{{ url('/home') }}" style="color:black; text-decoration:none">
                     <div class="title">
                         DePaul School Alumni Outreach System
                     </div>
                     <br>
-                    <img class="img img-fluid" src="{{url('/images/depaul.jpg')}}" alt="Image">
+                    <img class="img img-fluid img-responsive" src="{{url('/images/depaul.jpg')}}" alt="Image">
                 </a>
             </div>
         </div>
