@@ -23,13 +23,15 @@
 </navbar>
 <body>
 <div class="content">
-    <a href="{{ url('/home') }}" style="color:black; text-decoration:none">
-        <div class="title">
-            DePaul School Alumni Outreach System
-        </div>
-        <br>
-        <img class="img img-fluid img-responsive" src="{{url('/images/depaul.jpg')}}" alt="Image">
-    </a>
+    <div class="flex-center">
+        <a href="{{ url('/home') }}" style="color:black; text-decoration:none">
+            <div class="title">
+                DePaul School Alumni Outreach System
+            </div>
+            <br>
+            <img class="img img-fluid img-responsive" src="{{url('/images/depaul.jpg')}}" alt="Image">
+        </a>
+    </div>
 </div>
 </body>
 </html>
