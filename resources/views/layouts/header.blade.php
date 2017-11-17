@@ -32,7 +32,10 @@
                         </li>
                     @else
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('#') }}">Edit Your Information</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                        </li>
+                        <li>
+                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
                         </li>
                     @endif
                 @endif

@@ -24,6 +24,7 @@
                 </div>
             </div>
         </div>
+        <br><br>
         @include('layouts.footer')
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
