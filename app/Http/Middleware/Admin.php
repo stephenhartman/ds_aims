@@ -21,8 +21,8 @@ class Admin
             return $next($request);
         else
         {
-            Session::flash('warning', 'You need administrator privileges to view the request page.');
-            return redirect('user.home');
+            Session::flash('error', 'You need administrator privileges to view the requested page.');
+            return redirect('/home');
         }
     }
 }
