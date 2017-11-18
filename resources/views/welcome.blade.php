@@ -11,20 +11,15 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <navbar class="navbar navbar-default navbar-fixed-top">
-    <ul class="navbar-nav nav pull-right">
-        @if (Route::has('login'))
-            @auth
-                <li>
-                    <a href="{{ url('/home') }}">Home</a>
-                </li>
-                @else
-                    <li>
-                        <a href="{{ route('login') }}">Login</a>
-                    </li>
-                    @endauth
-                    </div>
-    </ul>
-    @endif
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            @if (Auth::guest())
+                <li><a href="{{ route('login') }}">Login</a></li>
+            @else
+                <li><a href="{{ url('/home') }}">Home</a></li>
+            @endif
+        </ul>
+    </div>
 </navbar>
 <body>
 <div class="content">
