@@ -1,5 +1,5 @@
 <div class="container">
-    <nav class="navbar-brand navbar-default navbar-fixed-bottom">
+    <nav class="navbar-brand navbar-nav navbar-default footer" style="float:none">
         <div class="flex-center">
             <a href="https://www.facebook.com/depaulschool" target="_blank" title="Facebook Profile">
                 <span class="icon fa fa-facebook-square social"></span>
