@@ -10,7 +10,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
-<navbar class="navbar navbar-default navbar-fixed-top">
+<navbar class="navbar navbar-default">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
             @if (Auth::guest())
