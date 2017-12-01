@@ -22,7 +22,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<table class="table">
 				<thead>
-				<th>#</th>
+				<th>Author</th>
 				<th>Title</th>
 				<th>Body</th>
 				<th>Created On</th>
@@ -31,7 +31,7 @@
 				<tbody>
 				@foreach ($posts as $post)
 					<tr>
-						<th>{{ $post->id }}</th>
+						<th>{{ $post->user->name }}</th>
 						<td>{{ $post->title }}</td>
 						<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 						<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
