@@ -4,10 +4,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
             <h1>Event Calendar</h1>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12">
             @if (Auth::user()->hasRole('admin'))
                 <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
             @endif
