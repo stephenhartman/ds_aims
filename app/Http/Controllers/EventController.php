@@ -19,9 +19,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        $event = DB::table('events')->get();
+        $events = Event::orderBy('date')->get();
 
-        return view('events.index', ['events' => $event,]);
+        return view('events.index', compact('events'));
     }
 
     /**
