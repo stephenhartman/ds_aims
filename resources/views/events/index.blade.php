@@ -33,15 +33,17 @@
                     <tr>
                         <td> {{ $event->name }}</td>
                         <td> {{ $event->type }}</td>
-                        <td> {{ $event->date }}</td>
-                        <td> {{ $event->time }}</td>
+                        <td> {{ Carbon::parse($event->date)->format('m/d/Y') }}</td>
+                        <td> {{ Carbon::parse($event->time)->format('g:i A') }}</td>
                         <td>
                             <a href="{{ route('events.show', $event->id) }}" class="btn btn-default btn-block btn-sm">View</a>
                             @if (Auth::user()->hasRole('admin'))
                                 <a href="{{ route('events.edit', $event->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
                             @endif
                         </td>
-                        <td> <a href="http://google.com">Sign up for this event!</a> </td>
+                        @if (Auth::user()->hasRole('alumni'))
+                            <td> <a href="http://google.com">Sign up for this event!</a> </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
