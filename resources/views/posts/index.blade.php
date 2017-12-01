@@ -4,12 +4,12 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-8 col-md-offset-1">
+		<div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
 			<h1>All Posts</h1>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-2 col-sm-12">
 			@if (Auth::user()->hasRole('admin'))
-				<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">Create New Post</a>
+				<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Post</a>
 			@endif
 		</div>
 	</div>
@@ -22,7 +22,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<table class="table">
 				<thead>
-				<th>#</th>
+				<th>Author</th>
 				<th>Title</th>
 				<th>Body</th>
 				<th>Created On</th>
@@ -31,7 +31,7 @@
 				<tbody>
 				@foreach ($posts as $post)
 					<tr>
-						<th>{{ $post->id }}</th>
+						<th>{{ $post->user->name }}</th>
 						<td>{{ $post->title }}</td>
 						<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
 						<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>

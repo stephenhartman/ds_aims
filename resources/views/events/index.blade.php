@@ -4,10 +4,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-1">
+        <div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
             <h1>Event Calendar</h1>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-2 col-sm-12">
             @if (Auth::user()->hasRole('admin'))
                 <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
             @endif
@@ -33,15 +33,17 @@
                     <tr>
                         <td> {{ $event->name }}</td>
                         <td> {{ $event->type }}</td>
-                        <td> {{ $event->date }}</td>
-                        <td> {{ $event->time }}</td>
+                        <td> {{ Carbon::parse($event->date)->format('m/d/Y') }}</td>
+                        <td> {{ Carbon::parse($event->time)->format('g:i A') }}</td>
                         <td>
                             <a href="{{ route('events.show', $event->id) }}" class="btn btn-default btn-block btn-sm">View</a>
                             @if (Auth::user()->hasRole('admin'))
                                 <a href="{{ route('events.edit', $event->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
                             @endif
                         </td>
-                        <td> <a href="http://google.com">Sign up for this event!</a> </td>
+                        @if (Auth::user()->hasRole('alumni'))
+                            <td> <a href="http://google.com">Sign up for this event!</a> </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>
