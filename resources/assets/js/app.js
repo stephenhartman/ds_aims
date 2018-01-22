@@ -6,7 +6,9 @@
  */
 
 require('./bootstrap');
-//require( 'jquery' );
+require('jquery');
+require('moment');
+require('fullcalendar');
 require( 'jszip' );
 require( 'datatables.net-bs' );
 require( 'datatables.net-buttons-bs' );
