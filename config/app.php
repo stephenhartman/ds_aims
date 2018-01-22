@@ -191,7 +191,10 @@ return [
          * Socialite for Social authorization
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        /*
+         * Full calender
+         */
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
     ],
 
     /*
@@ -245,6 +248,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
     ],
 
 ];

@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap');
-require( 'jquery' );
+//require( 'jquery' );
 require( 'jszip' );
 require( 'datatables.net-bs' );
 require( 'datatables.net-buttons-bs' );

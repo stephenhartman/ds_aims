@@ -15,13 +15,13 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Event::class, function (Faker $faker) {
 
-    $unix_timestamp = '1514758421';
+    $unix_timestamp = '1546214400';
+
 
     return [
         'name' => $faker->catchPhrase,
         'type' => $faker->randomElement($array = array('Volunteer', 'Reunion', 'Community Event')),
-        'date' => $faker->dateTimeBetween('now', $unix_timestamp),
-        'time' => $faker->time($format = 'H:i:s'),
+        'start_date' => $faker->dateTimeBetween('now', $unix_timestamp  ),
     ];
 });
 

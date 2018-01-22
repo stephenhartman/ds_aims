@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
+use \Calendar;
 
 
 class EventController extends Controller
@@ -19,9 +20,31 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('date')->get();
 
-        return view('events.index', compact('events'));
+        $events = [];
+        $data = Event::all();
+        if($data->count()){
+            foreach ($data as $key => $value){
+                $events[] = Calendar::event(
+                    $value->name,
+                    true,
+                    new Carbon($value->start_date),
+                    new Carbon($value->end_date),
+                    $value->id,
+                    [
+                        'description' => $value->type,
+                    ]
+
+
+                );
+            }
+        }
+
+        $calendar = Calendar::addEvents($events);
+        return view('events.index', compact('calendar'));
+        //$events = Event::orderBy('date')->get();
+
+        //return view('events.index', compact('events'));
     }
 
     /**
