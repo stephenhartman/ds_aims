@@ -18,8 +18,7 @@ class MakeEventsTable extends Migration
            $table->increments('id');
            $table->string('name');
            $table->text('type');
-           $table->date('date');
-           $table->time('time');
+           $table->dateTime('start_date');
            $table->timestamps();
 
 

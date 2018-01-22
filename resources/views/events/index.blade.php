@@ -1,4 +1,19 @@
 @extends('layouts.app')
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+@endpush
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <link rel="stylesheet" media="print" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+@endpush
+
+
+
 
 @section('title', 'Events')
 
@@ -20,34 +35,9 @@
     </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <table class="table">
-                <thead>
-                <th>Event Name</th>
-                <th>Event Type</th>
-                <th>Event Date</th>
-                <th>Event Time</th>
-                <th></th>
-                </thead>
-                <tbody>
-                @foreach ($events as $event)
-                    <tr>
-                        <td> {{ $event->name }}</td>
-                        <td> {{ $event->type }}</td>
-                        <td> {{ Carbon::parse($event->date)->format('m/d/Y') }}</td>
-                        <td> {{ Carbon::parse($event->time)->format('g:i A') }}</td>
-                        <td>
-                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-default btn-block btn-sm">View</a>
-                            @if (Auth::user()->hasRole('admin'))
-                                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
-                            @endif
-                        </td>
-                        @if (Auth::user()->hasRole('alumni'))
-                            <td> <a href="http://google.com">Sign up for this event!</a> </td>
-                        @endif
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+            {!! $calendar->calendar() !!}
+
+            {!! $calendar->script() !!}
         </div>
     </div>
 @endsection
