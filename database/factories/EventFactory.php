@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Event::class, function (Faker $faker) {
 
-    $unix_timestamp = '1514758421';
+    $unix_timestamp = '1525132800';
 
     return [
         'name' => $faker->catchPhrase,
