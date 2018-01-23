@@ -27,24 +27,39 @@ class EventController extends Controller
             foreach ($data as $key => $value){
                 $events[] = Calendar::event(
                     $value->name,
-                    true,
+                    false,
                     new Carbon($value->start_date),
-                    new Carbon($value->end_date),
+                    new Carbon($value->start_date),
                     $value->id,
-                    [
-                        'description' => $value->type,
-                    ]
+                         [
 
+                             'color' => $this->getColor($value->type),
+
+                         ]
 
                 );
             }
         }
 
-        $calendar = Calendar::addEvents($events);
+        $calendar = Calendar::addEvents($events)
+            ->setCallbacks([
+                'eventClick' => 'function(){
+                       alert("Clicked!")}'
+
+            ]);
         return view('events.index', compact('calendar'));
         //$events = Event::orderBy('date')->get();
 
         //return view('events.index', compact('events'));
+    }
+    private function getColor($type){
+        if ($type == "Volunteer"){
+            return "#800";
+        }else if($type == "Reunion"){
+            return "#0000FF";
+        }else
+            return "#008000";
+
     }
 
     /**
