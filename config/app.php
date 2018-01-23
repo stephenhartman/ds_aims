@@ -193,6 +193,11 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
 
+        /*
+         * Reverse seed generator
+         */
+        Orangehill\Iseed\IseedServiceProvider::class,
+
     ],
 
     /*

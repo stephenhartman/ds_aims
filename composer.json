@@ -17,6 +17,7 @@
         "laravelcollective/html": "^5.4",
         "mews/purifier": "^2.0",
         "spatie/laravel-tags": "^2.0",
+        "orangehill/iseed": "^2.5",
         "yajra/laravel-datatables": "^1.0",
         "yajra/laravel-datatables-oracle": "^8.0"
     },
