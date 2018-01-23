@@ -11,8 +11,9 @@
         {{ Html::favicon('favicon.ico') }}
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.bootstrap.min.css">
+        @stack('styles')
+        <script src="{{ asset('js/app.js') }}"></script>
+        @stack('scripts')
     </head>
     <body>
         <div id="app">
@@ -27,6 +28,4 @@
         <br><br>
         @include('layouts.footer')
     </body>
-    <script src="{{ asset('js/app.js') }}"></script>
-    @stack('scripts')
 </html>
