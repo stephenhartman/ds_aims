@@ -37,6 +37,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * One user has one alum
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function alum()
+    {
+        return $this->hasOne(Alum::class);
+    }
+
+    /**
      * One user to many posts
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
