@@ -59,7 +59,7 @@ class UserController extends Controller
      */
     public function data(DataTables $datatables)
     {
-        $builder = User::query()->select('id', 'name', 'email', 'last_login_at');
+        $builder = User::with('alum')->select('name', 'email', 'last_login_at');
 
             return $datatables->eloquent($builder)
                 ->editColumn('last_login_at', function ($user) {
@@ -72,8 +72,16 @@ class UserController extends Controller
                 ->editColumn('email', function ($user) {
                     return Html::mailto($user->email) ;
                 })
+                ->addColumn('state', function (User $user) {
+                    return $user->alum ? $user->alum->state : '';
+                })
+                ->addColumn('zipcode', function (User $user) {
+                    return $user->alum ? $user->alum->zipcode : '';
+                })
+                ->addColumn('loyal_lion', function (User $user) {
+                    return $user->post ? $user->post->loyal_lion : '';
+                })
             ->addColumn('action', 'user.tables.users-action')
-            ->rawColumns([1, 5])
             ->make();
     }
 }
