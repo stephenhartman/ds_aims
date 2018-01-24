@@ -69,3 +69,20 @@ html, body {
     text-align: center;
     text-decoration: none;
 }
+
+hr.posts {
+    height: 10px;
+    border: 0 solid $panel-default-border;
+    border-top-width: 1px;
+    border-radius: 5px;
+}
+
+hr.posts:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border: 0 solid $panel-default-border;
+    border-bottom-width: 1px;
+    border-radius: 5px;
+}
