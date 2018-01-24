@@ -26,6 +26,7 @@ class CreateAlumniTable extends Migration
            $table->string('state')->nullable();
            $table->string('zipcode')->nullable();
            $table->decimal('year_graduated', 4, 0)->nullable();
+           $table->smallInteger('loyal_lion');
            $table->timestamps();
         });
     }
