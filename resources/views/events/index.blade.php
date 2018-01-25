@@ -42,10 +42,10 @@
                 <div id="modalBody" class="modal-body"> </div>
                 <div class="modal-footer">
                     @if (Auth::user()->hasRole('admin'))
-                        <button class="btn btn-default"><a id="eventUrl" target="_blank">Edit this event</a></button>
+                        <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
                     @endif
-                    <a href="google.com" class="btn btn-success">Sign up for this event</a>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-success">Sign up for this event</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
