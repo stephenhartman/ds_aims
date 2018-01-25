@@ -14,6 +14,13 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-md-4 col-md-offset-1">
+            <div class="bg-primary text-white"> Volunteer events are blue</div>
+            <div class="bg-danger text-white"> Reunion events are red</div>
+            <div class="bg-success text-white"> Community events are green</div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <hr>
         </div>
@@ -23,6 +30,24 @@
             {!! $calendar->calendar() !!}
 
             {!! $calendar->script() !!}
+        </div>
+    </div>
+    <div id="calendarModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                    <h4 id="modalTitle" class="modal-title"></h4>
+                </div>
+                <div id="modalBody" class="modal-body"> </div>
+                <div class="modal-footer">
+                    @if (Auth::user()->hasRole('admin'))
+                        <button class="btn btn-default"><a id="eventUrl" target="_blank">Edit this event</a></button>
+                    @endif
+                    <a href="google.com" class="btn btn-success">Sign up for this event</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-2 col-sm-12">
