@@ -47,8 +47,8 @@ class EventController extends Controller
         $calendar = Calendar::addEvents($events)
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {
-            $("#modalTitle").html(event.title);
-            $("#modalBody").html("Start time " + event.start + "<br>" + "End time " + event.end + "<br>" + "Description " + event.description);
+            $("#modalTitle").html("<strong>" + event.title + "</strong>");
+            $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
             $("#eventUrl").attr("href", event.link);
             $("#calendarModal").modal();
                 }'
