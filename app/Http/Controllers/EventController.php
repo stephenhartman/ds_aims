@@ -25,27 +25,33 @@ class EventController extends Controller
         $data = Event::all();
         if($data->count()){
             foreach ($data as $key => $value){
+                $date = new Carbon($value->start_date);
+                $dt = $date->toDateTimeString();
+                $end = $date->addHour(3);
+                $et = $end->toDateTimeString();
                 $events[] = Calendar::event(
                     $value->name,
                     false,
-                    new Carbon($value->start_date),
-                    new Carbon($value->start_date),
+                    $dt,
+                    $et,
                     $value->id,
                          [
-
+                             'description' => "This is an event",
                              'color' => $this->getColor($value->type),
-
+                             'link' => route('events.edit', $value->id)
                          ]
-
                 );
             }
         }
 
         $calendar = Calendar::addEvents($events)
             ->setCallbacks([
-                'eventClick' => 'function(){
-                       alert("Clicked!")}'
-
+                'eventClick' => 'function(event, jsEvent, view) {
+            $("#modalTitle").html(event.title);
+            $("#modalBody").html("Start time " + event.start + "<br>" + "End time " + event.end + "<br>" + "Description " + event.description);
+            $("#eventUrl").attr("href", event.link);
+            $("#calendarModal").modal();
+                }'
             ]);
         return view('events.index', compact('calendar'));
         //$events = Event::orderBy('date')->get();
@@ -54,11 +60,11 @@ class EventController extends Controller
     }
     private function getColor($type){
         if ($type == "Volunteer"){
-            return "#800";
+            return "blue";
         }else if($type == "Reunion"){
-            return "#0000FF";
+            return "red";
         }else
-            return "#008000";
+            return "green";
 
     }
 
