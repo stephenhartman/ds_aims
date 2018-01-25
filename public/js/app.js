@@ -52730,7 +52730,7 @@ module.exports = __webpack_require__(292);
 
 __webpack_require__(189);
 __webpack_require__(2);
-__webpack_require__(0);
+window.moment = __webpack_require__(0);
 __webpack_require__(212);
 __webpack_require__(213);
 __webpack_require__(31);
