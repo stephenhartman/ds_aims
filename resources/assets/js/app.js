@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 require('jquery');
-require('moment');
+window.moment = require('moment');
 require('fullcalendar');
 require( 'jszip' );
 require( 'datatables.net-bs' );
