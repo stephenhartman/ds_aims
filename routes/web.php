@@ -23,6 +23,7 @@ Auth::routes();
 Route::middleware(['admin'])->group(function () {
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
     Route::resource('events', 'EventController', ['except' => 'index', 'show']);
+    Route::resource('events.user_sign_up', 'User_Sign_Up_Controller', ['except' => 'index', 'show']);
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
 });
 
@@ -30,6 +31,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
+Route::resource('events.user_sign_up', 'User_Sign_Up_Controller', ['only' => 'index', 'show']);
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');

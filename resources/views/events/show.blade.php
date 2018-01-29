@@ -22,10 +22,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Event date: {{ date('M j, Y', strtotime($event->date)) }}</p>
+                        <p>Event start date: {{ date('M j, Y', strtotime($event->start_date)) }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Event time:  {{ date('h:ia', strtotime($event->time)) }}</p>
+                        <p>Event start time:  {{ date('h:ia', strtotime($event->start_date)) }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>Event end date: {{ date('M j, Y', strtotime($event->end_date)) }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>Event end time:  {{ date('h:ia', strtotime($event->end_date)) }}</p>
                     </div>
                 </div>
             </div>
