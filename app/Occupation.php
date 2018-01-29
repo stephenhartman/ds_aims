@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Occupation extends Model
 {
     /**
-     * TODO Fillable
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'example',
+        'organization', 'position', 'start_year', 'end_year', 'testimonial'
     ];
 
     /**
