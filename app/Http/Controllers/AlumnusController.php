@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Alum;
+use App\Alumnus;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class AlumController extends Controller
+class AlumnusController extends Controller
 {
 
     public function __construct()
@@ -23,7 +23,7 @@ class AlumController extends Controller
      */
     public function create(User $user)
     {
-        $alum =  Alum::where('user_id', $user->id);
+        $alum =  Alumnus::where('user_id', $user->id);
 
         if ($alum !== null)
         {
@@ -49,7 +49,7 @@ class AlumController extends Controller
             'loyal_lion' => 'required',
         ));
         //store
-        $alum = new Alum;
+        $alum = new Alumnus;
         $alum->user_id = $user->id;
         $alum->first_name = $request->first_name;
         $alum->last_name = $request->last_name;
@@ -70,10 +70,10 @@ class AlumController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function show(Alum $alum)
+    public function show(Alumnus $alum)
     {
         return view('alumni.show', compact('alum'));
     }
@@ -81,10 +81,10 @@ class AlumController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alum $alum)
+    public function edit(Alumnus $alum)
     {
         return view('alumni.edit', compact('alum'));
     }
@@ -93,10 +93,10 @@ class AlumController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alum $alum)
+    public function update(Request $request, Alumnus $alum)
     {
         //validate
         $this->validate($request, array(

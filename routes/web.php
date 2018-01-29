@@ -33,7 +33,9 @@ Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
-Route::resource('users.alumni', 'AlumController', ['except' => ['index', 'destroy']]);
+Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
+Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
+Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
 
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');

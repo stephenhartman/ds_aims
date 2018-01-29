@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Alum extends Model
+class Alumnus extends Model
 {
     /**
      * TODO Fillable
