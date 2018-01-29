@@ -21,8 +21,8 @@ class Occupation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function milestone()
+    public function alum()
     {
-        return $this->belongsTo(Milestone::class);
+        return $this->belongsTo(Alum::class);
     }
 }
