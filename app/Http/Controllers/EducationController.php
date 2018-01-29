@@ -9,17 +9,6 @@ use Illuminate\Http\Request;
 class EducationController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @param  \App\Alum  $alum
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Alum $alum)
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param  \App\Alum  $alum
@@ -80,7 +69,7 @@ class EducationController extends Controller
      */
     public function edit(Alum $alum, Education $education)
     {
-        return view('users.alumni.education.edit', compact('education'));
+        return view('users.alumni.education.edit', compact('alum', 'education'));
     }
 
     /**
@@ -94,7 +83,6 @@ class EducationController extends Controller
     public function update(Request $request, Alum $alum, Education $education)
     {
 
-        $education->alumni_id = $alum->id;
         $education->school = $request->school;
         $education->location = $request->location;
         $education->start_year = $request->start_year;
@@ -115,6 +103,9 @@ class EducationController extends Controller
      */
     public function destroy(Alum $alum, Education $education)
     {
-        //
+        $education->delete();
+
+        Session::flash('alert', 'The education milestone was succesfully deleted.');
+        return redirect()->route('users.alumni.show', compact('alum'));
     }
 }
