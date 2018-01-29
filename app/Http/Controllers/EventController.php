@@ -63,13 +63,14 @@ class EventController extends Controller
 
         //return view('events.index', compact('events'));
     }
+
     private function getColor($type){
         if ($type == "Volunteer"){
-            return "blue";
+            return "#0000FF";
         }else if($type == "Reunion"){
-            return "red";
+            return "#FF0000";
         }else
-            return "green";
+            return "#008000";
 
     }
 

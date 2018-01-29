@@ -14,9 +14,9 @@
     </div>
     <div class="row">
         <div class="col-md-4 col-md-offset-1">
-            <div class="bg-primary text-white"> Volunteer events are blue</div>
-            <div class="bg-danger text-white"> Reunion events are red</div>
-            <div class="bg-success text-white"> Community events are green</div>
+            <div class="bg-volunteer text-white"> Volunteer events are blue</div>
+            <div class="bg-reuntion text-white"> Reunion events are red</div>
+            <div class="bg-community_event text-white"> Community events are green</div>
         </div>
     </div>
     <div class="row">
