@@ -21,10 +21,9 @@ class AlumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
-        $user_id = Auth::id();
-        $alum =  Alum::where('user_id', $user_id);
+        $alum =  Alum::where('user_id', $user->id);
 
         if ($alum !== null)
         {
@@ -41,7 +40,7 @@ class AlumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
         //validate
         $this->validate($request, array(
@@ -51,7 +50,7 @@ class AlumController extends Controller
         ));
         //store
         $alum = new Alum;
-        $alum->user_id = Auth::id();
+        $alum->user_id = $user->id;
         $alum->first_name = $request->first_name;
         $alum->last_name = $request->last_name;
         $alum->phone_number = $request->cell_phone;
@@ -64,7 +63,7 @@ class AlumController extends Controller
         $alum->save();
 
         Session::flash('success', 'Your alumni account was successfully created!');
-        return redirect()->route('users.alum.show', $alum->id);
+        return redirect()->route('users.alum.show', compact('alum'));
 
     }
 
@@ -76,7 +75,7 @@ class AlumController extends Controller
      */
     public function show(Alum $alum)
     {
-        //
+        return view('alumni.show', compact('alum'));
     }
 
     /**
@@ -87,7 +86,7 @@ class AlumController extends Controller
      */
     public function edit(Alum $alum)
     {
-        //
+        return view('alumni.edit', compact('alum'));
     }
 
     /**
@@ -99,6 +98,26 @@ class AlumController extends Controller
      */
     public function update(Request $request, Alum $alum)
     {
-        //
+        //validate
+        $this->validate($request, array(
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'loyal_lion' => 'required',
+        ));
+
+        //store
+        $alum->first_name = $request->first_name;
+        $alum->last_name = $request->last_name;
+        $alum->phone_number = $request->cell_phone;
+        $alum->social_pref = $request->social_pref;
+        $alum->street_address = $request->street;
+        $alum->city = $request->city;
+        $alum->state = $request->state;
+        $alum->zipcode = $request->zipcode;
+        $alum->loyal_lion = $request->loyal_lion;
+        $alum->save();
+
+        Session::flash('success', 'Your alumni account was successfully saved!');
+        return redirect()->route('users.alum.show', compact('alum'));
     }
 }

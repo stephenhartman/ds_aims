@@ -15,8 +15,8 @@ class CreateOccupationsTable extends Migration
     {
         Schema::table('occupations', function (Blueprint $table) {
             $table->integer('id')->unsigned();
-            $table->integer('milestone_id')->unsigned();
-            $table->foreign('milestone_id')->references('id')->on('milestones')->onDelete('cascade');
+            $table->integer('alumni_id')->unsigned();
+            $table->foreign('alumni_id')->references('id')->on('alumni')->onDelete('cascade');
             $table->string('organization');
             $table->string('position');
             $table->decimal('start_year', 4, 0);
@@ -34,8 +34,8 @@ class CreateOccupationsTable extends Migration
     public function down()
     {
         Schema::table('occupations', function (Blueprint $table) {
-            $table->dropForeign(['milestone_id']);
-            $table->dropColumn(['milestone_id']);
+            $table->dropForeign(['alumni_id']);
+            $table->dropColumn(['alumni_id']);
             $table->dropIfExists();
         });
     }
