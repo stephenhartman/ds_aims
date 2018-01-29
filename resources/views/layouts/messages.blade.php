@@ -13,6 +13,12 @@
 
         @endif
 
+        @if(Session::has('alert'))
+            <div class="alert alert-danger" role="alert">
+                <strong>Alert!</strong> {{Session::get('alert')}}
+            </div>
+        @endif
+
         @if(Session::has('error'))
             <div class="alert alert-danger" role="alert">
                 <strong>Error!</strong> {{Session::get('error')}}
