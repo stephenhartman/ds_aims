@@ -25,31 +25,36 @@ class EventController extends Controller
         $data = Event::all();
         if($data->count()){
             foreach ($data as $key => $value){
-                $date = new Carbon($value->start_date);
-                $dt = $date->toDateTimeString();
-                $end = $date->addHour(3);
-                $et = $end->toDateTimeString();
+                $start_date = new Carbon($value->start_date);
+                $sd = $start_date->toDateTimeString();
+                $end_date = new Carbon($value->end_date);
+                $ed = $end_date->toDateTimeString();
                 $events[] = Calendar::event(
                     $value->name,
                     false,
-                    $dt,
-                    $et,
+                    $sd,
+                    $ed,
                     $value->id,
                          [
-                             'description' => "This is an event",
+                             'description' => $value->description,
                              'color' => $this->getColor($value->type),
-                             'link' => route('events.edit', $value->id)
+                             'link' => route('events.edit', $value->id),
+                             'sign_up' => route('events.user_sign_up.create', $value->id)
                          ]
                 );
             }
         }
 
         $calendar = Calendar::addEvents($events)
+            ->setOptions([
+                'fixedWeekCount' => false
+            ])
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {
             $("#modalTitle").html("<strong>" + event.title + "</strong>");
             $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
             $("#eventUrl").attr("href", event.link);
+            $("#sign_up").attr("href", event.sign_up);
             $("#calendarModal").modal();
                 }'
             ]);
@@ -89,8 +94,9 @@ class EventController extends Controller
         $event = new Event;
         $event->name = $request->event_name;
         $event->type = $request->event_type;
-        $event->date = $request->event_date;
-        $event->time = $request->event_time;
+        $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+        $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+        $event->description = $request->event_description;
 
         $event->save();
 
@@ -105,6 +111,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+
         return view('events.show', compact('event'));
     }
 
@@ -116,7 +123,15 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view('events.edit', compact('event'));
+        $start_date = new Carbon($event->start_date);
+        $sd = $start_date->toDateString();
+        $st = $start_date->toTimeString();
+        $end_date = new Carbon($event->end_time);
+        $ed = $end_date->toDateString();
+        $et = $end_date->toTimeString();
+
+
+        return view('events.edit', compact('event', 'sd', 'st', 'ed', 'et'));
     }
 
     /**
@@ -130,8 +145,9 @@ class EventController extends Controller
     {
         $event->name = $request->event_name;
         $event->type = $request->event_type;
-        $event->date = $request->event_date;
-        $event->time = $request->event_time;
+        $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+        $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+        $event->description = $request->event_description;
         $event->save();
 
         // set flash data with success message

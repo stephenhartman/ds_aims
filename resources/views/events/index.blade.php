@@ -43,7 +43,7 @@
                     @if (Auth::user()->hasRole('admin'))
                         <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
                     @endif
-                    <a href="#" class="btn btn-success">Sign up for this event</a>
+                    <a class="btn btn-success" id="sign_up" target="_blank">Sign up for this event</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>

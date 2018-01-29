@@ -14,11 +14,21 @@
             {{Form::label('event_type','Event Type')}} <br>
             {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type)}}
             <br>
-            {{Form::label ('event_date', 'Event Date')}}
-            {{Form::date('event_date', $event->date, array('class' => 'form-control') )}}
+            {{Form::label ('event_start_date', 'Event Start Date')}}
+            {{Form::date('event_start_date', $sd, array('class' => 'form-control') )}}
             <br>
-            {{Form::label ('event_time', 'Event Time')}}
-            {{Form::time('event_time', $event->time, array('class' => 'form-control') )}}
+            {{Form::label ('event_start_time', 'Event Start Time')}}
+            {{Form::time('event_start_time', $st, array('class' => 'form-control') )}}
+            <br>
+            {{Form::label ('event_end_date', 'Event End Date')}}
+            {{Form::date('event_end_date', $ed, array('class' => 'form-control') )}}
+            <br>
+            {{Form::label ('event_end_time', 'Event End Time')}}
+            {{Form::time('event_end_time', $et, array('class' => 'form-control') )}}
+            <br>
+            {{Form::label ('event_description', 'Event Description')}}
+            {{Form::text('event_description', $event->description, array('class' => 'form-control') )}}
+            <br>
         </div>
     </div>
     <div class="row">
