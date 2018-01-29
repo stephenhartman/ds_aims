@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Education;
-use App\Alum;
+use App\Alumnus;
 use Illuminate\Http\Request;
 
 class EducationController extends Controller
@@ -11,10 +11,10 @@ class EducationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function create(Alum $alum)
+    public function create(Alumnus $alum)
     {
         return view('users.alumni.education.create', compact('alum'));
     }
@@ -23,10 +23,10 @@ class EducationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Alum $alum)
+    public function store(Request $request, Alumnus $alum)
     {
         $this->validate($request, array(
             'school' => 'required',
@@ -51,11 +51,11 @@ class EducationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function show(Alum $alum, Education $education)
+    public function show(Alumnus $alum, Education $education)
     {
         //
     }
@@ -63,11 +63,11 @@ class EducationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alum $alum, Education $education)
+    public function edit(Alumnus $alum, Education $education)
     {
         return view('users.alumni.education.edit', compact('alum', 'education'));
     }
@@ -76,11 +76,11 @@ class EducationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alum $alum, Education $education)
+    public function update(Request $request, Alumnus $alum, Education $education)
     {
 
         $education->school = $request->school;
@@ -97,11 +97,11 @@ class EducationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Education  $education
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alum $alum, Education $education)
+    public function destroy(Alumnus $alum, Education $education)
     {
         $education->delete();
 

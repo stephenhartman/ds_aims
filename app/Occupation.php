@@ -22,6 +22,6 @@ class Occupation extends Model
      */
     public function alum()
     {
-        return $this->belongsTo(Alum::class);
+        return $this->belongsTo(Alumnus::class);
     }
 }

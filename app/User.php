@@ -43,7 +43,7 @@ class User extends Authenticatable
      */
     public function alum()
     {
-        return $this->hasOne(Alum::class);
+        return $this->hasOne(Alumnus::class);
     }
 
     /**

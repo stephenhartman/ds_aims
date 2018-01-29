@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Occupation;
-use App\Alum;
+use App\Alumnus;
 use Illuminate\Http\Request;
 
 class OccupationController extends Controller
@@ -11,10 +11,10 @@ class OccupationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function create(Alum $alum)
+    public function create(Alumnus $alum)
     {
         return view('users.alumni.occupation.create', compact('alum'));
     }
@@ -23,10 +23,10 @@ class OccupationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Alum $alum)
+    public function store(Request $request, Alumnus $alum)
     {
         $this->validate($request, array(
             'organization' => 'required',
@@ -51,11 +51,11 @@ class OccupationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Occupation  $occupation
      * @return \Illuminate\Http\Response
      */
-    public function show(Alum $alum, Occupation $occupation)
+    public function show(Alumnus $alum, Occupation $occupation)
     {
         //
     }
@@ -63,11 +63,11 @@ class OccupationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Occupation  $occupation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alum $alum, Occupation $occupation)
+    public function edit(Alumnus $alum, Occupation $occupation)
     {
         return view('users.alumni.occupation.edit', compact('alum', 'occupation'));
     }
@@ -76,11 +76,11 @@ class OccupationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Occupation  $occupation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alum $alum, Occupation $occupation)
+    public function update(Request $request, Alumnus $alum, Occupation $occupation)
     {
         $occupation->organization = $request->organization;
         $occupation->position = $request->position;
@@ -96,11 +96,11 @@ class OccupationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Alum  $alum
+     * @param  \App\Alumnus  $alum
      * @param  \App\Occupation  $occupation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alum $alum, Occupation $occupation)
+    public function destroy(Alumnus $alum, Occupation $occupation)
     {
         $occupation->delete();
 
