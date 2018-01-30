@@ -8,21 +8,21 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>Create Account</h4>
+                        <h4>Create Alumni Account</h4>
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(['route' => 'users.alumni.store', [$user->id]]) }}
+                        {{ Form::open(['route' => array('users.alumni.store', $user)]) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('first_name', 'First Name') }}
-                                    {{ Form::text('first_name', null, ['class' => 'form-control']) }}
+                                    {{ Form::label('first_name', 'First Name', ['class' => 'required']) }}
+                                    {{ Form::text('first_name', $user->firstName(), ['class' => 'form-control', 'required' => 'required']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('last_name', 'Last Name') }}
-                                    {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+                                    {{ Form::label('last_name', 'Last Name', ['class' => 'required']) }}
+                                    {{ Form::text('last_name', $user->lastName(), ['class' => 'form-control', 'required' => 'required']) }}
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                     'Facebook' => 'Facebook',
                                     'Twitter' => 'Twitter',
                                     'Instagram' => 'Instagram'],
-                                     'Facebook', ['class' => 'form-control']) }}
+                                     null, ['class' => 'form-control', 'placeholder' => 'Select a Social Media Preference']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -48,7 +48,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('street_address', 'Street Address') }}
-                                    {{ Form::text('street_address', null, ['class' => 'form-control']) }}
+                                    {{ Form::text('street_address', null, ['class' => 'form-control', 'placeholder' => '123 State St.']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -57,6 +57,7 @@
                                     {{ Form::text('city', null, ['class' => 'form-control']) }}
                                 </div>
                             </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -131,6 +132,11 @@
                                 </div>
                                 <div class="col-md-3">
                                     {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block", 'onclick' => "return confirm('Are you sure you want to cancel account creation?')")) !!}
+                                </div>
+                                <div class="text-center col-md-6">
+                                    <h5>
+                                        A <span class="required"></span>
+                                        indicates a required field.</h5>
                                 </div>
                             </div>
                         </div>
