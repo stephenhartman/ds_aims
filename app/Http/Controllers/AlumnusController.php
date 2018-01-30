@@ -30,7 +30,7 @@ class AlumnusController extends Controller
             return view('users.alumni.create');
         else {
             Session::flash('error', 'You have already created an alumni account.  Please edit your existing account.');
-            return redirect()->route('home');
+            return view('users.alumni.edit', compact('user', 'alum'));
         }
     }
 
@@ -38,65 +38,76 @@ class AlumnusController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, User $user)
     {
-        //validate
-        $this->validate($request, array(
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'loyal_lion' => 'required',
-        ));
-        //store
-        $alum = new Alumnus;
-        $alum->user_id = $user->id;
-        $alum->first_name = $request->first_name;
-        $alum->last_name = $request->last_name;
-        $alum->phone_number = $request->cell_phone;
-        $alum->social_pref = $request->social_pref;
-        $alum->street_address = $request->street;
-        $alum->city = $request->city;
-        $alum->state = $request->state;
-        $alum->zipcode = $request->zipcode;
-        $alum->loyal_lion = $request->loyal_lion;
-        $alum->save();
+        $alum =  Alumnus::where('user_id', $user->id)->get();
 
-        Session::flash('success', 'Your alumni account was successfully created!');
-        return redirect()->route('users.alumni.show', compact('user'));
+        if (!$alum->isEmpty()) {
+            Session::flash('error', 'You have already created an alumni account.  Please edit your existing account.');
+            return view('users.alumni.edit', compact('user', 'alum'));
+        }
+        else {
 
+            //validate
+            $this->validate($request, array(
+                'first_name' => 'required',
+                'last_name' => 'required',
+            ));
+            //store
+            $alumnus = new Alumnus;
+            $alumnus->user_id = $user->id;
+            $alumnus->first_name = $request->first_name;
+            $alumnus->last_name = $request->last_name;
+            $alumnus->phone_number = $request->cell_phone;
+            $alumnus->social_pref = $request->social_pref;
+            $alumnus->street_address = $request->street;
+            $alumnus->city = $request->city;
+            $alumnus->state = $request->state;
+            $alumnus->zipcode = $request->zipcode;
+            $alumnus->loyal_lion = $request->loyal_lion;
+            $alumnus->save();
+
+            Session::flash('success', 'Your alumni account was successfully created!');
+            return redirect()->route('users.alumni.show', compact('user', 'alumnus'));
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Alumnus  $alum
+     * @param User $user
+     * @param  \App\Alumnus  $alumnus
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, Alumnus $alum)
+    public function show(User $user, Alumnus $alumnus)
     {
-        return view('users.alumni.show', compact('user', 'alum'));
+        return view('users.alumni.show', compact('user', 'alumnus'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Alumnus  $alum
+     * @param User $user
+     * @param  \App\Alumnus  $alumnus
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user, Alumnus $alum)
+    public function edit(User $user, Alumnus $alumnus)
     {
-        return view('users.alumni.edit', compact('user', 'alum'));
+        return view('users.alumni.edit', compact('user', 'alumnus'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alumnus  $alum
+     * @param User $user
+     * @param  \App\Alumnus  $alumnus
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user,  Alumnus $alum)
+    public function update(Request $request, User $user,  Alumnus $alumnus)
     {
         //validate
         $this->validate($request, array(
@@ -106,18 +117,18 @@ class AlumnusController extends Controller
         ));
 
         //store
-        $alum->first_name = $request->first_name;
-        $alum->last_name = $request->last_name;
-        $alum->phone_number = $request->cell_phone;
-        $alum->social_pref = $request->social_pref;
-        $alum->street_address = $request->street;
-        $alum->city = $request->city;
-        $alum->state = $request->state;
-        $alum->zipcode = $request->zipcode;
-        $alum->loyal_lion = $request->loyal_lion;
-        $alum->save();
+        $alumnus->first_name = $request->first_name;
+        $alumnus->last_name = $request->last_name;
+        $alumnus->phone_number = $request->cell_phone;
+        $alumnus->social_pref = $request->social_pref;
+        $alumnus->street_address = $request->street;
+        $alumnus->city = $request->city;
+        $alumnus->state = $request->state;
+        $alumnus->zipcode = $request->zipcode;
+        $alumnus->loyal_lion = $request->loyal_lion;
+        $alumnus->save();
 
         Session::flash('success', 'Your alumni account was successfully saved!');
-        return redirect()->route('users.alum.show', compact('user','alum'));
+        return redirect()->route('users.alum.show', compact('user','alumnus'));
     }
 }
