@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-1">
             <div class="bg-volunteer text-white"> Volunteer events are blue</div>
-            <div class="bg-reuntion text-white"> Reunion events are red</div>
+            <div class="bg-reunion text-white"> Reunion events are red</div>
             <div class="bg-community_event text-white"> Community events are green</div>
         </div>
     </div>
@@ -43,7 +43,10 @@
                     @if (Auth::user()->hasRole('admin'))
                         <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
                     @endif
+                    @if($exists == 0)
                     <a class="btn btn-success" id="sign_up" target="_blank">Sign up for this event</a>
+                    @endif
+                    <a class="btn btn-danger" id="sign_down" target="_blank">Sign down for this event</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>

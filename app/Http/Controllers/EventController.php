@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\User_Sign_Up;
 use Illuminate\Http\Request;
 use App\Event;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use \Calendar;
+use Auth;
 
 
 class EventController extends Controller
@@ -29,22 +32,61 @@ class EventController extends Controller
                 $sd = $start_date->toDateTimeString();
                 $end_date = new Carbon($value->end_date);
                 $ed = $end_date->toDateTimeString();
-                $events[] = Calendar::event(
-                    $value->name,
-                    false,
-                    $sd,
-                    $ed,
-                    $value->id,
-                         [
-                             'description' => $value->description,
-                             'color' => $this->getColor($value->type),
-                             'link' => route('events.edit', $value->id),
-                             'sign_up' => route('events.user_sign_up.create', $value->id)
-                         ]
-                );
-            }
-        }
+                $exists = $this->signUp_exists($value->id);
+                if($exists == 0){
+                    $events[] = Calendar::event(
+                        $value->name,
+                        false,
+                        $sd,
+                        $ed,
+                        $value->id,
+                        [
+                            'description' => $value->description,
+                            'color' => $this->getColor($value->type),
+                            'link' => route('events.edit', $value->id),
+                            'sign_up' => route('events.user_sign_up.create', $value->id),
+                            //'sign_down' => ''
+                        ]
+                    );
+                }else {
 
+                    $enroll = $this->getSignUp($value->id);
+
+                    $events[] = Calendar::event(
+                        $value->name . " YOU ARE SIGNED UP",
+                        false,
+                        $sd,
+                        $ed,
+                        $value->id,
+                        [
+                            'description' => $value->description,
+                            'color' => $this->getColor($value->type),
+                            'link' => route('events.edit', $value->id),
+                            'sign_down' => route('events.user_sign_up.edit', [$value->id, $enroll->id])
+                        ]
+                    );
+
+                }
+
+
+                }
+            }
+        $calendar = Calendar::addEvents($events)
+            ->setOptions([
+                'fixedWeekCount' => false
+            ])
+            ->setCallbacks([
+                'eventClick' => 'function(event, jsEvent, view) {
+                                $("#modalTitle").html("<strong>" + event.title + "</strong>");
+                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
+                                $("#eventUrl").attr("href", event.link);
+                                $("#sign_up").attr("href", event.sign_up);
+                                $("#sign_down").attr("href", event.sign_down);
+                                $("#calendarModal").modal();
+                                }'
+            ]);
+        return view('events.index', compact('calendar', 'exists'));
+        /**
         $calendar = Calendar::addEvents($events)
             ->setOptions([
                 'fixedWeekCount' => false
@@ -55,22 +97,44 @@ class EventController extends Controller
             $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
             $("#eventUrl").attr("href", event.link);
             $("#sign_up").attr("href", event.sign_up);
+            $("#sign_down").attr("href", event.sign_down);
             $("#calendarModal").modal();
                 }'
             ]);
         return view('events.index', compact('calendar'));
+        **/
         //$events = Event::orderBy('date')->get();
 
         //return view('events.index', compact('events'));
     }
 
-    private function getColor($type){
+    private function getColor($type)
+    {
         if ($type == "Volunteer"){
             return "#0000FF";
         }else if($type == "Reunion"){
             return "#FF0000";
         }else
             return "#008000";
+
+    }
+    private function signUp_exists($id)
+    {
+        $user_id = Auth::id();
+        if(User_Sign_Up::where('user_id', $user_id)->where('event_id', $id)->exists())
+        {
+            $flag = 1;
+        }else{
+            $flag = 0;
+        }
+        return $flag;
+    }
+    private function getSignUp($id)
+    {
+        $user_id = Auth::id();
+        $enroll = User_Sign_Up::where('user_id', $user_id)->where('event_id', $id)->first();
+
+            return $enroll;
 
     }
 
