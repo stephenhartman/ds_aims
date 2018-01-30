@@ -13,16 +13,18 @@ class CreateOccupationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('occupations', function (Blueprint $table) {
+        Schema::create('occupations', function (Blueprint $table) {
             $table->integer('id')->unsigned();
-            $table->integer('alumni_id')->unsigned();
-            $table->foreign('alumni_id')->references('id')->on('alumni')->onDelete('cascade');
             $table->string('organization');
             $table->string('position');
             $table->decimal('start_year', 4, 0);
             $table->decimal('end_year', 4, 0)->nullable();
             $table->text('testimonial')->nullable();
             $table->timestamps();
+        });
+        Schema::table('occupations', function (Blueprint $table) {
+            $table->integer('alumni_id')->unsigned();
+            $table->foreign('alumni_id')->references('id')->on('alumni')->onDelete('cascade');
         });
     }
 

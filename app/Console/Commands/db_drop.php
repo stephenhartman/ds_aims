@@ -41,19 +41,10 @@ class db_drop extends Command
         if (!$this->confirm('CONFIRM DROP ALL TABLES IN THE CURRENT DATABASE? [Y|N]')) {
             exit('Drop Tables command aborted');
         }
-        $colname = 'Tables_in_' . env('DB_DATABASE');
-        $tables = DB::select('SHOW TABLES');
-        foreach ($tables as $table) {
-            $droplist[] = $table->$colname;
+        foreach(\DB::select('SHOW TABLES') as $table) {
+            $table_array = get_object_vars($table);
+            \Schema::drop($table_array[key($table_array)]);
         }
-        $droplist = implode(',', $droplist);
-        DB::beginTransaction();
-        //turn off referential integrity
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        DB::statement("DROP TABLE $droplist");
-        //turn referential integrity back on
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        DB::commit();
         $this->comment(PHP_EOL."If no errors showed up, all tables were dropped".PHP_EOL);
     }
 }
