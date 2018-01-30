@@ -34,7 +34,6 @@ class HomeController extends Controller
             return view('users.alumni.create', compact('user'));
         else
         {
-            Session::flash('success', 'You have successfully logged in!  Welcome to the DePaul Alumni Outreach System!');
             $posts = Post::orderBy('updated_at', 'desc')->paginate(3);
 
             if ($request->user()->hasRole('admin'))

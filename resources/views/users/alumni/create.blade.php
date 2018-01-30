@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Alumni Demographic')
+@section('title', 'Alumni Demographic Form')
 
 @section('content')
     <div class="container">
