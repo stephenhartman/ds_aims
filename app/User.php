@@ -101,4 +101,29 @@ class User extends Authenticatable
     {
         return null !== $this->roles()->where('name', $role)->first();
     }
+
+    /**
+     * Splits the name and returns first name for form usage
+     *
+     * @return mixed
+     */
+    public function firstName()
+    {
+        $name = explode(" ", $this->name, 2);
+        return $name[0];
+
+    }
+
+    /**
+     * Splits the name string and returns last name for form usage
+     *
+     * @return string
+     */
+    public function lastName()
+    {
+        $name = explode(" ", $this->name, 2);
+        $last_name = !empty($name[1]) ? $name[1] : '';
+        return $last_name;
+
+    }
 }
