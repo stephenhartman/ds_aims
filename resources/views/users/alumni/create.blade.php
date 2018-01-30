@@ -11,7 +11,7 @@
                         <h4>Create Account</h4>
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(['route' => 'users.alumi.store']) }}
+                        {{ Form::open(['route' => 'users.alumni.store', [$user->id]]) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -135,7 +135,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
-        </div>
 @endsection
