@@ -67,7 +67,6 @@ class AlumnusController extends Controller
             $alumnus->city = $request->city;
             $alumnus->state = $request->state;
             $alumnus->zipcode = $request->zipcode;
-            $alumnus->loyal_lion = $request->loyal_lion;
             $alumnus->save();
 
             Session::flash('success', 'Your alumni account was successfully created!');
@@ -113,7 +112,6 @@ class AlumnusController extends Controller
         $this->validate($request, array(
             'first_name' => 'required',
             'last_name' => 'required',
-            'loyal_lion' => 'required',
         ));
 
         //store
@@ -125,7 +123,6 @@ class AlumnusController extends Controller
         $alumnus->city = $request->city;
         $alumnus->state = $request->state;
         $alumnus->zipcode = $request->zipcode;
-        $alumnus->loyal_lion = $request->loyal_lion;
         $alumnus->save();
 
         Session::flash('success', 'Your alumni account was successfully saved!');
