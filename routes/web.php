@@ -33,7 +33,10 @@ Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
+
+// Nested routes for alumni
 Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
+Route::resource('users.alumni.milestones', 'MileStoneController', ['only' => 'index']);
 Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
 Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
 
