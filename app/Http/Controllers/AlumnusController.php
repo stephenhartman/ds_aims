@@ -70,7 +70,7 @@ class AlumnusController extends Controller
             $alumnus->save();
 
             Session::flash('success', 'Your alumni account was successfully created!');
-            return redirect()->route('users.alumni.show', compact('user', 'alumnus'));
+            return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         }
     }
 
