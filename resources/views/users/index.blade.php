@@ -14,9 +14,11 @@
         <table class="table table-bordered table-striped table-responsive dataTable" id="users-table">
             <thead class="thead-inverse">
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Loyal Lion?</th>
                     <th>Last Login At</th>
                 </tr>
             </thead>
@@ -71,10 +73,12 @@ $(function() {
             "type": 'POST',
         },
         columns: [
-        { data: 'id' },
-        { data: 'name' },
-        { data: 'email' },
-        { data: 'last_login_at' },
+        { data: 'name', name: 'users.name'},
+        { data: 'email', name: 'users.email' },
+        { data: 'state', name: 'alumni.state' },
+        { data: 'zipcode', name: 'alumni.zipcode' },
+        { data: 'loyal_lion', name: 'alumni.loyal_lion' },
+        { data: 'last_login_at', name: 'users.last_login_at' },
         ],
     });
 });
