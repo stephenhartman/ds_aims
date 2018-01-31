@@ -19,6 +19,7 @@ class CreateUserSignUpTable extends Migration
             $table->integer('event_id');
             $table->integer('number_attending');
             $table->text('notes');
+            $table->boolean('unenroll');
             $table->timestamps();
         });
     }

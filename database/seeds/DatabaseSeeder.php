@@ -22,6 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
 
         $posts = factory(App\Post::class, 25)->create();
-        $events = factory(App\Event::class, 25)->create();
+        $events = factory(App\Event::class, 15)->create();
     }
 }

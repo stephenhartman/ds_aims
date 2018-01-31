@@ -25,15 +25,16 @@ class EventController extends Controller
     {
 
         $events = [];
+        $exists_arr = [];
         $data = Event::all();
         if($data->count()){
-            foreach ($data as $key => $value){
+            foreach ($data as $key => $value) {
                 $start_date = new Carbon($value->start_date);
                 $sd = $start_date->toDateTimeString();
                 $end_date = new Carbon($value->end_date);
                 $ed = $end_date->toDateTimeString();
                 $exists = $this->signUp_exists($value->id);
-                if($exists == 0){
+                if ($exists == 0) {
                     $events[] = Calendar::event(
                         $value->name,
                         false,
@@ -45,11 +46,12 @@ class EventController extends Controller
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
                             'sign_up' => route('events.user_sign_up.create', $value->id),
+                            'button' => 'Sign up for an event',
+                            'enroll_index' => route('events.user_sign_up.index', $value->id),
                             //'sign_down' => ''
                         ]
                     );
-                }else {
-
+                } else {
                     $enroll = $this->getSignUp($value->id);
 
                     $events[] = Calendar::event(
@@ -62,14 +64,16 @@ class EventController extends Controller
                             'description' => $value->description,
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
-                            'sign_down' => route('events.user_sign_up.edit', [$value->id, $enroll->id])
+                            'sign_up' => route('events.user_sign_up.edit', [$value->id, $enroll->id]),
+                            'button' => 'Sign down for an event',
+                            'enroll_index' => route('events.user_sign_up.index', $value->id),
                         ]
                     );
 
                 }
+            }
 
 
-                }
             }
         $calendar = Calendar::addEvents($events)
             ->setOptions([
@@ -80,12 +84,12 @@ class EventController extends Controller
                                 $("#modalTitle").html("<strong>" + event.title + "</strong>");
                                 $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
                                 $("#eventUrl").attr("href", event.link);
-                                $("#sign_up").attr("href", event.sign_up);
-                                $("#sign_down").attr("href", event.sign_down);
+                                $("#index").attr("href", event.enroll_index).html("View enrollment");
+                                $("#sign_up").attr("href", event.sign_up).html(event.button);
                                 $("#calendarModal").modal();
                                 }'
             ]);
-        return view('events.index', compact('calendar', 'exists'));
+        return view('events.index', compact('calendar'));
         /**
         $calendar = Calendar::addEvents($events)
             ->setOptions([

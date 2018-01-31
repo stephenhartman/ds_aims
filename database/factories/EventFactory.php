@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Event::class, function (Faker $faker) {
 
-    $unix_timestamp = '1519776000';
+    $unix_timestamp = '1519819200';
     $sd = $faker->dateTimeBetween('now', $unix_timestamp);
     $ed = $faker->dateTimeBetween($sd, $unix_timestamp);
 

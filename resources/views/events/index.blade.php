@@ -42,11 +42,11 @@
                 <div class="modal-footer">
                     @if (Auth::user()->hasRole('admin'))
                         <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
+                        <a class="btn btn-success" id="index" target="_blank"></a>
                     @endif
-                    @if($exists == 0)
-                    <a class="btn btn-success" id="sign_up" target="_blank">Sign up for this event</a>
+                    @if (!Auth::user()->hasRole('admin'))
+                    <a class="btn btn-success" id="sign_up" target="_blank"></a>
                     @endif
-                    <a class="btn btn-danger" id="sign_down" target="_blank">Sign down for this event</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
