@@ -27,12 +27,22 @@ class Alumnus extends Model
     }
 
     /**
-     * One alum has one milestone
+     * One alum has many education milestones
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function milestone()
+    public function educations()
     {
-        return $this->hasOne(Milestone::class);
+        return $this->hasMany(Education::class);
+    }
+
+    /**
+     * One alum has many occupation milestones
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function occupations()
+    {
+        return $this->hasMany(Occupation::class);
     }
 }
