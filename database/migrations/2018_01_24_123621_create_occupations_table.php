@@ -20,6 +20,7 @@ class CreateOccupationsTable extends Migration
             $table->decimal('start_year', 4, 0);
             $table->decimal('end_year', 4, 0)->nullable();
             $table->text('testimonial')->nullable();
+            $table->boolean('share')->default(0);
             $table->timestamps();
         });
         Schema::table('occupations', function (Blueprint $table) {
