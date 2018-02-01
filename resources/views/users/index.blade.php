@@ -8,18 +8,19 @@
 @section('title', 'Users')
 
 @section('content')
-    <div class="container">
+    <div class="container table-responsive">
         <h2>All Users</h2>
         <hr>
-        <table class="table table-bordered table-striped table-responsive dataTable" id="users-table">
+        <table class="table table-bordered table-striped dataTable" id="users-table">
             <thead class="thead-inverse">
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
                     <th>State</th>
                     <th>Zip Code</th>
+                    <th>Volunteer?</th>
                     <th>Loyal Lion?</th>
-                    <th>Last Login At</th>
+                    <th>Last Login</th>
                 </tr>
             </thead>
         </table>
@@ -59,26 +60,21 @@ $(function() {
             text:      'Print <i class="fa fa-print"></i>',
             titleAttr: 'Print'
         },
-        {
-            extend:    'pdf',
-            text:      'Export to PDF <i class="fa fa-print"></i>',
-            titleAttr: 'PDF'
-        }
         ],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
-        responsive: true,
         ajax: {
             "url": '{{ url('users-data') }}',
             "type": 'POST',
         },
         columns: [
-        { data: 'name', name: 'users.name'},
-        { data: 'email', name: 'users.email' },
-        { data: 'state', name: 'alumni.state' },
-        { data: 'zipcode', name: 'alumni.zipcode' },
-        { data: 'loyal_lion', name: 'alumni.loyal_lion' },
-        { data: 'last_login_at', name: 'users.last_login_at' },
+            { data: 'name' },
+            { data: 'email' },
+            { data: 'state' },
+            { data: 'zipcode' },
+            { data: 'volunteer' },
+            { data: 'loyal_lion' },
+            { data: 'last_login_at' },
         ],
     });
 });
