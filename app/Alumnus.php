@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Alumnus extends Model
 {
     /**
-     * TODO Fillable
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'example',
+        'user_id', 'first_name', 'last_name', 'phone_number', 'social_pref', 'street_address', 'city', 'state', 'zipcode',
+        'year_graduated', 'volunteer', 'photo_url'
     ];
 
     /**
