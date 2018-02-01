@@ -19,13 +19,15 @@ class CreateAlumniTable extends Migration
            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
            $table->string('first_name');
            $table->string('last_name');
-           $table->integer('phone_number')->nullable();
+           $table->string('phone_number')->nullable();
            $table->string('social_pref')->nullable();
            $table->string('street_address')->nullable();
            $table->string('city')->nullable();
            $table->string('state')->nullable();
            $table->string('zipcode')->nullable();
            $table->decimal('year_graduated', 4, 0)->nullable();
+           $table->boolean('volunteer')->default(0);
+           $table->string('photo_url')->nullable();
            $table->smallInteger('loyal_lion')->nullable();
            $table->timestamps();
         });
