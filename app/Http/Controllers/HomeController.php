@@ -28,9 +28,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $alum =  Alumnus::where('user_id', $user->id)->get();
+        $alumnus =  Alumnus::where('user_id', $user->id)->get();
 
-        if ($alum->isEmpty() && $request->user()->hasRole('alumni'))
+        if ($alumnus->isEmpty() && $request->user()->hasRole('alumni'))
             return view('users.alumni.create', compact('user'));
         else
         {

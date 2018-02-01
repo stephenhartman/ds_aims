@@ -22,7 +22,7 @@ class Occupation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function alum()
+    public function alumnus()
     {
         return $this->belongsTo(Alumnus::class);
     }
