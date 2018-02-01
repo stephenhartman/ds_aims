@@ -6,7 +6,6 @@ use App\Alumnus;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Purifier;
 use Image;
@@ -155,8 +154,6 @@ class AlumnusController extends Controller
         // Save volunteer checkbox
         if(!$request->has('volunteer'))
             $request->merge(['volunteer' => 0]);
-        else
-            $request->merge(['volunteer' => 1]);
         $alumnus->volunteer = $request->volunteer;
 
         // Save photo url for profile picture
@@ -165,9 +162,14 @@ class AlumnusController extends Controller
             $image = $request->file('photo_url');
             $filename = bin2hex(random_bytes(12)) . '.' . $image->getClientOriginalExtension();
             $location = public_path('/images/' . $filename);
-            Image::make($image)->resize(320, 160)->save($location);
+            $img = Image::make($image);
+            $img->resize(320, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($location);
+            ImageOptimizer::optimize($location);
             $alumnus->photo_url = $filename;
         }
+
         $alumnus->save();
 
         Session::flash('success', 'Your alumni account was successfully saved!');
