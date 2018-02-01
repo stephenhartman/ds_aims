@@ -11,7 +11,7 @@
                         <h4>Create Alumni Account</h4>
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(['route' => array('users.alumni.store', $user)]) }}
+                        {{ Form::open(['route' => array('users.alumni.store', $user), 'enctype' => 'multipart/form-data']) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -23,6 +23,28 @@
                                 <div class="form-group">
                                     {{ Form::label('last_name', 'Last Name', ['class' => 'required']) }}
                                     {{ Form::text('last_name', $user->lastName(), ['class' => 'form-control', 'required' => 'required']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
+                                    {{ Form::checkbox('volunteer', 1, null, ['class' => 'form-control'] ) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
+                                    {{ Form::selectYear('year_graduated', 1980, 2020, Carbon::now()->year, ['class' => 'form-control'] ) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ Form::label('photo_url', 'Upload a profile picture') }}
+                                    {{ Form::file('photo_url') }}
                                 </div>
                             </div>
                         </div>
