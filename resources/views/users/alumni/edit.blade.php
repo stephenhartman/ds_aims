@@ -8,21 +8,50 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>Create Alumni Account</h4>
+                        <h4>Edit Alumni Account</h4>
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(['route' => array('users.alumni.store', $user)]) }}
+                        {{ Form::model($alumnus, ['route' => array('users.alumni.update', $user, $alumnus),
+                        'method' => 'PATCH', 'enctype' => 'multipart/form-data']) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('first_name', 'First Name', ['class' => 'required']) }}
-                                    {{ Form::text('first_name', $user->firstName(), ['class' => 'form-control', 'required' => 'required']) }}
+                                    {{ Form::text('first_name', null, ['class' => 'form-control', 'required' => 'required']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('last_name', 'Last Name', ['class' => 'required']) }}
-                                    {{ Form::text('last_name', $user->lastName(), ['class' => 'form-control', 'required' => 'required']) }}
+                                    {{ Form::text('last_name', null, ['class' => 'form-control', 'required' => 'required']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
+                                    {{ Form::checkbox('volunteer', $alumnus->volunteer == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
+                                    {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-thumbnail img-responsive" src="{{ url('images/' . $alumnus->photo_url) }}">
+                            </div>
+                            <div class="row form-group">
+                               <h5>Current Profile Picture</h5>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    {{ Form::label('photo_url', 'Upload a different profile picture') }}
+                                    {{ Form::file('photo_url') }}
                                 </div>
                             </div>
                         </div>
@@ -34,7 +63,7 @@
                                     'Facebook' => 'Facebook',
                                     'Twitter' => 'Twitter',
                                     'Instagram' => 'Instagram'],
-                                     null, ['class' => 'form-control', 'placeholder' => 'Select a Social Media Preference']) }}
+                                     $alumnus->social_pref, ['class' => 'form-control', 'placeholder' => 'Select a Social Media Preference']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
