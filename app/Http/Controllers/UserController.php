@@ -97,6 +97,10 @@ class UserController extends Controller
                         else
                             return '';
                 })
+                ->addColumn('date_sort', function ($user) {
+                    if ($user->last_login_at !== null)
+                        return Carbon::parse($user->last_login_at)->format('Ymd');
+                })
             ->make();
     }
 }
