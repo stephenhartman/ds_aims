@@ -74,7 +74,8 @@ $(function() {
             { data: 'zipcode' },
             { data: 'volunteer' },
             { data: 'loyal_lion' },
-            { data: 'last_login_at' },
+            { data: 'last_login_at', orderData: 7 },
+            { data: 'date_sort', type: 'num', visible: false }
         ],
     });
 });
