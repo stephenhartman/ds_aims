@@ -85,6 +85,7 @@
                                 <div class="form-group">
                                     {{ Form::label('state', 'State') }}
                                     {{ Form::select('state', [
+                                    null => 'Select a State',
                                     'AL'=>'Alabama',
                                     'AK'=>'Alaska',
                                     'AZ'=>'Arizona',
