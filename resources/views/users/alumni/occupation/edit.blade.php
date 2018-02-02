@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Occupation Milestone')
+@section('title', 'Edit Occupation Milestone')
 
 @push('styles')
     {!! Html::style('css/parsley.css') !!}
@@ -87,14 +87,24 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
+                                {{ Form::close() }}
                             </div>
-                            <div class="col-md-6">
-                                {!! Html::linkRoute('users.alumni.milestones.index', 'Cancel', array($user, $alumnus), array('class' => "btn btn-warning btn-lg btn-block", 'style' => 'margin-top: 20px')) !!}
+                            <div class="col-md-4">
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Cancel</a>
+                            </div>
+                            <div class="col-md-4">
+                                {{ Form::open(['route' => ['users.alumni.occupation.destroy', $user, $alumnus, $occupation], 'method' => 'DELETE']) }}
+                                {{ Form::button('Delete', array(
+                                    'type' => 'submit',
+                                    'data-id' => $occupation->id,
+                                    'class' => 'btn btn-danger btn-lg btn-block',
+                                    'style' => 'margin-top: 20px;',
+                                    'onclick' => "return confirm('Are you sure?')")) }}
+                                {{ Form::close() }}
                             </div>
                         </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
