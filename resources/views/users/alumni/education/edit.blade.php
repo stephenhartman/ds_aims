@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <br>
-                        {{ Form::model($education, ['route' => array('users.alumni.education.update', $user, $alumnus), 'method' => 'PATCH']) }}
+                        {{ Form::model($education, ['route' => array('users.alumni.education.update', $user, $alumnus, $education), 'method' => 'PATCH']) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -109,7 +109,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
-                                {{ Form::checkbox('volunteer', 1, null, ['class' => 'form-control'] ) }}
+                                {{ Form::checkbox('share',  $education->share == 1 ? true : null, null, ['class' => 'form-control'] ) }}
                             </div>
                         </div>
                         <div class="row">

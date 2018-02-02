@@ -35,14 +35,14 @@
                                         <ul>
                                             @foreach($occupations as $occupation)
                                                 <li>
-                                                    <a href=" {{ route('users.alumni.occupation.edit', [$user, $alumnus, $occupation]) }}">
+                                                    <a href=" {{ route('users.alumni.occupation.edit', [$user, $alumnus, $occupation->id]) }}">
                                                         Occupaton: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}
                                                     </a>
                                                 </li>
                                             @endforeach
                                             @foreach($educations as $education)
                                                 <li>
-                                                    <a href="{{ route('users.alumni.education.edit', [$user, $alumnus, $education]) }}">
+                                                    <a href="{{ route('users.alumni.education.edit', [$user, $alumnus, $education->id]) }}">
                                                         Education: {{ $education->school}} {{ $education->start_year }}-{{$education->end_year}}
                                                     </a>
                                                 </li>

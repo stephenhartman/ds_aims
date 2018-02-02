@@ -47,6 +47,14 @@ class OccupationController extends Controller
         $occupation->start_year = $request->start_year;
         $occupation->end_year = $request->end_year;
         $occupation->testimonial = Purifier::clean($request->testimonial);
+
+        // Save share checkbox
+        if(!$request->has('share'))
+            $request->merge(['share' => 0]);
+        else
+            $request->merge(['share' => 1]);
+        $occupation->share = $request->share;
+
         $occupation->save();
 
         Session::flash('success', 'The occupation milestone was successfully created!');
@@ -68,13 +76,14 @@ class OccupationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param User $user
      * @param  \App\Alumnus  $alumnus
      * @param  \App\Occupation  $occupation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alumnus $alumnus, Occupation $occupation)
+    public function edit(User $user, Alumnus $alumnus, Occupation $occupation)
     {
-        return view('users.alumni.occupation.edit', compact('alumnus', 'occupation'));
+        return view('users.alumni.occupation.edit', compact('user', 'alumnus', 'occupation'));
     }
 
     /**
@@ -98,10 +107,18 @@ class OccupationController extends Controller
         $occupation->start_year = $request->start_year;
         $occupation->end_year = $request->end_year;
         $occupation->testimonial = Purifier::clean($request->testimonial);
+
+        // Save share checkbox
+        if(!$request->has('share'))
+            $request->merge(['share' => 0]);
+        else
+            $request->merge(['share' => 1]);
+        $occupation->share = $request->share;
+
         $occupation->save();
 
-        Session::flash('success', 'The education milestone was successfully saved.');
-        return redirect()->route('users.alumni.show', compact('user', 'alumnus'));
+        Session::flash('success', 'The occupation milestone was successfully saved.');
+        return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
     }
 
     /**

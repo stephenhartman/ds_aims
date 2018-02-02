@@ -73,9 +73,9 @@ class AlumnusController extends Controller
 
             // Save volunteer checkbox
             if(!$request->has('volunteer'))
-            {
                 $request->merge(['volunteer' => 0]);
-            }
+            else
+                $request->merge(['volunteer' => 1]);
             $alumnus->volunteer = $request->volunteer;
 
             // Save photo url for profile picture
@@ -154,6 +154,8 @@ class AlumnusController extends Controller
         // Save volunteer checkbox
         if(!$request->has('volunteer'))
             $request->merge(['volunteer' => 0]);
+        else
+            $request->merge(['volunteer' => 1]);
         $alumnus->volunteer = $request->volunteer;
 
         // Save photo url for profile picture

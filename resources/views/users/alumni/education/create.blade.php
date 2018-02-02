@@ -109,7 +109,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
-                                {{ Form::checkbox('volunteer', 1, null, ['class' => 'form-control'] ) }}
+                                {{ Form::checkbox('share', 1, null, ['class' => 'form-control'] ) }}
                             </div>
                         </div>
                         <div class="row">
