@@ -14,7 +14,7 @@ class CreateOccupationsTable extends Migration
     public function up()
     {
         Schema::create('occupations', function (Blueprint $table) {
-            $table->integer('id')->unsigned();
+            $table->increments('id');
             $table->string('organization');
             $table->string('position');
             $table->decimal('start_year', 4, 0);
