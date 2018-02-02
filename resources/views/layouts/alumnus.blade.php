@@ -14,12 +14,6 @@
                     </figure>
                 </div>
             @endif
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ Form::label('photo_url', 'Upload a different profile picture') }}
-                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -38,8 +32,22 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
+                    {{ Form::checkbox('loyal_lion', $alumnus->loyal_lion == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
                     {{ Form::checkbox('volunteer', $alumnus->volunteer == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('photo_url', 'Upload a different profile picture') }}
+                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
                 </div>
             </div>
             <div class="col-md-6">
