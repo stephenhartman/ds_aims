@@ -34,10 +34,10 @@
                                     <div class="panel-body">
                                         <ul>
                                             @foreach($occupations as $occupation)
-                                                <li>{{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}</li>
+                                                <li>Occupaton: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}</li>
                                             @endforeach
                                             @foreach($educations as $education)
-                                                <li>{{ $education->school}} {{ $education->start_year }}-{{$education->end_year}}</li>
+                                                <li>Education: {{ $education->school}} {{ $education->start_year }}-{{$education->end_year}}</li>
                                             @endforeach
                                         </ul>
                                     </div>

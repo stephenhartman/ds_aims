@@ -42,12 +42,16 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
-                                <img class="img-thumbnail img-responsive" src="{{ url('images/' . $alumnus->photo_url) }}">
-                            </div>
-                            <div class="row form-group">
-                               <h5>Current Profile Picture</h5>
-                            </div>
+                            @if ($alumnus->photo_url !== null)
+                                {
+                                <div class="col-md-3">
+                                    <img class="img-thumbnail img-responsive" src="{{ url('images/' . $alumnus->photo_url) }}">
+                                </div>
+                                <div class="row form-group">
+                                    <h5>Current Profile Picture</h5>
+                                </div>
+                                }
+                            @endif
                             <div class="col-md-9">
                                 <div class="form-group">
                                     {{ Form::label('photo_url', 'Upload a different profile picture') }}
@@ -92,6 +96,7 @@
                                 <div class="form-group">
                                     {{ Form::label('state', 'State') }}
                                     {{ Form::select('state', [
+                                    null => 'Select a State',
                                     'AL'=>'Alabama',
                                     'AK'=>'Alaska',
                                     'AZ'=>'Arizona',
