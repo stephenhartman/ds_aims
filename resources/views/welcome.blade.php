@@ -14,6 +14,7 @@
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
             @if (Auth::guest())
+                <li><a href="{{ route('register') }}">Register</a></li>
                 <li><a href="{{ route('login') }}">Login</a></li>
             @else
                 <li><a href="{{ url('/home') }}">Home</a></li>
