@@ -34,10 +34,18 @@
                                     <div class="panel-body">
                                         <ul>
                                             @foreach($occupations as $occupation)
-                                                <li>Occupaton: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}</li>
+                                                <li>
+                                                    <a href=" {{ route('users.alumni.occupation.edit', [$user, $alumnus, $occupation]) }}">
+                                                        Occupaton: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                             @foreach($educations as $education)
-                                                <li>Education: {{ $education->school}} {{ $education->start_year }}-{{$education->end_year}}</li>
+                                                <li>
+                                                    <a href="{{ route('users.alumni.education.edit', [$user, $alumnus, $education]) }}">
+                                                        Education: {{ $education->school}} {{ $education->start_year }}-{{$education->end_year}}
+                                                    </a>
+                                                </li>
                                             @endforeach
                                         </ul>
                                     </div>
