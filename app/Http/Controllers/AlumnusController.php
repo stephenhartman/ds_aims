@@ -83,7 +83,6 @@ class AlumnusController extends Controller
             {
                 $image = $request->file('photo_url');
                 $extension = $image->getClientOriginalExtension();
-                dd($extension);
                 if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
                 {
                     $filename = bin2hex(random_bytes(12)) . '.' . $extension;
@@ -195,5 +194,50 @@ class AlumnusController extends Controller
 
         Session::flash('success', 'Your alumni account was successfully saved!');
         return redirect()->route('users.show', compact('user'));
+    }
+
+    /**
+     * Final view in account creation
+     *
+     * @param User $user
+     * @param Alumnus $alumnus
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function final_step(User $user, Alumnus $alumnus)
+    {
+        return view('users.alumni.final_step', compact('user','alumnus'));
+    }
+
+    /**
+     * Final POST in account creation
+     *
+     * @param Request $request
+     * @param User $user
+     * @param Alumnus $alumnus
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function final_store(Request $request, User $user, Alumnus $alumnus)
+    {
+        // Save volunteer checkbox
+        if(!$request->has('volunteer'))
+            $request->merge(['volunteer' => 0]);
+        else
+            $request->merge(['volunteer' => 1]);
+        $alumnus->volunteer = $request->volunteer;
+
+        // Save loyal_lion checkbox
+        if(!$request->has('loyal_lion'))
+            $request->merge(['loyal_lion' => 0]);
+        else
+            $request->merge(['loyal_lion' => 1]);
+        $alumnus->loyal_lion = $request->loyal_lion;
+
+        // Initial setup complete
+        $alumnus->initial_setup = 1;
+
+        $alumnus->save();
+
+        Session::flash('success', 'Thank you for registering your Alumni Account!');
+        return redirect('home');
     }
 }
