@@ -81,15 +81,25 @@ class AlumnusController extends Controller
             // Save photo url for profile picture
             if ($request->has('photo_url'))
             {
-                 $image = $request->file('photo_url');
-                 $filename = bin2hex(random_bytes(12)) . '.' . $image->getClientOriginalExtension();
-                 $location = public_path('/images/' . $filename);
-                 $img = Image::make($image);
-                 $img->resize(320, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                 })->save($location);
-                 ImageOptimizer::optimize($location);
-                 $alumnus->photo_url = $filename;
+                $image = $request->file('photo_url');
+                $extension = $image->getClientOriginalExtension();
+                dd($extension);
+                if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
+                {
+                    $filename = bin2hex(random_bytes(12)) . '.' . $extension;
+                    $location = public_path('/images/' . $filename);
+                    $img = Image::make($image);
+                    $img->resize(320, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($location);
+                    ImageOptimizer::optimize($location);
+                    $alumnus->photo_url = $filename;
+                }
+                else
+                {
+                    return redirect()->back()->withInput()
+                        ->withErrors(['photo_url' => 'Please choose a profile image in .jpg, .jpeg, .gif, or .png format']);
+                }
             }
 
             $alumnus->save();
@@ -144,9 +154,9 @@ class AlumnusController extends Controller
         //store
         $alumnus->first_name = $request->first_name;
         $alumnus->last_name = $request->last_name;
-        $alumnus->phone_number = $request->cell_phone;
+        $alumnus->phone_number = $request->phone_number;
         $alumnus->social_pref = $request->social_pref;
-        $alumnus->street_address = $request->street;
+        $alumnus->street_address = $request->street_address;
         $alumnus->city = $request->city;
         $alumnus->state = $request->state;
         $alumnus->zipcode = $request->zipcode;
@@ -162,19 +172,28 @@ class AlumnusController extends Controller
         if ($request->has('photo_url'))
         {
             $image = $request->file('photo_url');
-            $filename = bin2hex(random_bytes(12)) . '.' . $image->getClientOriginalExtension();
-            $location = public_path('/images/' . $filename);
-            $img = Image::make($image);
-            $img->resize(320, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($location);
-            ImageOptimizer::optimize($location);
-            $alumnus->photo_url = $filename;
+            $extension = $image->getClientOriginalExtension();
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
+            {
+                $filename = bin2hex(random_bytes(12)) . '.' . $extension;
+                $location = public_path('/images/' . $filename);
+                $img = Image::make($image);
+                $img->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($location);
+                ImageOptimizer::optimize($location);
+                $alumnus->photo_url = $filename;
+            }
+            else
+            {
+                Session::flash('error', 'Please upload a .jpeg, .jpg, .gif or .png file');
+                return redirect()->back()->withInput();
+            }
         }
 
         $alumnus->save();
 
         Session::flash('success', 'Your alumni account was successfully saved!');
-        return redirect()->route('users.alum.show', compact('user','alumnus'));
+        return redirect()->route('users.show', compact('user'));
     }
 }

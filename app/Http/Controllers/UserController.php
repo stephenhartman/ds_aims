@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Education;
+use App\Occupation;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -42,10 +44,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $alumnus = $user->alumnus()->first();
+        $educations = Education::where('alumni_id', $alumnus->id)->get();
+        $occupations = Occupation::where('alumni_id', $alumnus->id)->get();
         if (Auth::user()->hasRole('admin'))
-            return view('users.show', compact('user'));
+            return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
         elseif (Auth::user() == $user )
-            return view('users.show', compact('user'));
+            return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
         else {
             Session::flash('error', 'You are not authorized to view this page.');
             return redirect()->route('home');
