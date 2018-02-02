@@ -63,7 +63,7 @@ class EducationController extends Controller
         $education->save();
 
         Session::flash('success', 'The education milestone was successfully created!');
-        return redirect()->route('users.alumni.milestone.index', compact('user', 'alumnus'));
+        return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
     }
 
     /**
