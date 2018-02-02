@@ -55,9 +55,9 @@ class EducationController extends Controller
 
         // Save share checkbox
         if(!$request->has('share'))
-        {
             $request->merge(['share' => 0]);
-        }
+        else
+            $request->merge(['share' => 1]);
         $education->share = $request->share;
 
         $education->save();
@@ -122,9 +122,9 @@ class EducationController extends Controller
 
         // Save share checkbox
         if(!$request->has('share'))
-        {
             $request->merge(['share' => 0]);
-        }
+        else
+            $request->merge(['share' => 1]);
         $education->share = $request->share;
 
         $education->save();

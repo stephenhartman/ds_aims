@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <br>
-                        {{ Form::model($occupation, ['route' => array('users.alumni.occupation.update', $user, $alumnus), 'method' => 'PATCH']) }}
+                        {{ Form::model($occupation, ['route' => array('users.alumni.occupation.update', $user, $alumnus, $occupation), 'method' => 'PATCH']) }}
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
