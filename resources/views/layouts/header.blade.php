@@ -25,17 +25,17 @@
                             <a class="btn btn-secondary" href="{{ URL::to('users') }}">Search Students</a>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                     @else
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                     @endif
                 @endif
@@ -44,6 +44,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
+                    <li><a href="{{ route('register') }}">Register</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @else
                     <li class="dropdown">

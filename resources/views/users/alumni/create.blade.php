@@ -44,7 +44,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     {{ Form::label('photo_url', 'Upload a profile picture') }}
-                                    {{ Form::file('photo_url') }}
+                                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
                                 </div>
                             </div>
                         </div>
