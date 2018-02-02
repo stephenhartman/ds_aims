@@ -84,6 +84,9 @@ class UserController extends Controller
                 ->addColumn('zipcode', function (User $user) {
                     return $user->alumnus ? $user->alumnus->zipcode : '';
                 })
+                ->addColumn('year_graduated', function (User $user) {
+                    return $user->alumnus ? $user->alumnus->year_graduated : '';
+                })
                 ->addColumn('volunteer', function (User $user) {
                     if ($user->alumnus)
                         if ($user->alumnus->volunteer == 1)

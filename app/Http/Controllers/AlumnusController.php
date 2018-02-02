@@ -70,6 +70,7 @@ class AlumnusController extends Controller
             $alumnus->city = $request->city;
             $alumnus->state = $request->state;
             $alumnus->zipcode = $request->zipcode;
+            $alumnus->year_graduated = $request->year_graduated;
 
             // Save volunteer checkbox
             if(!$request->has('volunteer'))
@@ -159,6 +160,7 @@ class AlumnusController extends Controller
         $alumnus->city = $request->city;
         $alumnus->state = $request->state;
         $alumnus->zipcode = $request->zipcode;
+        $alumnus->year_graduated = $request->year_graduated;
 
         // Save volunteer checkbox
         if(!$request->has('volunteer'))
