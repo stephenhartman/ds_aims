@@ -29,6 +29,7 @@ class CreateAlumniTable extends Migration
            $table->boolean('volunteer')->default(0);
            $table->string('photo_url')->nullable();
            $table->smallInteger('loyal_lion')->nullable();
+           $table->boolean('initial_setup')->default(0);
            $table->timestamps();
         });
     }

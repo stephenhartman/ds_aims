@@ -14,6 +14,7 @@ $factory->define(App\Alumnus::class, function (Faker $faker) {
         'zipcode' => $faker->postcode,
         'year_graduated' => $faker->year,
         'volunteer' => $faker->randomElement($array = array(0,1)),
-        'loyal_lion' => $faker->randomElement($array = array(0,1))
+        'loyal_lion' => $faker->randomElement($array = array(0,1)),
+        'initial_setup' => 1
     ];
 });
