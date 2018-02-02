@@ -18,6 +18,7 @@
                     <th>Email</th>
                     <th>State</th>
                     <th>Zip Code</th>
+                    <th>Graduation Year</th>
                     <th>Volunteer?</th>
                     <th>Loyal Lion?</th>
                     <th>Last Login</th>
@@ -72,6 +73,7 @@ $(function() {
             { data: 'email' },
             { data: 'state' },
             { data: 'zipcode' },
+            { data: 'year_graduated' },
             { data: 'volunteer' },
             { data: 'loyal_lion' },
             { data: 'last_login_at', orderData: 7 },
