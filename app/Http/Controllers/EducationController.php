@@ -130,7 +130,7 @@ class EducationController extends Controller
         $education->save();
 
         Session::flash('success', 'The education milestone was successfully saved.');
-        return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
+        return redirect()->route('users.show', compact('user'));
     }
 
     /**
@@ -145,7 +145,7 @@ class EducationController extends Controller
     {
         $education->delete();
 
-        Session::flash('alert', 'The education milestone was succesfully deleted.');
-        return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
+        Session::flash('alert', 'The education milestone was successfully deleted.');
+        return redirect()->route('users.show', compact('user'));
     }
 }
