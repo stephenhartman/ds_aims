@@ -71,8 +71,29 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-md-6">
+                                <figure class="figure text-center">
+                                    <a href="https://smile.amazon.com/registry/wishlist/C9G0108K8GEM/ref=cm_sw_r_cp_ep_ws_gpBPzbG3V92Q1"
+                                       target="_blank">
+                                        <img class="img-thumbnail img-responsive" src="{{ url('images/donate_supplies.png') }}">
+                                    </a>
+                                    <figcaption class="figure-caption">
+                                        <h4>Help stock our classrooms</h4>
+                                        <p>What exactly do we need?</p>
+                                    </figcaption>
+                                    <a class="btn btn-lg btn-primary"
+                                       href="https://smile.amazon.com/registry/wishlist/C9G0108K8GEM/ref=cm_sw_r_cp_ep_ws_gpBPzbG3V92Q1"
+                                       target="_blank">
+                                        Shop now
+                                    </a>
+                                </figure>
+                                </a>
+                            </div>
                             <div class="col-md-6 text-center">
-                                <a href="mailto:?Subject=DePaul%20School%20Referral" target="_top" class="btn btn-sm btn-primary">Refer a Friend to DePaul</a>
+                                <br><br>
+                                    <a href="mailto:?Subject=DePaul%20School%20Referral" target="_top" class="btn btn-sm btn-primary"
+                                    >Refer a Friend to DePaul</a>
+                                </div>
                             </div>
                         </div>
                     </div>
