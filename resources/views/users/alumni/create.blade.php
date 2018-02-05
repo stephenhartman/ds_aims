@@ -29,8 +29,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
-                                    {{ Form::checkbox('volunteer', 1, null, ['class' => 'form-control'] ) }}
+                                    {{ Form::label('photo_url', 'Upload a profile picture') }}
+                                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -41,12 +41,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    {{ Form::label('photo_url', 'Upload a profile picture') }}
-                                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
