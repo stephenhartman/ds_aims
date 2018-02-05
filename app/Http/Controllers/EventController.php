@@ -53,6 +53,8 @@ class EventController extends Controller
                     );
                 } else {
                     $enroll = $this->getSignUp($value->id);
+                    $enroll_id = $enroll->id;
+                    $event_obj = $value->id;
 
                     $events[] = Calendar::event(
                         $value->name . " YOU ARE SIGNED UP",
@@ -64,7 +66,7 @@ class EventController extends Controller
                             'description' => $value->description,
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
-                            'sign_up' => route('events.user_sign_up.edit', [$value->id, $enroll->id]),
+                            'sign_up' => route('events.user_sign_up.edit', compact('event_obj', 'enroll_id')),
                             'button' => 'Sign down for an event',
                             'enroll_index' => route('events.user_sign_up.index', $value->id),
                         ]

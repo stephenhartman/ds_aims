@@ -15,8 +15,10 @@ use App\User_Sign_Up;
 
 class User_Sign_Up_Controller extends Controller
 {
-    public function index()
+    public function index(Event $event)
     {
+        $volunteers = User_Sign_Up::where('event_id', $event->id)->get();
+        return view('events.user_sign_up.index', compact('event', 'volunteers'));
     }
 
 
@@ -34,6 +36,7 @@ class User_Sign_Up_Controller extends Controller
         $enroll->event_id = $request->event_id;
         $enroll->number_attending = $request->number_attending;
         $enroll->notes = $request->notes;
+        $enroll->unenroll = false;
 
         $enroll->save();
 
@@ -46,15 +49,20 @@ class User_Sign_Up_Controller extends Controller
         return view('events.user_sign_up.show', compact('event','enroll'));
     }
 
-    public function edit(Event $event, User_Sign_Up $enroll)
+    public function edit(Event $event, $enroll_id)
     {
-        //$event = Event::where('id',$event_id)->first();
+        $enroll = User_Sign_Up::where('id', $enroll_id)->first();
         return view('events.user_sign_up.edit', compact('event','enroll'));
     }
 
-    public function destroy(Event $event, User_Sign_Up $sign_Up)
+    public function update(Event $event, User_Sign_Up $enroll, Request $request)
     {
-        $sign_Up->delete();
+        $enroll->number_attending = $request->number_attending;
+    }
+    public function destroy(Event $event, $enroll_id)
+    {
+        $enroll = User_Sign_Up::find($enroll_id);
+        $enroll->delete();
         return redirect()->route('events.index');
     }
 }
