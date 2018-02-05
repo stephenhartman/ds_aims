@@ -163,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-		Intervention\Image\ImageServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -192,6 +192,21 @@ return [
          * Socialite for Social authorization
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+
+        /*
+         * Reverse seed generator
+         */
+        Orangehill\Iseed\IseedServiceProvider::class,
+
+        /*
+         * Photo upload dependencies
+         */
+        Intervention\Image\ImageServiceProvider::class,
+
+        /*
+         * HTML 5 Purifier
+         */
+        Mews\Purifier\PurifierServiceProvider::class,
 
     ],
 
@@ -247,6 +262,7 @@ return [
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Image' => Intervention\Image\Facades\Image::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
     ],
 
 ];
