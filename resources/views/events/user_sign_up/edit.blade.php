@@ -14,6 +14,7 @@
                             <div class="col-md-8">
                                 <div class="panel-title">
                                     <h4>{{ $event->name }}</h4>
+                                    <h4> ID {{$enroll->id}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +45,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-md-6">
-                                        {{ Form::open(['route' => ['events.user_sign_up.destroy', $event->id, $enroll->id], 'method' => 'DELETE']) }}
+                                        {{ Form::open(['route' => ['events.user_sign_up.destroy', $event->id, $enroll->id], 'method' => 'delete']) }}
                                         {{ Form::submit('Delete')}}
                                         {{ Form::close() }}
                                     </div>
