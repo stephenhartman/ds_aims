@@ -44,19 +44,20 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if ($user->hasRole('alumni')) {
-            $alumnus = $user->alumnus()->first();
-            $educations = Education::where('alumni_id', $alumnus->id)->get();
-            $occupations = Occupation::where('alumni_id', $alumnus->id)->get();
-            if (Auth::user() == $user)
-                return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
-            else {
-                Session::flash('error', 'You are not authorized to view this page.');
-                return redirect()->route('home');
-            }
-        }
-        if (Auth::user()->hasRole('admin'))
+        if (Auth::user() == $user && Auth::user()->hasRole('admin'))
             return view('admin.show', compact('user'));
+
+        $alumnus = $user->alumnus()->first();
+        $educations = Education::where('alumni_id', $alumnus->id)->get();
+        $occupations = Occupation::where('alumni_id', $alumnus->id)->get();
+        if (Auth::user()->hasRole('admin'))
+            return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
+        elseif (Auth::user() == $user)
+            return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
+        else {
+            Session::flash('error', 'You are not authorized to view this page.');
+            return redirect()->route('home');
+        }
     }
     /**
      * Process DataTables ajax request.
