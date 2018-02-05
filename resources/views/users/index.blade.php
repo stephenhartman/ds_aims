@@ -1,18 +1,27 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.bootstrap.min.css">
+@endpush
+
 @section('title', 'Users')
 
 @section('content')
-    <div class="container">
+    <div class="container table-responsive">
         <h2>All Users</h2>
         <hr>
-        <table class="table table-bordered table-striped table-responsive dataTable" id="users-table">
+        <table class="table table-bordered table-striped dataTable" id="users-table">
             <thead class="thead-inverse">
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>Last Login At</th>
+                    <th>State</th>
+                    <th>Zip Code</th>
+                    <th>Graduation Year</th>
+                    <th>Volunteer?</th>
+                    <th>Loyal Lion?</th>
+                    <th>Last Login</th>
                 </tr>
             </thead>
         </table>
@@ -52,24 +61,23 @@ $(function() {
             text:      'Print <i class="fa fa-print"></i>',
             titleAttr: 'Print'
         },
-        {
-            extend:    'pdf',
-            text:      'Export to PDF <i class="fa fa-print"></i>',
-            titleAttr: 'PDF'
-        }
         ],
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
         processing: true,
-        responsive: true,
         ajax: {
             "url": '{{ url('users-data') }}',
             "type": 'POST',
         },
         columns: [
-        { data: 'id' },
-        { data: 'name' },
-        { data: 'email' },
-        { data: 'last_login_at' },
+            { data: 'name' },
+            { data: 'email' },
+            { data: 'state' },
+            { data: 'zipcode' },
+            { data: 'year_graduated' },
+            { data: 'volunteer' },
+            { data: 'loyal_lion' },
+            { data: 'last_login_at', orderData: 8 },
+            { data: 'date_sort', type: 'num', visible: false }
         ],
     });
 });

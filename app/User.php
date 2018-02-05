@@ -2,13 +2,12 @@
 
 namespace App;
 
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +34,16 @@ class User extends Authenticatable
     protected $casts = [
         'settings' => 'array'
     ];
+
+    /**
+     * One user has one alum
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function alumnus()
+    {
+        return $this->hasOne(Alumnus::class);
+    }
 
     /**
      * One user to many posts
@@ -90,5 +99,30 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return null !== $this->roles()->where('name', $role)->first();
+    }
+
+    /**
+     * Splits the name and returns first name for form usage
+     *
+     * @return mixed
+     */
+    public function firstName()
+    {
+        $name = explode(" ", $this->name, 2);
+        return $name[0];
+
+    }
+
+    /**
+     * Splits the name string and returns last name for form usage
+     *
+     * @return string
+     */
+    public function lastName()
+    {
+        $name = explode(" ", $this->name, 2);
+        $last_name = !empty($name[1]) ? $name[1] : '';
+        return $last_name;
+
     }
 }

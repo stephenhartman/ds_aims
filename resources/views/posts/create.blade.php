@@ -37,7 +37,7 @@
             {{ Form::text('title', null, array('class' => 'form-control')) }}
             <br>
             {{ Form::label('alumni', 'Post Category') }}
-            {{ Form::select('alumni', ['Admin' => 'Administrator', 'Alum' => 'Alumni'], null, ['placeholder' => 'Pick a post category...', 'class' => 'form-control']) }}
+            {{ Form::select('alumni', ['Admin' => 'Administrator', 'Alumnus' => 'Alumni'], null, ['placeholder' => 'Pick a post category...', 'class' => 'form-control']) }}
             <br>
 			{{ Form::label('featured_img', 'Upload an image to DePaul') }}
 			{{ Form::file('featured_img') }}
