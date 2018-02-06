@@ -36,7 +36,7 @@ class EventSignUpController extends Controller
         $enroll->event_id = $request->event_id;
         $enroll->number_attending = $request->number_attending;
         $enroll->notes = $request->notes;
-        $enroll->unenroll = false;
+
 
         $enroll->save();
 
@@ -64,12 +64,6 @@ class EventSignUpController extends Controller
         $enroll->number_attending = $request->number_attending;
         $notes = $enroll->notes;
         $enroll->notes = $notes . "\n" . $request->notes;
-        $unenroll = $request->unenroll;
-        if($unenroll == 1) {
-            $enroll->unenroll = true;
-        }else{
-            $enroll->unenroll = false;
-        }
 
         $enroll->save();
 
@@ -77,7 +71,7 @@ class EventSignUpController extends Controller
     }
     public function destroy(Event $event, $enroll_id)
     {
-        $enroll = EventSignUp::find($enroll_id);
+        $enroll = EventSignUp::where('id', $enroll_id)->first();
         $enroll->delete();
         return redirect()->route('events.index');
     }

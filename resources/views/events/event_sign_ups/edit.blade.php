@@ -14,7 +14,6 @@
                             <div class="col-md-8">
                                 <div class="panel-title">
                                     <h4>{{ $event->name }}</h4>
-                                    <h4> ID {{$enroll->id}}</h4>
                                 </div>
                             </div>
                         </div>
@@ -44,24 +43,18 @@
                         <div class="panel-footer">
                             <div class="row">
                                 <div class="col-md-6">
+
+                                            {{ Form::open(['route' => ['events.event_sign_ups.destroy', $event->id, $enroll->id], 'method' => 'DELETE']) }}
+                                            {{ Form::button('<i class="glyphicon glyphicon-trash"></i> I can no longer attend', array(
+                                                'type' => 'submit',
+                                                'data-id' => $enroll->id,
+                                                'class' => 'btn btn-danger btn-lg btn-block',
+                                                'onclick' => "return confirm('Are you sure?')")) }}
+
+                                            {{ Form::close() }}
+                                        </div>
                                     <div class="col-md-6">
-                                        {{ Form::open(['route' => ['events.event_sign_ups.update', $event->id, $enroll->id], 'method' => 'PUT']) }}
-                                            {{Form::hidden('user_id', $user, array('class' => 'form-control') )}}
-                                            <br>
-                                            {{Form::hidden('event_id', $event->id, array('class' => 'form-control') )}}
-                                            <br>
-                                            {{Form::label('number_attending','Number Attending')}}
-                                            {{Form::number('number_attending', $enroll->number_attending, array('class' => 'form-control') )}}
-                                            <br>
-                                            {{Form::label('notes','Notes')}}
-                                            {{Form::text('notes', $enroll->notes, array('class' => 'form-control') )}}
-                                            <br>
-                                            {{Form::label('unenroll', 'I can no long attend this event')}}
-                                            {{Form::checkbox('unenroll', 1, false, array('class' => 'form-controll'))}}
-                                            <br>
-                                            {{Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px'))}}
-                                        {!! Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block", 'style' => 'margin-top: 20px')) !!}
-                                        {{ Form::close() }}
+                                        {!! Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block")) !!}
                                     </div>
                                 </div>
                             </div>

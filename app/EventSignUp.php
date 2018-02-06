@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class EventSignUp extends Model
 {
-
+    use SoftDeletes;
 
     public $table = "event_sign_ups";
     protected $fillable = [
         'user_id', 'event_id', 'number_attending', 'notes'
     ];
+    protected $dates = ['deleted_at'];
 
     public function event()
     {
