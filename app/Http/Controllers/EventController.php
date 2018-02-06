@@ -67,7 +67,7 @@ class EventController extends Controller
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
                             'sign_up' => route('events.event_sign_ups.edit', compact('event_obj', 'enroll_id')),
-                            'button' => 'Sign down for an event',
+                            'button' => 'I can no longer attend',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
                         ]
                     );
@@ -127,7 +127,7 @@ class EventController extends Controller
     private function signUp_exists($id)
     {
         $user_id = Auth::id();
-        if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->where('unenroll', 0)->exists())
+        if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->exists())
         {
             $flag = 1;
         }else{
