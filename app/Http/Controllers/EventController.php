@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\User_Sign_Up;
+use App\EventSignUp;
 use Illuminate\Http\Request;
 use App\Event;
 use Illuminate\Support\Facades\DB;
@@ -45,9 +45,9 @@ class EventController extends Controller
                             'description' => $value->description,
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
-                            'sign_up' => route('events.user_sign_up.create', $value->id),
+                            'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
-                            'enroll_index' => route('events.user_sign_up.index', $value->id),
+                            'enroll_index' => route('events.event_sign_ups.index', $value->id),
                             //'sign_down' => ''
                         ]
                     );
@@ -66,9 +66,9 @@ class EventController extends Controller
                             'description' => $value->description,
                             'color' => $this->getColor($value->type),
                             'link' => route('events.edit', $value->id),
-                            'sign_up' => route('events.user_sign_up.edit', compact('event_obj', 'enroll_id')),
+                            'sign_up' => route('events.event_sign_ups.edit', compact('event_obj', 'enroll_id')),
                             'button' => 'Sign down for an event',
-                            'enroll_index' => route('events.user_sign_up.index', $value->id),
+                            'enroll_index' => route('events.event_sign_ups.index', $value->id),
                         ]
                     );
 
@@ -127,7 +127,7 @@ class EventController extends Controller
     private function signUp_exists($id)
     {
         $user_id = Auth::id();
-        if(User_Sign_Up::where('user_id', $user_id)->where('event_id', $id)->exists())
+        if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->where('unenroll', 0)->exists())
         {
             $flag = 1;
         }else{
@@ -138,7 +138,7 @@ class EventController extends Controller
     private function getSignUp($id)
     {
         $user_id = Auth::id();
-        $enroll = User_Sign_Up::where('user_id', $user_id)->where('event_id', $id)->first();
+        $enroll = EventSignUp::where('user_id', $user_id)->where('event_id', $id)->first();
 
             return $enroll;
 

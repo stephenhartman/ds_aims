@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User_Sign_Up extends Model
+class EventSignUp extends Model
 {
-    public $table = "user_sign_ups";
+
+
+    public $table = "event_sign_ups";
     protected $fillable = [
         'user_id', 'event_id', 'number_attending', 'notes'
     ];

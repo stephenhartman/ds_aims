@@ -13,7 +13,7 @@ class CreateUserSignUpTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_sign_ups', function (Blueprint $table) {
+        Schema::create('event_sign_ups', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('event_id');
@@ -31,6 +31,6 @@ class CreateUserSignUpTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_sign_up');
+        Schema::dropIfExists('event_sign_ups');
     }
 }
