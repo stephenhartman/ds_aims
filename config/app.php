@@ -187,6 +187,8 @@ return [
          * Datatables Providers...
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
+        Yajra\Datatables\HtmlServiceProvider::class,
 
         /*
          * Socialite for Social authorization

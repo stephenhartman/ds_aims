@@ -31,8 +31,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
-Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
-Route::match(['get', 'post'], '/users-data', 'UserController@data');
+Route::resource('users', 'UserController', ['only' => 'index', 'show']);
+//Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 // Nested routes for alumni
 Route::get('users/{user}/alumni/{alumnus}/final', 'AlumnusController@final_step')->name('final_step');

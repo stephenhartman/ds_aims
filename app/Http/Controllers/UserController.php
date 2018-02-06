@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UsersDataTable;
 use App\Education;
 use App\Occupation;
 use App\User;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use \Carbon\Carbon;
-use Html;
 
 class UserController extends Controller
 {
@@ -25,12 +25,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param UsersDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UsersDataTable $dataTable)
     {
         if (Auth::user()->hasRole('admin')) {
-            return view('users.index');
+            return $dataTable->render('users');
         }
         Session::flash('error', 'You are not authorized to view this page.');
         return redirect()->route('home');
