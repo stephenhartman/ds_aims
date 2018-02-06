@@ -91,7 +91,7 @@
                                 {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
                             </div>
                             <div class="col-md-6">
-                                {!! Html::linkRoute('users.alumni.milestones.index', 'Cancel', array($user, $alumnus), array('class' => "btn btn-warning btn-lg btn-block", 'style' => 'margin-top: 20px')) !!}
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Cancel</a>
                             </div>
                         </div>
                         {!! Form::close() !!}

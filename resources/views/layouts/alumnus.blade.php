@@ -163,7 +163,7 @@
                 {{ Form::close() }}
             </div>
             <div class="col-md-3">
-                {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block", 'onclick' => "return confirm('Are you sure you want to cancel account creation?')")) !!}
+                {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block")) !!}
             </div>
             <div class="text-center col-md-6">
                 <h5>
