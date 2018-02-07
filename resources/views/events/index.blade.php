@@ -7,28 +7,19 @@
 @section('title', 'Events')
 
 @section('content')
+
     <div class="row">
-        <div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
-            <h1>Event Calendar</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-1">
+        <div class="col-md-2">
             <div class="bg-volunteer text-white"> Volunteer events are blue</div>
             <div class="bg-reunion text-white"> Reunion events are red</div>
             <div class="bg-community_event text-white"> Community events are green</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            {!! $calendar->calendar() !!}
 
-            {!! $calendar->script() !!}
+        </div>
+            <div class="col-md-10">
+                {!! $calendar->calendar() !!}
+
+                {!! $calendar->script() !!}
+            </div>
         </div>
     </div>
     <div id="calendarModal" class="modal fade">

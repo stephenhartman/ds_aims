@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="panel-title">
-                                    <h4>{{ $event->name }}</h4>
+                                    <h4>{{ $event->name }}</h4>g
                                 </div>
                             </div>
                         </div>
