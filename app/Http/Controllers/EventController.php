@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EventChild;
 use App\User;
 use App\EventSignUp;
 use Illuminate\Http\Request;
@@ -27,7 +28,8 @@ class EventController extends Controller
         $events = [];
         $exists_arr = [];
         $data = Event::all();
-        if($data->count()){
+        $data2 = EventChild::all();
+        if($data->count()) {
             foreach ($data as $key => $value) {
                 $start_date = new Carbon($value->start_date);
                 $sd = $start_date->toDateTimeString();
@@ -36,7 +38,7 @@ class EventController extends Controller
                 $exists = $this->signUp_exists($value->id);
                 if ($exists == 0) {
                     $events[] = Calendar::event(
-                        $value->name,
+                        $value->title,
                         false,
                         $sd,
                         $ed,
@@ -74,9 +76,33 @@ class EventController extends Controller
 
                 }
             }
-
-
+        }
+        if($data2->count()){
+            foreach ($data2 as $key => $value) {
+                $parent = Event::where('id', $value->parent_id)->first();
+                $start_date = new Carbon($value->start_date);
+                $sd = $start_date->toDateTimeString();
+                $end_date = new Carbon($value->end_date);
+                $ed = $end_date->toDateTimeString();
+                $events[] = Calendar::event(
+                    $value->title,
+                    false,
+                    $sd,
+                    $ed,
+                    $value->id,
+                    [
+                        'description' => $parent->description,
+                        'color' => $this->getColor($parent->type),
+                        'link' => route('events.edit', $value->id),
+                        'sign_up' => route('events.event_sign_ups.create', $value->id),
+                        'button' => 'Sign up for an event',
+                        'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                        //'sign_down' => ''
+                    ]
+                );
             }
+
+        }
         $calendar = Calendar::addEvents($events)
             ->setOptions([
                 'fixedWeekCount' => false
@@ -163,17 +189,63 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
+        if ($request->repeats == 0){
+            $event = new Event;
+            $event->title = $request->event_title;
+            $event->type = $request->event_type;
+            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+            $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+            $event->description = $request->event_description;
+            $event->repeats = 0;
+            $event->repeat_freq = 0;
+            $event->repeat_until = 0;
+            $event->save();
 
-        $event = new Event;
-        $event->name = $request->event_name;
-        $event->type = $request->event_type;
-        $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-        $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
-        $event->description = $request->event_description;
+            return redirect()->route('events.show', $event);
+        }else{
+            $repeats = $request->repeats;
+            $repeat_freq = $request->repeat_freq;
+            $repeat_until = new Carbon($request->repeat_until);
+            $date_holder = new Carbon($request->event_start_date);
 
-        $event->save();
 
-        return redirect()->route('events.show', $event);
+
+            $event = new Event;
+            $event->title = $request->event_title;
+            $event->type = $request->event_type;
+            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+            $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+            $event->description = $request->event_description;
+            $event->repeats = 0;
+            $event->repeat_freq = 0;
+            $event->repeat_until = 0;
+            $event->save();
+
+            $parent_id = $event->id;
+
+            while($date_holder->lt($repeat_until))
+            {
+                if($repeat_freq == 0){
+                    $date_holder->addDay();
+                }elseif ($repeat_freq == 1){
+                    $date_holder->addWeek();
+                }elseif ($repeat_freq == 2){
+                    $date_holder->addWeeks(2);
+                }else{
+                    $date_holder->addMonth();
+                }
+                $date_holder_clone = $date_holder;
+                $date_holder_format = $date_holder_clone->format('Y-m-d');
+                $event_child = new EventChild;
+                $event_child->parent_id = $parent_id;
+                $event_child->title = $request->event_title;
+                $event_child->start_date = $date_holder_format . " " . $request->event_start_time;
+                $event_child->end_date = $date_holder_format . " " . $request->event_end_time;
+                $event_child->save();
+            }
+            return redirect()->route('events.index');
+        }
+
     }
 
     /**

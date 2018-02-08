@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $event->name )
+@section('title', $event->title )
 
 @section('content')
     <div class="col-md-8 col-md-offset-2">
@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="panel-title">
-                            <h4>{{ $event->name }}</h4>
+                            <h4>{{ $event->title }}</h4>
                         </div>
                     </div>
                 </div>
