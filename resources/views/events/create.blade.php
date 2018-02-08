@@ -10,25 +10,22 @@
             <hr>
             {!! Form::open(['route' => 'events.store']) !!}
                 {{Form::label('event_title','Event Title')}}
-                {{Form::text('event_title', null, array('class' => 'form-control') )}}
+                {{Form::text('event_title', null, array('class' => 'form-control', 'required' => 'required') )}}
                 <br>
                 {{Form::label('event_type','Event Type')}}
-                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['placeholder' => 'Pick an event category...', 'class' => 'form-control']) }}
+                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['class' => 'form-control', 'placeholder' => 'Please Select an Option']) }}
                 <br>
-                {{Form::label ('event_start_date', 'Event Start  Date')}}
+                {{Form::label ('event_start_date', 'Event Date')}}
                 {{Form::date('event_start_date', \Carbon\Carbon::now(), array('class' => 'form-control') )}}
                 <br>
                 {{Form::label ('event_start_time', 'Event Start Time')}}
-                {{Form::time('event_start_time', null, array('class' => 'form-control') )}}
-                <br>
-                {{Form::label ('event_end_date', 'Event End Date')}}
-                {{Form::date('event_end_date', \Carbon\Carbon::now(), array('class' => 'form-control') )}}
+                {{Form::time('event_start_time', \Carbon\Carbon::now()->toTimeString(), array('class' => 'form-control') )}}
                 <br>
                 {{Form::label ('event_end_time', 'Event End Time')}}
-                {{Form::time('event_end_time', null, array('class' => 'form-control') )}}
+                {{Form::time('event_end_time', \Carbon\Carbon::now()->toTimeString(), array('class' => 'form-control') )}}
                 <br>
                 {{Form::label ('event_description', 'Event Description')}}
-                {{Form::text('event_description', null, array('class' => 'form-control') )}}
+                {{Form::text('event_description', null, array('class' => 'form-control', 'required' => 'required') )}}
                 <br>
                 {{Form::label ('repeats', 'Repeating Event')}}
                 {{Form::checkbox ('repeats', 1, false)}}

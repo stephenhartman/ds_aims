@@ -16,9 +16,9 @@ class CreateEventChildTable extends Migration
         Schema::create('events_child', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('parent_id');
-            $table->text('title');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->text('updates')->nullable();
             $table->timestamps();
         });
     }
