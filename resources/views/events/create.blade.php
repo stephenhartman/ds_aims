@@ -9,8 +9,8 @@
             <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Create new event</h1>
             <hr>
             {!! Form::open(['route' => 'events.store']) !!}
-                {{Form::label('event_name','Event Name')}}
-                {{Form::text('event_name', null, array('class' => 'form-control') )}}
+                {{Form::label('event_title','Event Title')}}
+                {{Form::text('event_title', null, array('class' => 'form-control') )}}
                 <br>
                 {{Form::label('event_type','Event Type')}}
                 {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['placeholder' => 'Pick an event category...', 'class' => 'form-control']) }}
@@ -29,6 +29,15 @@
                 <br>
                 {{Form::label ('event_description', 'Event Description')}}
                 {{Form::text('event_description', null, array('class' => 'form-control') )}}
+                <br>
+                {{Form::label ('repeats', 'Repeating Event')}}
+                {{Form::checkbox ('repeats', 1, false)}}
+
+                {{Form::label ('repeat_freq', 'Repeats how often')}}
+                {{Form::select('repeat_freq', ['Daily', 'Weekly','Biweekly','Monthly'])}}
+
+                {{Form::label ('repeat_until', 'Repeats until')}}
+                {{Form::date ('repeat_until',\Carbon\Carbon::now() )}}
                 <br>
                 {{Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px'))}}
                 {!! Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block", 'style' => 'margin-top: 20px')) !!}
