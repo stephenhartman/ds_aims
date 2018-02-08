@@ -26,7 +26,6 @@ class EventController extends Controller
     {
 
         $events = [];
-        $exists_arr = [];
         $data = Event::all();
         $data2 = EventChild::all();
         if($data->count()) {
@@ -50,7 +49,6 @@ class EventController extends Controller
                             'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
-                            //'sign_down' => ''
                         ]
                     );
                 } else {
@@ -73,19 +71,19 @@ class EventController extends Controller
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
                         ]
                     );
-
                 }
             }
         }
         if($data2->count()){
             foreach ($data2 as $key => $value) {
                 $parent = Event::where('id', $value->parent_id)->first();
+                $child_id = $value->id;
                 $start_date = new Carbon($value->start_date);
                 $sd = $start_date->toDateTimeString();
                 $end_date = new Carbon($value->end_date);
                 $ed = $end_date->toDateTimeString();
                 $events[] = Calendar::event(
-                    $value->title,
+                    $parent->title,
                     false,
                     $sd,
                     $ed,
@@ -93,11 +91,10 @@ class EventController extends Controller
                     [
                         'description' => $parent->description,
                         'color' => $this->getColor($parent->type),
-                        'link' => route('events.edit', $value->id),
+                        'link' => route('events.event_child.edit', compact('parent', 'child_id')),
                         'sign_up' => route('events.event_sign_ups.create', $value->id),
                         'button' => 'Sign up for an event',
                         'enroll_index' => route('events.event_sign_ups.index', $value->id),
-                        //'sign_down' => ''
                     ]
                 );
             }
@@ -118,26 +115,6 @@ class EventController extends Controller
                                 }'
             ]);
         return view('events.index', compact('calendar'));
-        /**
-        $calendar = Calendar::addEvents($events)
-            ->setOptions([
-                'fixedWeekCount' => false
-            ])
-            ->setCallbacks([
-                'eventClick' => 'function(event, jsEvent, view) {
-            $("#modalTitle").html("<strong>" + event.title + "</strong>");
-            $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
-            $("#eventUrl").attr("href", event.link);
-            $("#sign_up").attr("href", event.sign_up);
-            $("#sign_down").attr("href", event.sign_down);
-            $("#calendarModal").modal();
-                }'
-            ]);
-        return view('events.index', compact('calendar'));
-        **/
-        //$events = Event::orderBy('date')->get();
-
-        //return view('events.index', compact('events'));
     }
 
     private function getColor($type)
@@ -188,21 +165,40 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-
         if ($request->repeats == 0){
+            $this->validate($request,[
+                'event_title' => 'required',
+                'event_type' => 'required',
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_description' => 'required'
+            ]);
+
             $event = new Event;
             $event->title = $request->event_title;
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
             $event->repeat_until = 0;
             $event->save();
 
-            return redirect()->route('events.show', $event);
+            return redirect()->route('events.index');
         }else{
+            $this->validate($request,[
+                'event_title' => 'required',
+                'event_type' => 'required',
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_description' => 'required',
+                'repeat_freq' => 'required',
+                'repeat_until' => 'required|date_format:Y-m-d|after:event_start_date'
+            ]);
+
             $repeats = $request->repeats;
             $repeat_freq = $request->repeat_freq;
             $repeat_until = new Carbon($request->repeat_until);
@@ -214,7 +210,7 @@ class EventController extends Controller
             $event->title = $request->event_title;
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
@@ -238,14 +234,12 @@ class EventController extends Controller
                 $date_holder_format = $date_holder_clone->format('Y-m-d');
                 $event_child = new EventChild;
                 $event_child->parent_id = $parent_id;
-                $event_child->title = $request->event_title;
                 $event_child->start_date = $date_holder_format . " " . $request->event_start_time;
                 $event_child->end_date = $date_holder_format . " " . $request->event_end_time;
                 $event_child->save();
             }
             return redirect()->route('events.index');
         }
-
     }
 
     /**
@@ -271,7 +265,7 @@ class EventController extends Controller
         $start_date = new Carbon($event->start_date);
         $sd = $start_date->toDateString();
         $st = $start_date->toTimeString();
-        $end_date = new Carbon($event->end_time);
+        $end_date = new Carbon($event->end_date);
         $ed = $end_date->toDateString();
         $et = $end_date->toTimeString();
 
@@ -288,17 +282,26 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $event->name = $request->event_name;
+        $this->validate($request,[
+            'event_title' => 'required',
+            'event_type' => 'required',
+            'event_start_date' => 'required|date_format:Y-m-d',
+            'event_start_time' => 'required|date_format:H:i:s',
+            'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+            'event_description' => 'required'
+        ]);
+
+        $event->title = $request->event_title;
         $event->type = $request->event_type;
         $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-        $event->end_date  = $request->event_end_date . " " . $request->event_end_time;
+        $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
         $event->description = $request->event_description;
         $event->save();
 
         // set flash data with success message
         Session::flash('success', 'The event was successfully saved.');
 
-        return redirect()->route('events.show', $event->id);
+        return redirect()->route('events.index');
     }
 
     /**
