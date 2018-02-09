@@ -87,7 +87,7 @@ class AlumnusController extends Controller
                 if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
                 {
                     $filename = bin2hex(random_bytes(12)) . '.' . $extension;
-                    $location = public_path('/images/' . $filename);
+                    $location = public_path('/images/alumni' . $filename);
                     $img = Image::make($image);
                     $img->resize(320, null, function ($constraint) {
                         $constraint->aspectRatio();
@@ -177,7 +177,7 @@ class AlumnusController extends Controller
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
             {
                 $filename = bin2hex(random_bytes(12)) . '.' . $extension;
-                $location = public_path('/images/' . $filename);
+                $location = public_path('/images/alumni/' . $filename);
                 $img = Image::make($image);
                 $img->resize(320, null, function ($constraint) {
                     $constraint->aspectRatio();
