@@ -37,10 +37,12 @@
                         <li>
                             <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
-                        @if (Auth::user()->alumnus->initial_setup == 1)
-                            <li>
-                                <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
-                            </li>
+                        @if (Auth::user()->alumnus !== null))
+                            @if (Auth::user()->alumnus->initial_setup == 1)
+                                <li>
+                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
+                                </li>
+                            @endif
                         @endif
                     @endif
                 @endif
