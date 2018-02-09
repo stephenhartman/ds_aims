@@ -36,7 +36,7 @@ Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 // Nested routes for alumni
-Route::get('users/{user}/alumni/{alumnus}/final', 'AlumnusController@final_step')->name('final_step');
+Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
 Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');
 Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
 Route::resource('users.alumni.milestones', 'MileStoneController', ['only' => 'index']);
