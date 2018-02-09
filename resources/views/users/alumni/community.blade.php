@@ -14,9 +14,11 @@
                         @if ($alumnus->initial_setup == 0)
                             {{ Form::open(['route' => array('final_store', $user, $alumnus)]) }}
                             <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <img src="{{ url('images/logo.png')}}">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    <img class="img-responsive" src="{{ url('images/logo.png')}}">
                                 </div>
+                                <div class="col-md-5"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -117,11 +119,11 @@
                 </div>
                 @else
                     <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-5"></div>
+                        <div class="col-md-2 text-center">
                             <img class="img-responsive" src="{{ url('images/logo.png')}}">
                         </div>
-                        <div class="col-md-4"></div>
+                        <div class="col-md-5"></div>
                     </div>
                 <br>
                     <div class="row">

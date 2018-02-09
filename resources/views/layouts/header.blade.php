@@ -11,7 +11,7 @@
             <!-- Branding Image -->
             <a class="pull-left" href="{{ url('/home') }}">
                 <span>
-                    <img class="depaul-brand" src="https://mediaprocessor.websimages.com/fit/1920x1920/www.depaulschool.com/Large DePaul Lion Head Silhouette Facing Right.png" height="40px">
+                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="40px">
                 </span>
                 <p class="navbar-brand" style="float:right; padding-left:1.5em">DePaul Alumni System</p>
             </a>
