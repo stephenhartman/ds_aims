@@ -22,7 +22,7 @@
                     <div class="col-md-12">
                         <a class="btn" href="http://www.depaulschool.com" target="_blank" title="Home Page">
                                 <span>
-                                    <img class="social" src="https://mediaprocessor.websimages.com/fit/1920x1920/www.depaulschool.com/Large DePaul Lion Head Silhouette Facing Right.png" height="28px">
+                                    <img class="social" src="{{ url('/images/logo.png') }}" height="28px">
                                 </span>
                             Home Page
                         </a>
@@ -40,5 +40,6 @@
                 </div>
             </div>
         </div>
+        <br><br><br>
     </nav>
 </div>
