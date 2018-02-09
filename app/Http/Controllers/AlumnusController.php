@@ -205,9 +205,9 @@ class AlumnusController extends Controller
      * @param Alumnus $alumnus
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function final_step(User $user, Alumnus $alumnus)
+    public function community(User $user, Alumnus $alumnus)
     {
-        return view('users.alumni.final_step', compact('user','alumnus'));
+        return view('users.alumni.community', compact('user','alumnus'));
     }
 
     /**
