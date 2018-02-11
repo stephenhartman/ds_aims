@@ -11,8 +11,7 @@ class EventSignUp extends Model
 
     public $table = "event_sign_ups";
     protected $fillable = [
-        'user_id', 'event_id', 'number_attending', 'notes'
-    ];
+        'user_id', 'event_id', 'number_attending', 'notes'];
     protected $dates = ['deleted_at'];
 
     public function event()

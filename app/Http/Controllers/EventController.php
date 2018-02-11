@@ -49,6 +49,8 @@ class EventController extends Controller
                             'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                            'delete' => route('events.destroy', $value->id),
+                            'delete_btn' => 'Delete Event'
                         ]
                     );
                 } else {
@@ -69,6 +71,8 @@ class EventController extends Controller
                             'sign_up' => route('events.event_sign_ups.edit', compact('event_obj', 'enroll_id')),
                             'button' => 'I can no longer attend',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                            'delete' => route('events.destroy', $value->id),
+                            'delete_btn' => 'Delete Event'
                         ]
                     );
                 }
@@ -76,7 +80,8 @@ class EventController extends Controller
         }
         if($data2->count()){
             foreach ($data2 as $key => $value) {
-                $parent = Event::where('id', $value->parent_id)->first();
+                $parent = Event::withTrashed()->where('id', $value->parent_id)->first();
+                $parent_id = $parent->id;
                 $child_id = $value->id;
                 $start_date = new Carbon($value->start_date);
                 $sd = $start_date->toDateTimeString();
@@ -91,7 +96,7 @@ class EventController extends Controller
                     [
                         'description' => $parent->description,
                         'color' => $this->getColor($parent->type),
-                        'link' => route('events.event_child.edit', compact('parent', 'child_id')),
+                        'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                         'sign_up' => route('events.event_sign_ups.create', $value->id),
                         'button' => 'Sign up for an event',
                         'enroll_index' => route('events.event_sign_ups.index', $value->id),
@@ -111,6 +116,7 @@ class EventController extends Controller
                                 $("#eventUrl").attr("href", event.link);
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
                                 $("#sign_up").attr("href", event.sign_up).html(event.button);
+                                $("#delete").attr("href", event.delete).html(event.delete_btn);
                                 $("#calendarModal").modal();
                                 }'
             ]);
@@ -173,6 +179,7 @@ class EventController extends Controller
                 'event_start_time' => 'required|date_format:H:i:s',
                 'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
                 'event_description' => 'required'
+
             ]);
 
             $event = new Event;
@@ -183,7 +190,7 @@ class EventController extends Controller
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
-            $event->repeat_until = 0;
+            $event->repeat_until = $request->event_start_date . " " . $request->event_end_time;
             $event->save();
 
             return redirect()->route('events.index');
@@ -212,9 +219,9 @@ class EventController extends Controller
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->description = $request->event_description;
-            $event->repeats = 0;
-            $event->repeat_freq = 0;
-            $event->repeat_until = 0;
+            $event->repeats = $request->repeats;
+            $event->repeat_freq = $request->repeat_freq;
+            $event->repeat_until = $request->repeat_until;
             $event->save();
 
             $parent_id = $event->id;
@@ -262,6 +269,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+
         $start_date = new Carbon($event->start_date);
         $sd = $start_date->toDateString();
         $st = $start_date->toTimeString();
@@ -282,21 +290,54 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $this->validate($request,[
-            'event_title' => 'required',
-            'event_type' => 'required',
-            'event_start_date' => 'required|date_format:Y-m-d',
-            'event_start_time' => 'required|date_format:H:i:s',
-            'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
-            'event_description' => 'required'
-        ]);
+        $id = $event->id;
+        if($request->all_events == 0){
+            $this->validate($request,[
+                'event_title' => 'required',
+                'event_type' => 'required',
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_description' => 'required'
+            ]);
 
-        $event->title = $request->event_title;
-        $event->type = $request->event_type;
-        $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-        $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
-        $event->description = $request->event_description;
-        $event->save();
+            $event->title = $request->event_title;
+            $event->type = $request->event_type;
+            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->description = $request->event_description;
+            $event->save();
+        }else{
+
+            $this->validate($request,[
+                'event_title' => 'required',
+                'event_type' => 'required',
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_description' => 'required'
+            ]);
+
+            $event->title = $request->event_title;
+            $event->type = $request->event_type;
+            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->description = $request->event_description;
+            $event->save();
+
+            $children = EventChild::where('parent_id', $id)->get();
+            foreach($children as $child){
+                $child_start_date = new Carbon($child->start_date);
+                $event_start_date = new Carbon($request->start_date);
+
+                $csd = $child_start_date->toDateString();
+                $child->start_date = $csd . " " . $request->event_start_time;
+                $child->end_date  = $csd . " " . $request->event_end_time;
+                $child->updates = $request->updates;
+                $child->save();
+
+            }
+        }
 
         // set flash data with success message
         Session::flash('success', 'The event was successfully saved.');
@@ -310,9 +351,19 @@ class EventController extends Controller
      * @param Event $event
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event)
+    public function destroy(Request $request,Event $event)
     {
-        $event->delete();
+        $id = $event->id;
+        if($request->delete_all == 0){
+            $event->delete();
+        }else{
+            $children = EventChild::where('parent_id', $id)->get();
+            foreach($children as $child) {
+                $child->delete();
+            }
+            $event->delete();
+        }
+
 
         return redirect()->route('events.index');
     }

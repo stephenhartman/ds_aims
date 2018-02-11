@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="lead">Description: {{ $event->description }}</p>
+                        <p class="lead">{{ $event->description }}</p>
                     </div>
                 </div>
                 <div class="row">

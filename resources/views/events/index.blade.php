@@ -34,6 +34,7 @@
                     @if (Auth::user()->hasRole('admin'))
                         <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
                         <a class="btn btn-success" id="index" target="_blank"></a>
+                        <a class="btn btn-danger" id="delete"></a>
                     @endif
                     @if (!Auth::user()->hasRole('admin'))
                     <a class="btn btn-success" id="sign_up" target="_blank"></a>
