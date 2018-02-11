@@ -22,8 +22,9 @@ class MakeEventsTable extends Migration
            $table->dateTime('end_date');
            $table->integer('repeats');
            $table->integer('repeat_freq');
-           $table->integer('repeat_until');
+           $table->dateTime('repeat_until');
            $table->text('description');
+            $table->softDeletes();
            $table->timestamps();
 
 

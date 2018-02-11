@@ -38,7 +38,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <p class="lead">Description: {{ $event->description }}</p>
+                        <br>
+                        <p> {{ $event->description }}</p>
                     </div>
             </div>
             <div class="panel-footer">
@@ -64,5 +65,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

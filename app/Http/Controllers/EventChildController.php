@@ -55,6 +55,7 @@ class EventChildController extends Controller
      */
     public function show(Event $event, EventChild $event_child)
     {
+
         return view('events.event_child.show', compact('event','event_child'));
     }
 
@@ -64,8 +65,9 @@ class EventChildController extends Controller
      * @param  \App\EventChild  $eventChild
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event, EventChild $event_child)
+    public function edit($event_id, EventChild $event_child)
     {
+        $event = Event::withTrashed()->where('id', $event_id)->first();
         $start_date = new Carbon($event_child->start_date);
         $sd = $start_date->toDateString();
         $st = $start_date->toTimeString();
@@ -84,17 +86,58 @@ class EventChildController extends Controller
      * @param  \App\EventChild  $eventChild
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event, EventChild $event_child)
+    public function update(Request $request, $parent_id, EventChild $event_child)
     {
-        $event_child->start_date = $request->event_start_date . " " . $request->event_start_time;
-        $event_child->end_date  = $request->event_end_date . " " . $request->event_end_time;
-        $event_child->updates = $request->updates;
-        $event_child->save();
+
+        if($request->all_events == 0){
+
+            $this->validate($request, [
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time'
+            ]);
+
+            $event_child->start_date = $request->event_start_date . " " . $request->event_start_time;
+            $event_child->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event_child->updates = $request->updates;
+            $event_child->save();
+        }else{
+
+            $this->validate($request,[
+                'event_title' => 'required',
+                'event_type' => 'required',
+                'event_start_date' => 'required|date_format:Y-m-d',
+                'event_start_time' => 'required|date_format:H:i:s',
+                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_description' => 'required'
+            ]);
+
+            $event = Event::withTrashed()->where('id', $parent_id)->first();
+            $children = EventChild::where('parent_id', $parent_id)->get();
+
+            $event_date = new Carbon($event->start_date);
+            $ed = $event_date->toDateString();
+
+            $event->title = $request->event_title;
+            $event->type = $request->event_type;
+            $event->start_date = $ed . " " . $request->event_start_time;
+            $event->end_date = $ed . " " . $request->event_end_date;
+            $event->description = $request->event_description;
+            $event->save();
+            foreach($children as $child){
+                $child_start_date = new Carbon($child->start_date);
+                $csd = $child_start_date->toDateString();
+                $child->start_date = $csd . " " . $request->event_start_time;
+                $child->end_date  = $csd . " " . $request->event_end_time;
+                $child->updates = $request->updates;
+                $child->save();
+            }
+        }
 
         // set flash data with success message
         Session::flash('success', 'The event was successfully saved.');
 
-        return redirect()->route('events.event_child.show', [$event, $event_child]);
+        return redirect()->route('events.index');
     }
 
     /**
@@ -103,10 +146,18 @@ class EventChildController extends Controller
      * @param  \App\EventChild  $eventChild
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event, EventChild $event_child)
+    public function destroy(Request $request, $parent_id, EventChild $event_child)
     {
-        $event_child->delete();
+        $parent = Event::withTrashed()->where('id', $parent_id)->first();
+        if($request->delete_all == 0){
+            $event_child->delete();
+        }else{
+            $children = EventChild::where('parent_id', $parent_id)->get();
+            foreach($children as $child){
+                $child->delete();
+            }
+            $parent->delete();
+        }
         return redirect()->route('events.index');
-
     }
 }
