@@ -8,18 +8,16 @@
             <h1> New Event </h1>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="row">
-                        <div class="panel-title">
-                            {!! Form::open(['route' => 'events.store']) !!}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{Form::label('event_title','Event Title')}}
-                                    {{Form::text('event_title', null, array('class' => 'form-control', 'required' => 'required') )}}
-                                </div>
-                                <div class="col-md-3 col-md-offset-3" >
-                                    {{Form::label('event_type','Event Type')}}<br>
-                                    {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['class' => 'form-control', 'placeholder' => 'Please Select an Option']) }}
-                                </div>
+                    <div class="panel-title">
+                        {!! Form::open(['route' => 'events.store']) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{Form::label('event_title','Event Title')}}
+                                {{Form::text('event_title', null, array('class' => 'form-control', 'required' => 'required') )}}
+                            </div>
+                            <div class="col-md-4 col-md-offset-2" >
+                                {{Form::label('event_type','Event Type')}}<br>
+                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['class' => 'form-control', 'placeholder' => 'Please Select an Option']) }}
                             </div>
                         </div>
                     </div>
