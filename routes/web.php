@@ -24,6 +24,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
     Route::resource('events', 'EventController', ['except' => 'index', 'show']);
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+    Route::resource('users', 'UserController', ['only' => 'index']);
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -31,7 +32,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
-Route::resource('users', 'UserController', ['only' => 'index', 'show']);
+Route::resource('users', 'UserController', ['only' => 'show']);
 //Route::match(['get', 'post'], '/users-data', 'UserController@data');
 
 // Nested routes for alumni
