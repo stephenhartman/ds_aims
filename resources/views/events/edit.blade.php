@@ -9,9 +9,8 @@
             <h1>Event Manager</h1>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="row">
-                        <div class="panel-title">
-                            @if( $event->repeats == 1 )
+                    <div class="panel-title">
+                        @if( $event->repeats == 1 )
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>{{Form::checkbox('all_events', 1, false, array('id' =>'all_events_id', 'onchange' => ''))}} Make changes to all events of this type  </label>
@@ -24,14 +23,15 @@
                                     </script>
                                 </div>
                             </div>
-                            @endif
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{Form::text('event_title', $event->title, array('class' => 'form-control', 'id' => 'title_edit','required'))}}
-                                </div>
-                                <div class="col-md-3 col-md-offset-3">
-                                    {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type, ['id' => 'type_edit', 'class' => 'form-control'])}}
-                                </div>
+                        @endif
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{Form::label('event_title','Event Title')}}
+                                {{Form::text('event_title', $event->title, array('class' => 'form-control', 'id' => 'title_edit','required'))}}
+                            </div>
+                            <div class="col-md-4 col-md-offset-2">
+                                {{Form::label('event_type','Event Type')}}<br>
+                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type, ['id' => 'type_edit', 'class' => 'form-control'])}}
                             </div>
                         </div>
                     </div>
