@@ -9,7 +9,7 @@
             @if ($alumnus->photo_url !== null)
                 <div class="col-md-6">
                     <figure class="figure">
-                        <img class="img-thumbnail img-responsive" src="{{ url('images/alumni/' . $alumnus->photo_url) }}">
+                        <img class="img-thumbnail img-responsive" src="{{ url($alumnus->photo_url) }}">
                         <figcaption class="figure-caption">Current Profile Photo</figcaption>
                     </figure>
                 </div>
