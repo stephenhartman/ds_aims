@@ -195,7 +195,6 @@ class AlumnusController extends Controller
         // Initial setup complete
         $alumnus->initial_setup = 1;
 
-
         $alumnus->save();
 
         Session::flash('success', 'Thank you for registering your Alumni Account!');
