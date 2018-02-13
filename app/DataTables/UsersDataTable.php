@@ -71,7 +71,7 @@ class UsersDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()->has('alumnus')
-        ->select('id', 'name', 'email', 'last_login_at');
+            ->select('id', 'name', 'email', 'last_login_at');
     }
 
     public function html()
