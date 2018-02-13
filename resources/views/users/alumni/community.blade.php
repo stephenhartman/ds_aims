@@ -14,11 +14,11 @@
                         @if ($alumnus->initial_setup == 0)
                             {{ Form::open(['route' => array('final_store', $user, $alumnus)]) }}
                             <div class="row">
-                                <div class="col-md-5"></div>
-                                <div class="col-md-2 text-center">
+                                <div class="col-md-5 col-sm-5 col-xs-3"></div>
+                                <div class="col-md-2 col-sm-2 col-xs-6 text-center">
                                     <img class="img-responsive" src="{{ url('images/logo.png')}}">
                                 </div>
-                                <div class="col-md-5"></div>
+                                <div class="col-md-5 col-sm-5 col-xs-3"></div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -108,22 +108,22 @@
                                 </div>
                             </div>
                     </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block', 'style' => 'margin-top: 20px;']) }}
-                            {{ Form::close() }}
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block', 'style' => 'margin-top: 20px;']) }}
+                                {{ Form::close() }}
+                            </div>
                         </div>
                     </div>
                 </div>
                 @else
                     <div class="row">
-                        <div class="col-md-5"></div>
-                        <div class="col-md-2 text-center">
+                        <div class="col-md-5 col-sm-5 col-xs-3"></div>
+                        <div class="col-md-2 col-sm-2 col-xs-6 text-center">
                             <img class="img-responsive" src="{{ url('images/logo.png')}}">
                         </div>
-                        <div class="col-md-5"></div>
+                        <div class="col-md-5 col-sm-5 col-xs-3"></div>
                     </div>
                 <br>
                     <div class="row">
