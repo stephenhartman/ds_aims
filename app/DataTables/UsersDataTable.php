@@ -57,9 +57,9 @@ class UsersDataTable extends DataTable
             })
             ->addColumn('date_sort', function ($user) {
                 if ($user->last_login_at !== null)
-                    return Carbon::parse($user->last_login_at)->format('Ymd');
+                    return Carbon::parse($user->last_login_at)->format('YmdHis');
             })
-            ->rawColumns(['href']);
+            ->rawColumns(['name', 'email']);
     }
 
     /**
@@ -71,7 +71,7 @@ class UsersDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()->has('alumnus')
-        ->select('id', 'name', 'email', 'created_at', 'updated_at');
+        ->select('id', 'name', 'email', 'last_login_at');
     }
 
     public function html()
