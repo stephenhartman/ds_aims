@@ -24,22 +24,20 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
     Route::resource('events', 'EventController', ['except' => 'index', 'show']);
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+    //DataTables
+    Route::get('alumni', 'UserController@index')->name('alumni');
+    Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
+    Route::get('alumni/education', 'UserController@education')->name('alumni/education');
+    Route::match(['get', 'post'], '/education-data', 'UserController@education_data');
+    Route::get('alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
+    Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
-
 Route::resource('users', 'UserController', ['only' => 'show']);
-
-//DataTables
-Route::get('alumni', 'UserController@index')->name('alumni');
-Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
-Route::get('alumni/education', 'UserController@education')->name('alumni/education');
-Route::match(['get', 'post'], '/education-data', 'UserController@education_data');
-Route::get('alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
-Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
 
 // Nested routes for alumni
 Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
@@ -49,6 +47,7 @@ Route::resource('users.alumni.milestones', 'MilestoneController', ['only' => 'in
 Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
 Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
 
+// Oauth
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
