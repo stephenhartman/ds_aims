@@ -45,7 +45,7 @@ Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_dat
 Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
 Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');
 Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
-Route::resource('users.alumni.milestones', 'MileStoneController', ['only' => 'index']);
+Route::resource('users.alumni.milestones', 'MilestoneController', ['only' => 'index']);
 Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
 Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
 
