@@ -43,6 +43,7 @@ Route::group(['middleware' => ['isVerified']], function () {
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
     Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
     Route::resource('users', 'UserController', ['only' => 'show']);
+    Route::resource('users', 'UserController', ['only' => 'show']);
 
     // Nested routes for alumni
     Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
