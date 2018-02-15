@@ -19,7 +19,7 @@ class Alumnus extends Model
     /**
      * One user has one alum
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -29,7 +29,7 @@ class Alumnus extends Model
     /**
      * One alum has many education milestones
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function educations()
     {
@@ -39,7 +39,7 @@ class Alumnus extends Model
     /**
      * One alum has many occupation milestones
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function occupations()
     {
