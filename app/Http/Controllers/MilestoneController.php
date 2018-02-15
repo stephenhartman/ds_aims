@@ -17,8 +17,8 @@ class MilestoneController extends Controller
      */
     public function index(User $user, Alumnus $alumnus)
     {
-        $educations = Education::where('alumni_id', $alumnus->id)->get();
-        $occupations = Occupation::where('alumni_id', $alumnus->id)->get();
+        $educations = Education::where('alumnus_id', $alumnus->id)->get();
+        $occupations = Occupation::where('alumnus_id', $alumnus->id)->get();
         return view('users.alumni.milestones.index', compact('user','alumnus', 'educations', 'occupations'));
     }
 }

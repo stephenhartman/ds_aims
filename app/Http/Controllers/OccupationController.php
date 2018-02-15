@@ -41,7 +41,7 @@ class OccupationController extends Controller
 
         $occupation = new Occupation();
 
-        $occupation->alumni_id = $alumnus->id;
+        $occupation->alumnus_id = $alumnus->id;
         $occupation->organization = $request->organization;
         $occupation->position = $request->position;
         $occupation->start_year = $request->start_year;
