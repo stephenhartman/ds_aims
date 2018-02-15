@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Education;
 use App\Occupation;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -48,8 +49,8 @@ class UserController extends Controller
             return view('admin.show', compact('user'));
 
         $alumnus = $user->alumnus()->first();
-        $educations = Education::where('alumni_id', $alumnus->id)->get();
-        $occupations = Occupation::where('alumni_id', $alumnus->id)->get();
+        $educations = Education::where('alumnus_id', $alumnus->id)->get();
+        $occupations = Occupation::where('alumnus_id', $alumnus->id)->get();
         if (Auth::user()->hasRole('admin'))
             return view('users.show', compact('user', 'alumnus', 'educations', 'occupations'));
         elseif (Auth::user() == $user)
