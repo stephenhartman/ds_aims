@@ -78,18 +78,7 @@ class PostController extends Controller
 
         return redirect()->route('posts.show', $post->id);
     }
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
     /**
      * Display the specified resource.
      *

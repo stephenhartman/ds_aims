@@ -61,12 +61,12 @@ class UserController extends Controller
         }
     }
     /**
-     * Process DataTables ajax request.
+     * Process Alumni DataTables ajax request.
      *
      * @param $datatables DataTables object
      * @return \Illuminate\Http\JsonResponse
      */
-    public function data(DataTables $datatables)
+    public function alumni_data(DataTables $datatables)
     {
         $builder = User::has('alumnus')
             ->select('id', 'name', 'email', 'last_login_at');
@@ -114,5 +114,101 @@ class UserController extends Controller
                         return Carbon::parse($user->last_login_at)->format('Ymd');
                 })
             ->make();
+    }
+
+    /**
+     * Process Alumni Education DataTables ajax request.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function occupation_data()
+    {
+        $occupations = DB::table('users')
+            ->join('alumni', 'users.id', '=', 'alumni.user_id')
+            ->join('occupations', 'alumni.id', '=', 'occupations.alumnus_id')
+            ->select(['users.id', 'users.name', 'users.email', 'occupations.organization'
+                , 'occupations.position', 'occupations.start_year', 'occupations.end_year'
+                , 'occupations.testimonial', 'occupations.share']);
+
+        return Datatables::of($occupations)
+            ->editColumn('name', function ($model) {
+                return Html::linkAction('UserController@show', $model->name, $model->id) ;
+            })
+            ->editColumn('email', function ($model) {
+                return Html::mailto($model->email) ;
+            })
+            ->editColumn('share', function ($model) {
+                if ($model->share == 1)
+                    return 'Yes';
+                elseif ($model->share == 0)
+                    return 'No';
+                else
+                    return '';
+            })
+            ->rawColumns(['testimonial', 'name', 'email'])
+            ->make();
+    }
+
+    /**
+     * Process Alumni Occupation DataTables ajax request.
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function education_data()
+    {
+        $educations = DB::table('users')
+            ->join('alumni', 'users.id', '=', 'alumni.user_id')
+            ->join('educations', 'alumni.id', '=', 'educations.alumnus_id')
+            ->select(['users.id', 'users.name', 'users.email', 'educations.diploma'
+                , 'educations.school', 'educations.location', 'educations.start_year'
+                , 'educations.end_year', 'educations.testimonial', 'educations.share']);
+
+        return Datatables::of($educations)
+            ->editColumn('name', function ($model) {
+                return Html::linkAction('UserController@show', $model->name, $model->id) ;
+            })
+            ->editColumn('email', function ($model) {
+                return Html::mailto($model->email) ;
+            })
+            ->editColumn('share', function ($model) {
+                if ($model->share == 1)
+                    return 'Yes';
+                elseif ($model->share == 0)
+                    return 'No';
+                else
+                    return '';
+            })
+            ->rawColumns(['testimonial', 'name', 'email'])
+            ->make();
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function education()
+    {
+        if (Auth::user()->hasRole('admin')) {
+            return view('users.education');
+        }
+        Session::flash('error', 'You are not authorized to view this page.');
+        return redirect()->route('home');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function occupation()
+    {
+        if (Auth::user()->hasRole('admin')) {
+            return view('users.occupation');
+        }
+        Session::flash('error', 'You are not authorized to view this page.');
+        return redirect()->route('home');
     }
 }
