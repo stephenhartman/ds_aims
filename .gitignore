@@ -1,8 +1,6 @@
 /node_modules
 /public/hot
 /public/storage
-/public/images/alumni/*
-/public/images/posts/*
 /storage/*.key
 /vendor
 /.idea
