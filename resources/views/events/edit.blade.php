@@ -16,6 +16,10 @@
                                     <label>{{Form::checkbox('all_events', 1, false, array('id' =>'all_events_id', 'onchange' => ''))}} Make changes to all events of this type  </label>
                                     <script>
                                         $(document).ready(function(){
+                                            if($('#all_events_id').is(':checked'))
+                                            {
+                                                $('#delete_all').prop('checked', true);
+                                            }
                                             $('#all_events_id').on('change', function(){
                                                 $('#delete_all').prop('checked', this.checked);
                                             })

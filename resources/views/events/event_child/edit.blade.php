@@ -16,6 +16,22 @@
                             </div>
                             <script>
                                 $(document).ready(function(){
+                                    if($('#all_events_id').is(':checked'))
+                                    {
+                                        $('#event_description_edit').show();
+                                        $('#desc_label').show();
+                                        $('#event_updates_edit').hide();
+                                        $('#updates_label').hide();
+                                        $('#delete_all').prop('checked', true);
+                                    }else if
+                                    ($('#all_events_id').not(':checked'))
+                                    {
+                                        $('#title_edit').prop('readonly', !this.checked);
+                                        $('#type_edit').prop('disabled', !this.checked);
+                                        $('#event_updates_edit').show();
+                                        $('#updates_label').show();
+                                    }
+
                                     $('#all_events_id').on('change', function(){
                                         $('#title_edit').prop('readonly', !this.checked);
                                         $('#type_edit').prop('disabled', !this.checked);
@@ -31,11 +47,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 {{Form::label('event_title','Event Title')}}
-                                {{Form::text('event_title', $event->title, array('class' => 'form-control', 'id' => 'title_edit','required', 'readonly'))}}
+                                {{Form::text('event_title', $event->title, array('class' => 'form-control', 'id' => 'title_edit','required'))}}
                             </div>
                             <div class="col-md-4 col-md-offset-2">
                                 {{Form::label('event_type','Event Type')}}<br>
-                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type, ['id' => 'type_edit', 'class' => 'form-control','disabled'])}}
+                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type, ['id' => 'type_edit', 'class' => 'form-control'])}}
                             </div>
                         </div>
                     </div>
@@ -58,8 +74,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            {{Form::label ('updates', 'Updates', ['id' => 'updates_label'])}}
-                            {{Form::textarea('updates', null, ['class' => 'form-control', 'id' => 'event_updates_edit'])}}
+                            {{Form::label ('updates', 'Updates', ['id' => 'updates_label', 'style' => 'display:none'])}}
+                            {{Form::textarea('updates', null, ['class' => 'form-control', 'id' => 'event_updates_edit', 'style' => 'display:none'])}}
                             {{Form::label ('event_description', 'Event Description', ['style' => 'display:none', 'id' => 'desc_label'])}}
                             {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'style' => 'display:none', 'id' => 'event_description_edit') )}}
                             <hr>

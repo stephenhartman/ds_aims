@@ -26,7 +26,14 @@ class EventSignUpController extends Controller
     {
         $user = Auth::user()->id;
 
-        return view('events.event_sign_ups.create', compact('user', 'event'));
+        $start_date = new Carbon($event->start_date);
+        $sd = $start_date->toDateString();
+        $st = $start_date->format('H:i');
+        $end_date = new Carbon($event->end_date);
+        $ed = $end_date->toDateString();
+        $et = $end_date->format('H:i');
+
+        return view('events.event_sign_ups.create', compact('user', 'event', 'sd', 'st', 'et'));
     }
 
     public function store(Request $request)
