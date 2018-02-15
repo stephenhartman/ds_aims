@@ -31,9 +31,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 
+Route::resource('users', 'UserController', ['only' => 'show']);
 
-Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
-Route::match(['get', 'post'], '/users-data', 'UserController@data');
+//DataTables
+Route::get('alumni', 'UserController@index')->name('alumni');
+Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
+Route::get('alumni/education', 'UserController@education')->name('alumni/education');
+Route::match(['get', 'post'], '/education-data', 'UserController@education_data');
+Route::get('alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
+Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
 
 // Nested routes for alumni
 Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
