@@ -9,13 +9,20 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2 col-md-offset-1">
             <div class="bg-volunteer text-white"> Volunteer events are blue</div>
             <div class="bg-reunion text-white"> Reunion events are red</div>
             <div class="bg-community_event text-white"> Community events are green</div>
-
         </div>
-            <div class="col-md-10">
+        <div class="col-md-2 col-md-offset-6">
+            @if (Auth::user()->hasRole('admin'))
+                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
+            @endif
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+            <div class="col-md-10 col-md-offset-1">
                 {!! $calendar->calendar() !!}
 
                 {!! $calendar->script() !!}
@@ -34,7 +41,6 @@
                     @if (Auth::user()->hasRole('admin'))
                         <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
                         <a class="btn btn-success" id="index" target="_blank"></a>
-                        <a class="btn btn-danger" id="delete"></a>
                     @endif
                     @if (!Auth::user()->hasRole('admin'))
                     <a class="btn btn-success" id="sign_up" target="_blank"></a>
@@ -44,9 +50,5 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 col-sm-12">
-        @if (Auth::user()->hasRole('admin'))
-            <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
-        @endif
-    </div>
+
 @endsection

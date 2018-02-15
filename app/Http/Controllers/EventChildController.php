@@ -70,10 +70,10 @@ class EventChildController extends Controller
         $event = Event::withTrashed()->where('id', $event_id)->first();
         $start_date = new Carbon($event_child->start_date);
         $sd = $start_date->toDateString();
-        $st = $start_date->toTimeString();
+        $st = $start_date->format('H:i');
         $end_date = new Carbon($event_child->end_date);
         $ed = $end_date->toDateString();
-        $et = $end_date->toTimeString();
+        $et = $end_date->format('H:i');
 
 
         return view('events.event_child.edit', compact('event', 'event_child', 'sd', 'st', 'ed', 'et'));
@@ -93,8 +93,8 @@ class EventChildController extends Controller
 
             $this->validate($request, [
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time'
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time'
             ]);
 
             $event_child->start_date = $request->event_start_date . " " . $request->event_start_time;
@@ -107,8 +107,8 @@ class EventChildController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
             ]);
 

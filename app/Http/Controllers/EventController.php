@@ -49,8 +49,6 @@ class EventController extends Controller
                             'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
-                            'delete' => route('events.destroy', $value->id),
-                            'delete_btn' => 'Delete Event'
                         ]
                     );
                 } else {
@@ -71,8 +69,7 @@ class EventController extends Controller
                             'sign_up' => route('events.event_sign_ups.edit', compact('event_obj', 'enroll_id')),
                             'button' => 'I can no longer attend',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
-                            'delete' => route('events.destroy', $value->id),
-                            'delete_btn' => 'Delete Event'
+
                         ]
                     );
                 }
@@ -118,7 +115,7 @@ class EventController extends Controller
                                 $("#sign_up").attr("href", event.sign_up).html(event.button);
                                 $("#delete").attr("href", event.delete).html(event.delete_btn);
                                 $("#calendarModal").modal();
-                                }'
+                                }',
             ]);
         return view('events.index', compact('calendar'));
     }
@@ -126,11 +123,11 @@ class EventController extends Controller
     private function getColor($type)
     {
         if ($type == "Volunteer"){
-            return "#0000FF";
+            return "#ff7f00";
         }else if($type == "Reunion"){
-            return "#FF0000";
+            return "#053D63";
         }else
-            return "#008000";
+            return "#7f3f00";
 
     }
     private function signUp_exists($id)
@@ -176,12 +173,11 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
 
             ]);
-
             $event = new Event;
             $event->title = $request->event_title;
             $event->type = $request->event_type;
@@ -199,8 +195,8 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required',
                 'repeat_freq' => 'required',
                 'repeat_until' => 'required|date_format:Y-m-d|after:event_start_date'
@@ -257,7 +253,6 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-
         return view('events.show', compact('event'));
     }
 
@@ -272,11 +267,10 @@ class EventController extends Controller
 
         $start_date = new Carbon($event->start_date);
         $sd = $start_date->toDateString();
-        $st = $start_date->toTimeString();
+        $st = $start_date->format('H:i');
         $end_date = new Carbon($event->end_date);
         $ed = $end_date->toDateString();
-        $et = $end_date->toTimeString();
-
+        $et = $end_date->format('H:i');
 
         return view('events.edit', compact('event', 'sd', 'st', 'ed', 'et'));
     }
@@ -296,8 +290,8 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
             ]);
 
@@ -313,8 +307,8 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i:s',
-                'event_end_time' => 'required|date_format:H:i:s|after:event_start_time',
+                'event_start_time' => 'required|date_format:H:i',
+                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
             ]);
 
@@ -335,7 +329,6 @@ class EventController extends Controller
                 $child->end_date  = $csd . " " . $request->event_end_time;
                 $child->updates = $request->updates;
                 $child->save();
-
             }
         }
 

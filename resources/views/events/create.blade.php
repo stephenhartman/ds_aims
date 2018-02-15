@@ -26,15 +26,15 @@
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
                             {{Form::label ('event_start_date', 'Event Date')}}
-                            {{Form::date('event_start_date', \Carbon\Carbon::now(), array('class' => 'form-control') )}}
+                            {{Form::date('event_start_date', \Carbon\Carbon::now()->toDateString(), array('class' => 'form-control') )}}
                         </div>
                         <div class="col-md-3">
                             {{Form::label ('event_start_time', 'Event Start Time')}}
-                            {{Form::time('event_start_time', \Carbon\Carbon::now()->toTimeString(), array('class' => 'form-control') )}}
+                            {{Form::time('event_start_time', \Carbon\Carbon::now()->format('H:i'), array('class' => 'form-control') )}}
                         </div>
                         <div class="col-md-3">
                             {{Form::label ('event_end_time', 'Event End Time')}}
-                            {{Form::time('event_end_time', \Carbon\Carbon::now()->toTimeString(), array('class' => 'form-control') )}}
+                            {{Form::time('event_end_time', \Carbon\Carbon::now()->addHour()->format('H:i'), array('class' => 'form-control') )}}
                         </div>
                     </div>
                     <hr>
@@ -50,7 +50,15 @@
                             <label>{{Form::checkbox('repeats', 1, false, array('id' =>'repeats', 'onchange' => ''))}} This is a repeating event</label>
                         </div>
                         <script>
+
                             $(document).ready(function(){
+                                if($('#repeats').is(':checked'))
+                                {
+                                    $('#repeat_freq_label').show();
+                                    $('#repeat_freq_id').show();
+                                    $('#repeat_until_label').show();
+                                    $('#repeat_until_id').show();
+                                }
                                 $('#repeats').on('change', function(){
                                     $('#repeat_freq_label').toggle(this.checked);
                                     $('#repeat_freq_id').toggle(this.checked);
