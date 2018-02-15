@@ -21,8 +21,13 @@
             <ul class="navbar-nav nav">
                 @if (!Auth::guest())
                     @if (Auth::user()->hasRole('admin'))
-                        <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('users') }}">Search Students</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ URL::to('alumni') }}">Alumni Database</a></li>
+                                <li><a href="{{ URL::to('alumni/education') }}">Education Milestones</a></li>
+                                <li><a href="{{ URL::to('alumni/occupation') }}">Occupation Milestones</a></li>
+                            </ul>
                         </li>
                         <li>
                             <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
