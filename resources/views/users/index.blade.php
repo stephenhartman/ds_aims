@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.min.css">
 @endpush
 
-@section('title', 'Users')
+@section('title', 'Alumni Database')
 
 @section('content')
     <div class="container-fluid">
