@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
 
         $events = factory(App\Event::class, 25)->create();
+        $posts = factory(App\Post::class, 23)->create();
         // Call inverse posts seeds
         $this->call(PostsTableSeeder::class);
     }
