@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => 'no-reply@depaulalumni.com',
+        'address' => env('MAIL_FROM_ADDRESS', 'no-reply@depaulschool.com'),
         'name' => env('MAIL_FROM_NAME', 'The DePaul School of Northeast Florida'),
     ],
 
