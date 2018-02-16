@@ -33,22 +33,29 @@ Route::middleware(['admin'])->group(function () {
     Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Verified Email routes
+Route::group(['middleware' => ['isVerified']], function () {
 
-Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
-Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
-Route::resource('users', 'UserController', ['only' => 'show']);
+    Route::get('/home', 'HomeController@index')->name('home');
 
-// Nested routes for alumni
-Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
-Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');
-Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
-Route::resource('users.alumni.milestones', 'MilestoneController', ['only' => 'index']);
-Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
-Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
+    Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
+    Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
+    Route::resource('users', 'UserController', ['only' => 'show']);
+
+    // Nested routes for alumni
+    Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
+    Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');
+    Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
+    Route::resource('users.alumni.milestones', 'MilestoneController', ['only' => 'index']);
+    Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
+    Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
+});
 
 // Oauth
 Route::get('auth/{driver}', 'Auth\SocialController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallback');
 
-
+// Email verification
+Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+Route::get('resend-verification/{id}', 'Auth\RegisterController@resendVerification')->name('resend-verification');
