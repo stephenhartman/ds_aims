@@ -7,24 +7,24 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.min.css">
 @endpush
 
-@section('title', 'Alumni Database')
+@section('title', 'Occupation Database')
 
 @section('content')
     <div class="container-fluid">
-        <h2>Alumni Database</h2>
+        <h2>Alumni Occupation Milestone Database</h2>
         <hr>
         <div class="table-responsive">
-            <table class="table table-bordered table-striped dataTable" id="users-table">
+            <table class="table table-bordered table-striped dataTable" id="occupations-table">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
-                    <th>State</th>
-                    <th>Zip Code</th>
-                    <th>Graduation Year</th>
-                    <th>Volunteer?</th>
-                    <th>Loyal Lion?</th>
-                    <th>Last Login</th>
+                    <th>Organization</th>
+                    <th>Position</th>
+                    <th>Year Started</th>
+                    <th>Year Ended</th>
+                    <th>Testimonial</th>
+                    <th>Share?</th>
                 </tr>
                 </thead>
             </table>
@@ -42,6 +42,7 @@
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.min.js"></script>
     <script>
+
         $(function() {
             'use strict';
 
@@ -64,7 +65,8 @@
 
                 return month + '-' + day + '-' + year;
             }
-            var table = $('#users-table').DataTable({
+
+            var table = $('#occupations-table').DataTable({
                 dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -80,7 +82,7 @@
                     {
                         extend:    'csvHtml5',
                         text:      'Export to CSV <i class="fa fa-table"></i>',
-                        title:     'Alumni-' + getFormattedDate(),
+                        title:     'Alumni-Occupation-' + getFormattedDate(),
                         exportOptions : {
                             columns : ':visible',
                             format : {
@@ -98,43 +100,40 @@
                     {
                         extend:    'print',
                         text:      'Print <i class="fa fa-print"></i>',
-                        titleAttr: 'Print'
                     },
                 ],
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                 processing: true,
                 ajax: {
-                    "url": '{{ url('alumni-data') }}',
+                    "url": '{{ url('occupation-data') }}',
                     "type": 'POST',
                 },
                 columns: [
                     { data: 'name' },
                     { data: 'email' },
-                    { data: 'state', name: 'alumni.state' },
-                    { data: 'zipcode', name: 'alumni.zipcode' },
-                    { data: 'year_graduated', name: 'alumni.year_graduated' },
-                    { data: 'volunteer', name: 'alumni.state' },
-                    { data: 'loyal_lion', name: 'alumni.loyal_lion' },
-                    { data: 'last_login_at', orderData: 8 },
-                    { data: 'date_sort', type: 'num', visible: false }
+                    { data: 'organization' },
+                    { data: 'position' },
+                    { data: 'start_year' },
+                    { data: 'end_year' },
+                    { data: 'testimonial' },
+                    { data: 'share' }
                 ],
             });
 
             yadcf.init(table, [{
                 column_number: 2,
-                filter_default_label: ''
+                filter_type: 'text'
             }, {
                 column_number: 3,
                 filter_type: 'text'
             }, {
                 column_number: 4,
-                filter_type: 'range_number_slider',
                 filter_default_label: ''
             }, {
                 column_number: 5,
                 filter_default_label: ''
             }, {
-                column_number: 6,
+                column_number: 7,
                 filter_default_label: ''
             }]);
         });

@@ -44,7 +44,7 @@ class EducationController extends Controller
 
         $education = new Education();
 
-        $education->alumni_id = $alumnus->id;
+        $education->alumnus_id = $alumnus->id;
         $education->type = $request->type;
         $education->diploma = $request->diploma;
         $education->school = $request->school;
@@ -143,9 +143,10 @@ class EducationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @param  \App\Alumnus  $alumnus
-     * @param  \App\Education  $education
+     * @param  \App\Alumnus $alumnus
+     * @param  \App\Education $education
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(User $user, Alumnus $alumnus, Education $education)
     {
