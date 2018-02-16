@@ -211,7 +211,12 @@ return [
         /*
          * Sentry
          */
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
+        /*
+         * Email verification
+         */
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
 
     ],
 
@@ -269,6 +274,7 @@ return [
 		'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
     ],
 
 ];
