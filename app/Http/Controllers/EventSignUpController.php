@@ -30,7 +30,6 @@ class EventSignUpController extends Controller
         $sd = $start_date->toDateString();
         $st = $start_date->format('H:i');
         $end_date = new Carbon($event->end_date);
-        $ed = $end_date->toDateString();
         $et = $end_date->format('H:i');
 
         return view('events.event_sign_ups.create', compact('user', 'event', 'sd', 'st', 'et'));
@@ -60,12 +59,18 @@ class EventSignUpController extends Controller
     {
         $user = Auth::user()->id;
         $enroll = EventSignUp::where('id', $enroll_id)->first();
-        return view('events.event_sign_ups.edit', compact('event','enroll', 'user'));
+
+        $start_date = new Carbon($event->start_date);
+        $sd = $start_date->toDateString();
+        $st = $start_date->format('H:i');
+        $end_date = new Carbon($event->end_date);
+        $et = $end_date->format('H:i');
+        return view('events.event_sign_ups.edit', compact('event','enroll', 'user', 'sd', 'st', 'et'));
     }
 
     public function update(Event $event, $enroll_id, Request $request)
     {
-        $enroll = EventSignUp::find($enroll_id);
+        $enroll = EventSignUp::where('id', $enroll_id)->first();
         $enroll->user_id = $request->user_id;
         $enroll->event_id = $request->event_id;
         $enroll->number_attending = $request->number_attending;

@@ -22,13 +22,13 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
-                            <h4>Date: {{$sd}}</h4>
+                            <h4>Date:<br> {{$sd}}</h4>
                         </div>
                         <div class="col-md-3">
-                            <h4>Start Time: {{$st}}</h4>
+                            <h4>Start Time:<br> {{$st}}</h4>
                         </div>
                         <div class="col-md-3">
-                            <h4>End Time: {{ $et }}</h4>
+                            <h4>End Time:<br> {{ $et }}</h4>
                         </div>
                     </div>
                     <hr>
