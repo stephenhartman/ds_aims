@@ -19,6 +19,8 @@ Route::get(
 
 Auth::routes();
 
+Route::get('resend-verification/{id}', 'HomeController@resendVerification')->name('resend-verification');
+
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
@@ -58,4 +60,3 @@ Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallba
 // Email verification
 Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
-Route::get('resend-verification/{id}', 'Auth\RegisterController@resendVerification')->name('resend-verification');
