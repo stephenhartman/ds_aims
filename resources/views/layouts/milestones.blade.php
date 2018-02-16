@@ -9,7 +9,7 @@
                 <h4>Select a milestone to add...</h4>
             </div>
             <div class="col-md-5">
-                <a href="{{ route('final_step', array($user, $alumnus)) }}" class="btn btn-warning btn-sm btn-block" style="margin-top: 20px;">Skip this Step</a>
+                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-warning btn-sm btn-block" style="margin-top: 20px;">Skip this Step</a>
             </div>
             @else
             <div class="col-md-10 col-md-offset-1">
@@ -56,7 +56,7 @@
         @if ($alumnus->initial_setup == 0)
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <a href="{{ route('final_step', array($user, $alumnus)) }}" class="btn btn-success btn-lg btn-block" style="margin-top: 20px;">Continue</a>
+                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-success btn-lg btn-block" style="margin-top: 20px;">Continue</a>
             </div>
         </div>
         @endif

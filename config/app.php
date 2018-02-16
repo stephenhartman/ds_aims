@@ -208,6 +208,11 @@ return [
          */
         Mews\Purifier\PurifierServiceProvider::class,
 
+        /*
+         * Sentry
+         */
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class
+
     ],
 
     /*
@@ -263,6 +268,7 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 		'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Alumnus;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Purifier;
 use Image;
@@ -79,28 +79,7 @@ class AlumnusController extends Controller
                 $request->merge(['volunteer' => 1]);
             $alumnus->volunteer = $request->volunteer;
 
-            // Save photo url for profile picture
-            if ($request->has('photo_url'))
-            {
-                $image = $request->file('photo_url');
-                $extension = $image->getClientOriginalExtension();
-                if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
-                {
-                    $filename = bin2hex(random_bytes(12)) . '.' . $extension;
-                    $location = public_path('/images/' . $filename);
-                    $img = Image::make($image);
-                    $img->resize(320, null, function ($constraint) {
-                        $constraint->aspectRatio();
-                    })->save($location);
-                    ImageOptimizer::optimize($location);
-                    $alumnus->photo_url = $filename;
-                }
-                else
-                {
-                    return redirect()->back()->withInput()
-                        ->withErrors(['photo_url' => 'Please choose a profile image in .jpg, .jpeg, .gif, or .png format']);
-                }
-            }
+            $this->upload_photo($request, $alumnus);
 
             $alumnus->save();
 
@@ -169,28 +148,7 @@ class AlumnusController extends Controller
             $request->merge(['volunteer' => 1]);
         $alumnus->volunteer = $request->volunteer;
 
-        // Save photo url for profile picture
-        if ($request->has('photo_url'))
-        {
-            $image = $request->file('photo_url');
-            $extension = $image->getClientOriginalExtension();
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
-            {
-                $filename = bin2hex(random_bytes(12)) . '.' . $extension;
-                $location = public_path('/images/' . $filename);
-                $img = Image::make($image);
-                $img->resize(320, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($location);
-                ImageOptimizer::optimize($location);
-                $alumnus->photo_url = $filename;
-            }
-            else
-            {
-                Session::flash('error', 'Please upload a .jpeg, .jpg, .gif or .png file');
-                return redirect()->back()->withInput();
-            }
-        }
+        $this->upload_photo($request, $alumnus);
 
         $alumnus->save();
 
@@ -205,9 +163,9 @@ class AlumnusController extends Controller
      * @param Alumnus $alumnus
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function final_step(User $user, Alumnus $alumnus)
+    public function community(User $user, Alumnus $alumnus)
     {
-        return view('users.alumni.final_step', compact('user','alumnus'));
+        return view('users.alumni.community', compact('user','alumnus'));
     }
 
     /**
@@ -241,5 +199,40 @@ class AlumnusController extends Controller
 
         Session::flash('success', 'Thank you for registering your Alumni Account!');
         return redirect('home');
+    }
+
+    /**
+     * Upload photo logic for update and store
+     *
+     * @param Request $request
+     * @param Alumnus $alumnus
+     * @return $this
+     */
+    public function upload_photo(Request $request, Alumnus $alumnus)
+    {
+        // Save photo url for profile picture
+        if ($request->has('photo_url'))
+        {
+            File::delete(public_path($alumnus->photo_url));
+            $image = $request->file('photo_url');
+            $extension = $image->getClientOriginalExtension();
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
+            {
+                $filename = bin2hex(random_bytes(12)) . '.' . $extension;
+                $filepath = '/images/alumni/' . $filename;
+                $location = public_path($filepath);
+                $img = Image::make($image);
+                $img->resize(320, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($location);
+                ImageOptimizer::optimize($location);
+                $alumnus->photo_url = $filepath;
+            }
+            else
+            {
+                Session::flash('error', 'Please upload a .jpeg, .jpg, .gif or .png file');
+                return redirect()->back()->withInput();
+            }
+        }
     }
 }
