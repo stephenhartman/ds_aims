@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Session;
+use Jrean\UserVerification\Exceptions\UserNotVerifiedException;
 
 class Handler extends ExceptionHandler
 {
@@ -32,8 +33,9 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $exception
+     * @param  \Exception $exception
      * @return void
+     * @throws Exception
      */
     public function report(Exception $exception)
     {
@@ -53,10 +55,15 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
-            Session::put('error', 'The file size is too large, please limit your file to 2 MB');
+            Session::flash('error', 'The file size is too large, please limit your file to 2 MB');
             Session::save();
             return redirect()->back();
         }
+
+        if ($exception instanceof UserNotVerifiedException) {
+            return response()->view('auth.errors.not-verified', [], 401); //  <----- The magic
+        }
+
         return parent::render($request, $exception);
     }
 }
