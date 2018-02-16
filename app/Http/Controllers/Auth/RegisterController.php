@@ -135,19 +135,4 @@ class RegisterController extends Controller
         Session::flash('success', 'Thanks for verifying your email!  Please continue by creating an alumni account.');
         return redirect($this->redirectAfterVerification());
     }
-
-    /**
-     * Resend verification token
-     *
-     * @param $id user id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function resendVerification($id)
-    {
-        $user = User::find($id);
-        UserVerification::generate($user);
-        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
-        Session::flash('message', 'You will receive your verification email shortly.');
-        return view('/');
-    }
 }

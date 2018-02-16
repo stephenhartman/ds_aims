@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-sm-12 text-center">
-                                    <a href="{{ route('resend-verification', array(Auth::user())) }}" class="btn btn-primary">
+                                    <a href="{{ route('resend-verification', array(Auth::id())) }}" class="btn btn-primary">
                                         Resend verification Email
                                     </a>
                                 </div>
