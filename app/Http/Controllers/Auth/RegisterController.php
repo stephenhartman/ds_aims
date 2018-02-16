@@ -5,8 +5,17 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Role;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Auth\Events\Registered;
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
+use Jrean\UserVerification\Facades\UserVerification as UserVerificationFacade;
+use Jrean\UserVerification\Exceptions\UserNotFoundException;
+use Jrean\UserVerification\Exceptions\UserIsVerifiedException;
+use Jrean\UserVerification\Exceptions\TokenMismatchException;
 
 class RegisterController extends Controller
 {
@@ -22,20 +31,22 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use VerifiesUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+    protected $redirectAfterVerification = '/home';
 
     /**
      * Create a new controller instance.
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['except' => ['getVerification', 'getVerificationError']]);
     }
 
     /**
@@ -71,5 +82,72 @@ class RegisterController extends Controller
             ->roles()
             ->attach(Role::where('name', 'alumni')->first());
         return $user;
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+
+        $this->guard()->login($user);
+
+        UserVerification::generate($user);
+
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Handle the user verification.
+     *
+     * @param Request $request
+     * @param  string $token
+     * @return \Illuminate\Http\Response
+     */
+    public function getVerification(Request $request, $token)
+    {
+        if (! $this->validateRequest($request)) {
+            return redirect($this->redirectIfVerificationFails());
+        }
+        try {
+            $user = UserVerificationFacade::process($request->input('email'), $token, $this->userTable());
+        } catch (UserNotFoundException $e) {
+            return redirect($this->redirectIfVerificationFails());
+        } catch (UserIsVerifiedException $e) {
+            return redirect($this->redirectIfVerified());
+        } catch (TokenMismatchException $e) {
+            return redirect($this->redirectIfVerificationFails());
+        }
+        if (config('user-verification.auto-login') === true) {
+            auth()->loginUsingId($user->id);
+        }
+        Session::flash('success', 'Thanks for verifying your email!  Please continue by creating an alumni account.');
+        return redirect($this->redirectAfterVerification());
+    }
+
+    /**
+     * Resend verification token
+     *
+     * @param $id user id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function resendVerification($id)
+    {
+        $user = User::find($id);
+        UserVerification::generate($user);
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+        Session::flash('message', 'You will receive your verification email shortly.');
+        return view('/');
     }
 }

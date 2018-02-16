@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Jrean\UserVerification\Facades\UserVerification;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -30,7 +31,7 @@ class SocialController extends Controller
     }
 
     /**
-     * Obtain user infromation from the selected provider.  Check if the user exists
+     * Obtain user information from the selected provider.  Check if the user exists
      * in the database by querying provider_id.  If user exists, log in, else create a new
      * user and log in.
      *
@@ -86,6 +87,10 @@ class SocialController extends Controller
         $user
             ->roles()
             ->attach(Role::where('name', 'alumni')->first());
+
+        UserVerification::generate($user);
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+
         return $user;
     }
 }
