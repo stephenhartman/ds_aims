@@ -102,7 +102,7 @@ class RegisterController extends Controller
 
         UserVerification::generate($user);
 
-        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.', 'no-reply@depaulalumni.com');
 
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());

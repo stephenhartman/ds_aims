@@ -55,7 +55,7 @@ class HomeController extends Controller
     {
         $user = User::find($id);
         UserVerification::generate($user);
-        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.', 'no-reply@depaulalumni.com');
         Session::flash('message', 'You will receive your verification email shortly.');
         return view('auth.errors.not-verified');
     }

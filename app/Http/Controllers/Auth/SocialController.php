@@ -89,7 +89,7 @@ class SocialController extends Controller
             ->attach(Role::where('name', 'alumni')->first());
 
         UserVerification::generate($user);
-        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.', 'no-reply@depaulalumni.com');
 
         return $user;
     }
