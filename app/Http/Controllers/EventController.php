@@ -57,7 +57,7 @@ class EventController extends Controller
                     $event_obj = $value->id;
 
                     $events[] = Calendar::event(
-                        $value->name . " YOU ARE SIGNED UP",
+                        $value->title .  " YOU ARE SIGNED UP",
                         false,
                         $sd,
                         $ed,
