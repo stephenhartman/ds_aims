@@ -158,6 +158,8 @@ class EventChildController extends Controller
             }
             $parent->delete();
         }
+
+        Session::flash('success', 'The event was successfully deleted.');
         return redirect()->route('events.index');
     }
 }

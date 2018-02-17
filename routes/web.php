@@ -25,6 +25,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
     Route::resource('events', 'EventController', ['except' => 'index', 'show']);
     Route::resource('events.event_child', 'EventChildController');
+    Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
 });
 
@@ -34,6 +35,7 @@ Route::resource('events.event_sign_ups', 'EventSignUpController');
 Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
 Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
 Route::resource('events.event_child', 'EventChildController');
+Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
 
 
 Route::resource('users', 'UserController', ['only' => ['index', 'show']]);

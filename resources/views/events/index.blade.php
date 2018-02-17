@@ -9,10 +9,11 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-2 col-md-offset-1">
-            <div class="bg-volunteer text-white"> Volunteer events are blue</div>
-            <div class="bg-reunion text-white"> Reunion events are red</div>
-            <div class="bg-community_event text-white"> Community events are green</div>
+        <div class="col-md-4 col-md-offset-1">
+            <div class="bg-volunteer"> Volunteer events are orange</div>
+            <div class="bg-reunion"> Reunion events are blue</div>
+            <div class="bg-community_event"> Community events are brown</div>
+            <div class="bg-signed_up">Events you are signed up for are green</div>
         </div>
         <div class="col-md-2 col-md-offset-6">
             @if (Auth::user()->hasRole('admin'))
@@ -39,11 +40,11 @@
                 <div id="modalBody" class="modal-body"> </div>
                 <div class="modal-footer">
                     @if (Auth::user()->hasRole('admin'))
-                        <a class="btn btn-info" id="eventUrl" target="_blank">Edit this event</a>
-                        <a class="btn btn-success" id="index" target="_blank"></a>
+                        <a class="btn btn-info" id="eventUrl"></a>
+                        <a class="btn btn-success" id="index"></a>
                     @endif
                     @if (!Auth::user()->hasRole('admin'))
-                    <a class="btn btn-success" id="sign_up" target="_blank"></a>
+                    <a class="btn btn-success" id="sign_up"></a>
                     @endif
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
