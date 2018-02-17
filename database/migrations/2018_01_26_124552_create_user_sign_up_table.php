@@ -17,7 +17,6 @@ class CreateUserSignUpTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('event_id');
-            $table->integer('child_id')->nullable();
             $table->integer('number_attending');
             $table->text('notes')->nullable();
             $table->softDeletes();

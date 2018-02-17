@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EventChild;
+use App\EventSignUpChild;
 use App\User;
 use App\EventSignUp;
 use Illuminate\Http\Request;
@@ -44,30 +45,31 @@ class EventController extends Controller
                         $value->id,
                         [
                             'description' => $value->description,
-                            'color' => $this->getColor($value->type),
+                            'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
                             'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
                         ]
                     );
-                } else {
+                }else
+                {
                     $enroll = $this->getSignUp($value->id);
                     $enroll_id = $enroll->id;
-                    $event_obj = $value->id;
+                    $event_id = $value->id;
 
                     $events[] = Calendar::event(
-                        $value->title .  " YOU ARE SIGNED UP",
+                        $value->title,
                         false,
                         $sd,
                         $ed,
                         $value->id,
                         [
                             'description' => $value->description,
-                            'color' => $this->getColor($value->type),
+                            'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
-                            'sign_up' => route('events.event_sign_ups.edit', compact('event_obj', 'enroll_id')),
-                            'button' => 'I can no longer attend',
+                            'sign_up' => route('events.event_sign_ups.edit', compact('event_id', 'enroll_id')),
+                            'button' => 'Unenroll or Edit',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
 
                         ]
@@ -84,33 +86,62 @@ class EventController extends Controller
                 $sd = $start_date->toDateTimeString();
                 $end_date = new Carbon($value->end_date);
                 $ed = $end_date->toDateTimeString();
-                $events[] = Calendar::event(
-                    $parent->title,
-                    false,
-                    $sd,
-                    $ed,
-                    $value->id,
-                    [
-                        'description' => $parent->description,
-                        'color' => $this->getColor($parent->type),
-                        'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
-                        'sign_up' => route('events.event_sign_ups.create', $value->id),
-                        'button' => 'Sign up for an event',
-                        'enroll_index' => route('events.event_sign_ups.index', $value->id),
-                    ]
-                );
+                $exists = $this->child_sign_up_exists($parent_id ,$value->id);
+                if($exists == 0)
+                {
+                    $events[] = Calendar::event(
+                        $parent->title,
+                        false,
+                        $sd,
+                        $ed,
+                        $value->id,
+                        [
+                            'description' => $parent->description,
+                            'color' => $this->getColor($parent->type, $exists),
+                            'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
+                            'sign_up' => route('events.event_child.sign_ups.create', [$parent->id, $value->id]),
+                            'button' => 'Sign up for an event',
+                            'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                        ]
+                    );
+                }else
+                {
+                    $enroll = $this->get_child_sign_up($parent_id, $value->id);
+                    $enroll_id = $enroll->id;
+
+                    $events[] = Calendar::event(
+                        $parent->title,
+                        false,
+                        $sd,
+                        $ed,
+                        $value->id,
+                        [
+                            'description' => $parent->description,
+                            'color' => $this->getColor($parent->type, $exists),
+                            'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
+                            'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
+                            'button' => 'Unenroll or Edit',
+                            'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+
+                        ]
+                    );
+
+                }
+
             }
 
         }
         $calendar = Calendar::addEvents($events)
             ->setOptions([
-                'fixedWeekCount' => false
+                'header' => ['left'=> 'prev,next today', 'center' => 'title', 'right' => 'month, agendaWeek, agendaDay'],
+                'fixedWeekCount' => false,
+                'scrollTime' => '07:00:00'
             ])
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {
                                 $("#modalTitle").html("<strong>" + event.title + "</strong>");
                                 $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
-                                $("#eventUrl").attr("href", event.link);
+                                $("#eventUrl").attr("href", event.link).html("Edit this event");
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
                                 $("#sign_up").attr("href", event.sign_up).html(event.button);
                                 $("#delete").attr("href", event.delete).html(event.delete_btn);
@@ -120,14 +151,21 @@ class EventController extends Controller
         return view('events.index', compact('calendar'));
     }
 
-    private function getColor($type)
+    private function getColor($type, $exists)
     {
-        if ($type == "Volunteer"){
-            return "#ff7f00";
-        }else if($type == "Reunion"){
-            return "#053D63";
+        if($exists == 1)
+        {
+            return '#009900';
         }else
-            return "#7f3f00";
+        {
+            if ($type == "Volunteer"){
+                return "#ff7f00";
+            }else if($type == "Reunion"){
+                return "#053D63";
+            }else
+                return "#7f3f00";
+        }
+
 
     }
     private function signUp_exists($id)
@@ -136,7 +174,8 @@ class EventController extends Controller
         if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->exists())
         {
             $flag = 1;
-        }else{
+        }else
+        {
             $flag = 0;
         }
         return $flag;
@@ -146,8 +185,29 @@ class EventController extends Controller
         $user_id = Auth::id();
         $enroll = EventSignUp::where('user_id', $user_id)->where('event_id', $id)->first();
 
-            return $enroll;
+        return $enroll;
 
+    }
+
+    private function child_sign_up_exists($parent_id, $child_id)
+    {
+        $user_id = Auth::id();
+        if(EventSignUpChild::where('user_id', $user_id)->where('event_id', $parent_id)->where('child_id', $child_id)->exists())
+        {
+            $flag = 1;
+        }else
+        {
+            $flag = 0;
+        }
+        return $flag;
+    }
+
+    private function get_child_sign_up($parent_id, $child_id)
+    {
+        $user_id = Auth::id();
+        $enroll = EventSignUpChild::where('user_id', $user_id)->where('event_id', $parent_id)->where('child_id', $child_id)->first();
+
+        return $enroll;
     }
 
     /**
@@ -241,6 +301,9 @@ class EventController extends Controller
                 $event_child->end_date = $date_holder_format . " " . $request->event_end_time;
                 $event_child->save();
             }
+
+            Session::flash('success', 'The event was successfully saved.');
+
             return redirect()->route('events.index');
         }
     }
@@ -357,7 +420,7 @@ class EventController extends Controller
             $event->delete();
         }
 
-
+        Session::flash('success', 'The event was successfully deleted.');
         return redirect()->route('events.index');
     }
 }

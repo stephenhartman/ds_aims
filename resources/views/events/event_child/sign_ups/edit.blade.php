@@ -41,9 +41,10 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-3">
-                            {{ Form::open(['method' => 'PUT', 'route' => ['events.event_sign_ups.update', $event->id, $enroll->id]]) }}
+                            {{ Form::open(['method' => 'PUT', 'route' => ['events.event_child.sign_ups.update', $event->id, $child->id, $enroll->id]]) }}
                             {{Form::hidden('user_id', $user, array('class' => 'form-control') )}}
                             {{Form::hidden('event_id', $event->id, array('class' => 'form-control') )}}
+                            {{Form::hidden('child_id', $child->id, array('class' => 'form-control'))}}
 
                             {{Form::label('number_attending','Number Attending')}}
                             {{Form::number('number_attending', $enroll->number_attending, array('min'=> '0', 'class' => 'form-control', 'required'))}}
@@ -60,7 +61,7 @@
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-3">
-                            {{ Form::open(['route' => ['events.event_sign_ups.destroy', $event->id, $enroll->id], 'method' => 'DELETE']) }}
+                            {{ Form::open(['route' => ['events.event_child.sign_ups.destroy', $event->id, $child->id, $enroll->id], 'method' => 'DELETE']) }}
                             {{ Form::button('Unenroll', array(
                                 'type' => 'submit',
                                 'data-id' => $enroll->id,

@@ -28,9 +28,9 @@ class EventSignUpController extends Controller
 
         $start_date = new Carbon($event->start_date);
         $sd = $start_date->toDateString();
-        $st = $start_date->format('H:i');
+        $st = $start_date->format('h:i A');
         $end_date = new Carbon($event->end_date);
-        $et = $end_date->format('H:i');
+        $et = $end_date->format('h:i A');
 
         return view('events.event_sign_ups.create', compact('user', 'event', 'sd', 'st', 'et'));
     }
@@ -46,6 +46,7 @@ class EventSignUpController extends Controller
 
         $enroll->save();
 
+        Session::flash('success', 'You have been signed up!');
         return redirect()->route('events.index');
     }
 
@@ -62,9 +63,9 @@ class EventSignUpController extends Controller
 
         $start_date = new Carbon($event->start_date);
         $sd = $start_date->toDateString();
-        $st = $start_date->format('H:i');
+        $st = $start_date->format('h:i A');
         $end_date = new Carbon($event->end_date);
-        $et = $end_date->format('H:i');
+        $et = $end_date->format('h:i A');
         return view('events.event_sign_ups.edit', compact('event','enroll', 'user', 'sd', 'st', 'et'));
     }
 
@@ -79,12 +80,15 @@ class EventSignUpController extends Controller
 
         $enroll->save();
 
+        Session::flash('success', 'You have been signed up!');
         return redirect()->route('events.index');
     }
     public function destroy(Event $event, $enroll_id)
     {
         $enroll = EventSignUp::where('id', $enroll_id)->first();
         $enroll->delete();
+
+        Session::flash('success', 'You have been unenrolled!');
         return redirect()->route('events.index');
     }
 }

@@ -41,35 +41,27 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-3">
-                            {{ Form::open(['method' => 'PUT', 'route' => ['events.event_sign_ups.update', $event->id, $enroll->id]]) }}
+                            {{ Form::open(['method' => 'POST', 'route' => ['events.event_child.sign_ups.store', $event->id, $child->id]]) }}
                             {{Form::hidden('user_id', $user, array('class' => 'form-control') )}}
                             {{Form::hidden('event_id', $event->id, array('class' => 'form-control') )}}
+                            {{Form::hidden('child_id', $child->id, array('class' => 'form-control'))}}
 
                             {{Form::label('number_attending','Number Attending')}}
-                            {{Form::number('number_attending', $enroll->number_attending, array('min'=> '0', 'class' => 'form-control', 'required'))}}
+                            {{Form::number('number_attending', 1, array('min'=> '0', 'class' => 'form-control', 'required'))}}
                         </div>
                         <div class="col-md-6 col-md-offset-2">
                             {{Form::label('notes','Notes')}}
-                            {{Form::text('notes', $enroll->notes, array('class' => 'form-control') )}}
+                            {{Form::text('notes', null, array('class' => 'form-control') )}}
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-1">
+                        <div class="col-md-4 col-md-offset-1">
                             {{Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block'))}}
-                            {{ Form::close() }}
                         </div>
-                        <div class="col-md-3">
-                            {{ Form::open(['route' => ['events.event_sign_ups.destroy', $event->id, $enroll->id], 'method' => 'DELETE']) }}
-                            {{ Form::button('Unenroll', array(
-                                'type' => 'submit',
-                                'data-id' => $enroll->id,
-                                'class' => 'btn btn-warning btn-lg btn-block',
-                                'onclick' => "return confirm('Are you sure you want to unenroll from this event?')")) }}
-                            {{ Form::close() }}
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-md-offset-1">
                             {!! Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block")) !!}
+                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>
