@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Session;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
+use Session;
+use Purifier;
+use Image;
 use Auth;
+
 
 class PostController extends Controller
 {
@@ -19,7 +23,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('posts.index')->withPosts($posts);
     }
 
@@ -28,7 +32,8 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+	
+	    public function create()
     {
         return view('posts.create');
     }
@@ -39,24 +44,41 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-	public function store(Request $request)
+    public function store(Request $request)
     {
-        //validate the data
-		$this->validate($request, array(
-			'title' => 'required|max:255',
-			'body' => 'required'
-		));
+        // validate the data
+        $this->validate($request, array(
+                'title'         => 'required|max:255',
 
-		$post = new Post;
-		$post->title = $request->title;
-		$post->body = $request->body;
+                'body'          => 'required'
+            ));
+
+        // store in the database
+        $post = new Post;
+
+        $post->title = $request->title;
 		$post->alumni = $request->alumni;
 		$post->user_id = Auth::User()->id;
-		$post->save();
 
-		return redirect()->route('posts.show', compact('post'));
+        $post->body = Purifier::clean($request->body);
+
+        if ($request->hasFile('featured_img')) {
+          $image = $request->file('featured_img');
+          $filename = time() . '.' . $image->getClientOriginalExtension();
+          $location = public_path('images/' . $filename);
+          Image::make($image)->resize(800, 400)->save($location);
+
+          $post->image = $filename;
+        }
+
+        $post->save();
+
+
+        Session::flash('success', 'The blog post was successfully save!');
+
+        return redirect()->route('posts.show', $post->id);
     }
+
     /**
      * Display the specified resource.
      *

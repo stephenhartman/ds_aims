@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -45,6 +46,7 @@ class LoginController extends Controller
      */
     public function authenticated(Request $request)
     {
+        Session::flash('success', 'You have successfully logged in!  Welcome to the DePaul Alumni Outreach System!');
         // Logic that determines where to send the user
         if($request->user()->hasRole('alumni')){
             return redirect('/home');

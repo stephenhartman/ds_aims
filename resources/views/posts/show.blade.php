@@ -17,7 +17,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="lead">{{ $post->body }}</p>
+						<p class="lead">{!! $post->body !!}</p>
 					</div>
 				</div>
 				<div class="row">

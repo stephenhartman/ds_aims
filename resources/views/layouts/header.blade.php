@@ -11,7 +11,7 @@
             <!-- Branding Image -->
             <a class="pull-left" href="{{ url('/home') }}">
                 <span>
-                    <img class="depaul-brand" src="https://mediaprocessor.websimages.com/fit/1920x1920/www.depaulschool.com/Large DePaul Lion Head Silhouette Facing Right.png" height="40px">
+                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="40px">
                 </span>
                 <p class="navbar-brand" style="float:right; padding-left:1.5em">DePaul Alumni System</p>
             </a>
@@ -21,22 +21,34 @@
             <ul class="navbar-nav nav">
                 @if (!Auth::guest())
                     @if (Auth::user()->hasRole('admin'))
-                        <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('users') }}">Search Students</a>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ URL::to('alumni') }}">Alumni Database</a></li>
+                                <li><a href="{{ URL::to('alumni/education') }}">Education Milestones</a></li>
+                                <li><a href="{{ URL::to('alumni/occupation') }}">Occupation Milestones</a></li>
+                            </ul>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                     @else
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Search Posts</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li>
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Search Events</a>
+                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
+                        @if (Auth::user()->alumnus !== null)
+                            @if (Auth::user()->alumnus->initial_setup == 1)
+                                <li>
+                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
+                                </li>
+                            @endif
+                        @endif
                     @endif
                 @endif
             </ul>
@@ -44,6 +56,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
+                    <li><a href="{{ route('register') }}">Register</a></li>
                     <li><a href="{{ route('login') }}">Login</a></li>
                 @else
                     <li class="dropdown">

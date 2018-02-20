@@ -19,14 +19,24 @@ class UserTableSeeder extends Seeder
         $admin_user = User::where('email', 'admin@example.com')->first();
         if ($admin_user === null) {
             $admin = new User();
-            $admin->name = 'Admin Istrator';
+            $admin->name = 'Administrator Person';
             $admin->email = 'admin@example.com';
             $admin->password = bcrypt('secret');
+            $admin->verified = 1;
             $admin->save();
             $admin->roles()->attach($role_admin);
         }
 
         $users = factory(App\User::class, 100)->create();
+
+        foreach($users as $user) {
+            $alumnus = $user->alumnus()->save(factory(App\Alumnus::class)->make());
+            $alumnus->educations()->save(factory(App\Education::class)->make());
+            $alumnus->educations()->save(factory(App\Education::class)->make());
+            $alumnus->occupations()->save(factory(App\Occupation::class)->make());
+            $alumnus->occupations()->save(factory(App\Occupation::class)->make());
+        }
+
         foreach($users as $user)
         {
             $user->roles()->attach($role_alumni);
