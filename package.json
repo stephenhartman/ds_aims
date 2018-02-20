@@ -1,31 +1,29 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "npm run development",
-    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch-poll": "npm run watch -- --watch-poll",
-    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
-  "devDependencies": {
-    "axios": "^0.16.2",
-    "bootstrap-sass": "^3.3.7",
-    "cross-env": "^5.0.5",
-    "jquery": "^3.2.1",
-    "laravel-mix": "^1.4.5",
-    "lodash": "^4.17.4",
-    "vue": "^2.1.10"
-  },
-  "dependencies": {
-    "datatables.net-bs": "^1.10.16",
-    "datatables.net-buttons-bs": "^1.4.2",
-    "datatables.net-responsive-bs": "^2.2.0",
-    "font-awesome": "^4.7.0",
-    "fullcalendar": "^3.8.0",
-    "jszip": "^3.1.4",
-    "moment": "^2.20.1",
-    "yadcf-npm": "^0.8.9"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "axios": "^0.16.2",
+        "bootstrap-sass": "^3.3.7",
+        "cross-env": "^5.0.5",
+        "jquery": "^3.3.1",
+        "laravel-mix": "^1.4.5",
+        "lodash": "^4.17.4",
+        "vue": "^2.1.10"
+    },
+    "dependencies": {
+        "font-awesome": "^4.7.0",
+        "fullcalendar": "^3.8.2",
+        "jszip": "^3.1.5",
+        "marked": "^0.3.12",
+        "moment": "^2.20.1",
+        "node": "^9.5.0"
+    }
 }

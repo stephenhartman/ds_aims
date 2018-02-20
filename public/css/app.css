@@ -11492,4 +11492,26 @@ body {
   color: #FFFFFF;
 }
 
+hr.posts {
+  height: 10px;
+  border: 0 solid #d3e0e9;
+  border-top-width: 1px;
+  border-radius: 5px;
+}
+
+hr.posts:before {
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border: 0 solid #d3e0e9;
+  border-bottom-width: 1px;
+  border-radius: 5px;
+}
+
+.required:after {
+  content: '*';
+  color: red;
+  padding-left: 5px;
+}
 

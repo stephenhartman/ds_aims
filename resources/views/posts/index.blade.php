@@ -33,7 +33,7 @@
 					<tr>
 						<th>{{ $post->user->name }}</th>
 						<td>{{ $post->title }}</td>
-						<td>{{ substr($post->body, 0, 50) }}{{ strlen($post->body) > 50 ? "..." : "" }}</td>
+						<td>{!!  $post->body !!}</td>
 						<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
 						<td>
 							<a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-block btn-sm">View</a>

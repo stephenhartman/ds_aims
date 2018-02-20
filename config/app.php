@@ -163,6 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+		
 
         /*
          * Package Service Providers...
@@ -176,7 +177,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+		App\Providers\TinymceServiceProvider::class,
         /*
          * Laravel Collective Providers...
          */
@@ -191,10 +192,38 @@ return [
          * Socialite for Social authorization
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
+
         /*
          * Full calender
          */
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+
+        /*
+         * Reverse seed generator
+         */
+        Orangehill\Iseed\IseedServiceProvider::class,
+
+        /*
+         * Photo upload dependencies
+         */
+        Intervention\Image\ImageServiceProvider::class,
+
+        /*
+         * HTML 5 Purifier
+         */
+        Mews\Purifier\PurifierServiceProvider::class,
+
+        /*
+         * Sentry
+         */
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
+        /*
+         * Email verification
+         */
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
+
+>>>>>>> master
     ],
 
     /*
@@ -249,6 +278,10 @@ return [
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
+		'Image' => Intervention\Image\Facades\Image::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
     ],
 
 ];
