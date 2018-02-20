@@ -76,7 +76,7 @@ class EventSignUpController extends Controller
         $enroll->event_id = $request->event_id;
         $enroll->number_attending = $request->number_attending;
         $notes = $enroll->notes;
-        $enroll->notes = $notes . "\n" . $request->notes;
+        $enroll->notes = $request->notes;
 
         $enroll->save();
 

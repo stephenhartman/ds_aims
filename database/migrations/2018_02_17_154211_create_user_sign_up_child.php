@@ -13,7 +13,7 @@ class CreateUserSignUpChild extends Migration
      */
     public function up()
     {
-        Schema::create('sign_ups', function(Blueprint $table){
+        Schema::create('event_sign_ups_child', function(Blueprint $table){
            $table->increments('id');
            $table->integer('user_id');
            $table->integer('event_id');

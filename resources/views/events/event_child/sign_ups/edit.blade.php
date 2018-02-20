@@ -41,7 +41,7 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-3">
-                            {{ Form::open(['method' => 'PUT', 'route' => ['events.event_child.sign_ups.update', $event->id, $child->id, $enroll->id]]) }}
+                            {{ Form::open(['method' => 'PUT', 'route' => ['events.event_child.sign_ups.update', $event->id, $child->id, $enroll]]) }}
                             {{Form::hidden('user_id', $user, array('class' => 'form-control') )}}
                             {{Form::hidden('event_id', $event->id, array('class' => 'form-control') )}}
                             {{Form::hidden('child_id', $child->id, array('class' => 'form-control'))}}
