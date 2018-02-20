@@ -110,15 +110,15 @@ class EventSignUpChildController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Event $event, EventChild $child, Request $request, $enroll_id)
+    public function update($event_id, $child_id, $enroll_id, Request $request)
     {
+
         $enroll = EventSignUpChild::where('id', $enroll_id)->first();
         $enroll->user_id = $request->user_id;
         $enroll->event_id = $request->event_id;
         $enroll->child_id = $request->child_id;
         $enroll->number_attending = $request->number_attending;
-        $notes = $enroll->notes;
-        $enroll->notes = $notes . "\n"  . $request->notes;
+        $enroll->notes = $request->notes;
 
         $enroll->save();
 

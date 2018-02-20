@@ -15,9 +15,9 @@
             <div class="bg-community_event"> Community events are brown</div>
             <div class="bg-signed_up">Events you are signed up for are green</div>
         </div>
-        <div class="col-md-2 col-md-offset-6">
+        <div class="col-md-2 col-md-offset-4">
             @if (Auth::user()->hasRole('admin'))
-                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
+                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin: 18pt">New Event</a>
             @endif
         </div>
     </div>
