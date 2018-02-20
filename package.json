@@ -21,6 +21,7 @@
     "dependencies": {
         "font-awesome": "^4.7.0",
         "jszip": "^3.1.5",
-        "marked": "^0.3.12"
+        "marked": "^0.3.12",
+        "node": "^9.5.0"
     }
 }
