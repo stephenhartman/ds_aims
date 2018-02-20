@@ -74,10 +74,36 @@
                     {
                         extend:    'copyHtml5',
                         text:      'Copy <i class="fa fa-files-o"></i>',
+                        exportOptions : {
+                            columns : ':visible',
+                            format : {
+                                header : function (mDataProp, columnIdx) {
+                                    var htmlText = '<span>' + mDataProp + '</span>';
+                                    var jHtmlObject = jQuery(htmlText);
+                                    jHtmlObject.find('div').remove();
+                                    var newHtml = jHtmlObject.text();
+                                    console.log('My header > ' + newHtml);
+                                    return newHtml;
+                                }
+                            }
+                        }
                     },
                     {
                         extend:    'excelHtml5',
                         text:      'Export to Excel <i class="fa fa-table"></i>',
+                        exportOptions : {
+                            columns : ':visible',
+                            format : {
+                                header : function (mDataProp, columnIdx) {
+                                    var htmlText = '<span>' + mDataProp + '</span>';
+                                    var jHtmlObject = jQuery(htmlText);
+                                    jHtmlObject.find('div').remove();
+                                    var newHtml = jHtmlObject.text();
+                                    console.log('My header > ' + newHtml);
+                                    return newHtml;
+                                }
+                            }
+                        }
                     },
                     {
                         extend:    'csvHtml5',
@@ -100,6 +126,19 @@
                     {
                         extend:    'print',
                         text:      'Print <i class="fa fa-print"></i>',
+                        exportOptions : {
+                            columns : ':visible',
+                            format : {
+                                header : function (mDataProp, columnIdx) {
+                                    var htmlText = '<span>' + mDataProp + '</span>';
+                                    var jHtmlObject = jQuery(htmlText);
+                                    jHtmlObject.find('div').remove();
+                                    var newHtml = jHtmlObject.text();
+                                    console.log('My header > ' + newHtml);
+                                    return newHtml;
+                                }
+                            }
+                        }
                     },
                 ],
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
