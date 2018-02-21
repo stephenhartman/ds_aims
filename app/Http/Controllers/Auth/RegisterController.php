@@ -123,10 +123,13 @@ class RegisterController extends Controller
         try {
             $user = UserVerificationFacade::process($request->input('email'), $token, $this->userTable());
         } catch (UserNotFoundException $e) {
+            Session::flash('error', 'The user account was not found.  Please contact the system administrator.');
             return redirect($this->redirectIfVerificationFails());
         } catch (UserIsVerifiedException $e) {
+            Session::flash('error', 'You have already confirmed you account.');
             return redirect($this->redirectIfVerified());
         } catch (TokenMismatchException $e) {
+            Session::flash('error', 'Please check your email for the latest verification from the DePaul School.');
             return redirect($this->redirectIfVerificationFails());
         }
         if (config('user-verification.auto-login') === true) {
