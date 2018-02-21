@@ -32,14 +32,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="form-group">
                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
                     {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
                 </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
         <div class="row">
             <div class="col-md-6">
