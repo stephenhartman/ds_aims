@@ -222,8 +222,6 @@ return [
          * Email verification
          */
         Jrean\UserVerification\UserVerificationServiceProvider::class,
-
->>>>>>> master
     ],
 
     /*
