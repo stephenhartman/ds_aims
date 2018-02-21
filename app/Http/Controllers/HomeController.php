@@ -36,7 +36,7 @@ class HomeController extends Controller
             return view('users.alumni.create', compact('user'));
         else
         {
-            $posts = Post::orderBy('updated_at', 'desc')->paginate(3);
+            $posts = Post::orderBy('id', 'desc')->paginate(3);
 
             if ($request->user()->hasRole('admin'))
                 return view('admin.home')->withPosts($posts);
