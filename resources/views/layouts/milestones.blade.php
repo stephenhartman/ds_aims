@@ -37,7 +37,7 @@
                             @foreach($occupations as $occupation)
                                 <li>
                                     <a href=" {{ route('users.alumni.occupation.edit', [$user, $alumnus, $occupation->id]) }}">
-                                        Occupaton: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}
+                                        Occupation: {{ $occupation->organization}} {{ $occupation->start_year }}-{{$occupation->end_year}}
                                     </a>
                                 </li>
                             @endforeach
