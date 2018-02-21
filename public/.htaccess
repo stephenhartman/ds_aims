@@ -28,5 +28,6 @@
     Header set X-Content-Type-Options nosniff
     Header set Strict-Transport-Security "max-age=2592000" env=HTTPS
     Header set Referrer-Policy strict-origin-when-cross-origin
+#    Header set Content-Security-Policy "default-src * 'self'"
 
 </IfModule>
