@@ -5,8 +5,8 @@
 
     # HSTS (HTTP Strict Transport Security)
     RewriteEngine On
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+#    RewriteCond %{HTTPS} !=on
+#    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -27,5 +27,6 @@
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Content-Type-Options nosniff
     Header set Strict-Transport-Security "max-age=2592000" env=HTTPS
+    Header set Referrer-Policy strict-origin-when-cross-origin
 
 </IfModule>
