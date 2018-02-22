@@ -3,18 +3,6 @@
         <h4>Edit Profile</h4>
     </div>
     <div class="panel-body">
-        {{ Form::model($alumnus, ['route' => array('users.alumni.update', $user, $alumnus),
-        'method' => 'PATCH', 'enctype' => 'multipart/form-data']) }}
-        <div class="row">
-            @if ($alumnus->photo_url !== null)
-                <div class="col-md-6">
-                    <figure class="figure">
-                        <img class="img-thumbnail img-responsive" src="{{ url($alumnus->photo_url) }}">
-                        <figcaption class="figure-caption">Current Profile Photo</figcaption>
-                    </figure>
-                </div>
-            @endif
-        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -44,18 +32,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ Form::label('photo_url', 'Upload a different profile picture') }}
-                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
-                </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
                 <div class="form-group">
                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
                     {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
                 </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -159,11 +143,11 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block']) }}
+                {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block', 'style' => 'margin-top:20px']) }}
                 {{ Form::close() }}
             </div>
             <div class="col-md-3">
-                {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block")) !!}
+                {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block", 'style' => 'margin-top:20px')) !!}
             </div>
             <div class="text-center col-md-6">
                 <h5>

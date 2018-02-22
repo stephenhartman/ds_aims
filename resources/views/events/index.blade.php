@@ -1,53 +1,57 @@
 @extends('layouts.app')
 
-@section('title', 'Events')
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css"/>
+@endpush
+
+@section('title', 'Event Calendar')
 
 @section('content')
+
     <div class="row">
-        <div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
-            <h1>Event Calendar</h1>
+        <div class="col-md-8 col-md-offset-1">
+            <ul class="legend">
+                <li><span class="volunteer"></span> Volunteer Events</li>
+                <li><span class="reunion"></span> Reunion Events</li>
+                <li><span class="community"></span> Community Events</li>
+                <li><span class="signed-up"></span> Signed Up Events</li>
+            </ul>
         </div>
-        <div class="col-md-2 col-sm-12">
+        <div class="col-xs-12 col-md-2">
             @if (Auth::user()->hasRole('admin'))
-                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Event</a>
+                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg">New Event</a>
             @endif
         </div>
     </div>
+    <hr>
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <hr>
+            <div class="col-md-10 col-md-offset-1">
+                {!! $calendar->calendar() !!}
+
+                {!! $calendar->script() !!}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <table class="table">
-                <thead>
-                <th>Event Name</th>
-                <th>Event Type</th>
-                <th>Event Date</th>
-                <th>Event Time</th>
-                <th></th>
-                </thead>
-                <tbody>
-                @foreach ($events as $event)
-                    <tr>
-                        <td> {{ $event->name }}</td>
-                        <td> {{ $event->type }}</td>
-                        <td> {{ Carbon::parse($event->date)->format('m/d/Y') }}</td>
-                        <td> {{ Carbon::parse($event->time)->format('g:i A') }}</td>
-                        <td>
-                            <a href="{{ route('events.show', $event->id) }}" class="btn btn-default btn-block btn-sm">View</a>
-                            @if (Auth::user()->hasRole('admin'))
-                                <a href="{{ route('events.edit', $event->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
-                            @endif
-                        </td>
-                        @if (Auth::user()->hasRole('alumni'))
-                            <td> <a href="http://google.com">Sign up for this event!</a> </td>
-                        @endif
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+    <div id="calendarModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                    <h4 id="modalTitle" class="modal-title"></h4>
+                </div>
+                <div id="modalBody" class="modal-body"> </div>
+                <div class="modal-footer">
+                    @if (Auth::user()->hasRole('admin'))
+                        <a class="btn btn-info" id="eventUrl"></a>
+                        <a class="btn btn-success" id="index"></a>
+                    @endif
+                    @if (!Auth::user()->hasRole('admin'))
+                    <a class="btn btn-success" id="sign_up"></a>
+                    @endif
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
+
 @endsection

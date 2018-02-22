@@ -143,13 +143,12 @@
                             </div>
                         </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4 text-center">
                                     {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block']) }}
                                     {{ Form::close() }}
                                 </div>
-                                <div class="col-md-3">
-                                    {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block", 'onclick' => "return confirm('Are you sure you want to cancel account creation?')")) !!}
-                                </div>
+                                <div class="col-md-1"></div>
                                 <div class="text-center col-md-6">
                                     <h5>
                                         A <span class="required"></span>

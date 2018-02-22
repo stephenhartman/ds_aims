@@ -1,5 +1,5 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Metrophobic:300,400,600");
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
@@ -69,6 +69,28 @@ html, body {
     text-align: center;
     text-decoration: none;
 }
+
+/* legend */
+.legend { list-style: none; }
+
+.legend li {
+    float: left;
+    margin-right: 10px;
+}
+
+.legend span {
+    border-radius: 3px;
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin: 2px;
+}
+
+/* colors */
+.legend .volunteer { background-color: #ff7f00; }
+.legend .reunion { background-color: #053D63; }
+.legend .community { background-color: #7f3f00; }
+.legend .signed-up { background-color: #009900; }
 
 hr.posts {
     height: 10px;

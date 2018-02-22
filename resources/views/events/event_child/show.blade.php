@@ -22,41 +22,45 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Event start date: {{ date('M j, Y', strtotime($event->start_date)) }}</p>
+                        <p>Event start date: {{ date('M j, Y', strtotime($event_child->start_date)) }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Event start time:  {{ date('h:ia', strtotime($event->start_date)) }}</p>
+                        <p>Event start time:  {{ date('h:ia', strtotime($event_child->start_date)) }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <p>Event end date: {{ date('M j, Y', strtotime($event->end_date)) }}</p>
+                        <p>Event end date: {{ date('M j, Y', strtotime($event_child->end_date)) }}</p>
                     </div>
                     <div class="col-md-6">
-                        <p>Event end time:  {{ date('h:ia', strtotime($event->end_date)) }}</p>
+                        <p>Event end time:  {{ date('h:ia', strtotime($event_child->end_date)) }}</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-8">
-                        <br>
-                        <p> {{ $event->description }}</p>
+                        <p class="lead">{{ $event->description }}</p>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="lead">Updates: {{ $event_child->updates }}</p>
+                    </div>
+                </div>
             </div>
             <div class="panel-footer">
                 <div class="row">
                     @if (Auth::user()->hasRole('admin'))
                         <div class="col-md-6">
-                            {{ Form::open(['method' => 'GET', 'route' => ['events.edit', $event->id]]) }}
+                            {{ Form::open(['method' => 'GET', 'route' => ['events.event_child.edit', $event->id, $event_child->id]]) }}
                             {{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Edit', array(
                                 'type' => 'submit',
                                 'class' => 'btn btn-info btn-lg btn-block')) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-6">
-                            {{ Form::open(['route' => ['events.destroy', $event->id], 'method' => 'DELETE']) }}
+                            {{ Form::open(['route' => ['events.event_child.destroy', $event->id, $event_child], 'method' => 'DELETE']) }}
                             {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
                                 'type' => 'submit',
-                                'data-id' => $event->id,
                                 'class' => 'btn btn-danger btn-lg btn-block',
                                 'onclick' => "return confirm('Are you sure?')")) }}
                             {{ Form::close() }}
@@ -65,6 +69,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
