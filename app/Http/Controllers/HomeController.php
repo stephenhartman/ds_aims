@@ -9,6 +9,12 @@ use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Jrean\UserVerification\Facades\UserVerification;
+use App\Event;
+use App\EventChild;
+use App\EventSignUp;
+use App\EventSignUpChild;
+use Carbon\Carbon;
+use \Calendar;
 
 class HomeController extends Controller
 {
@@ -41,9 +47,136 @@ class HomeController extends Controller
             if ($request->user()->hasRole('admin'))
                 return view('admin.home')->withPosts($posts);
             else
-                return view('home')->withPosts($posts);
+
+                $events = [];
+                $data = Event::all();
+                $data2 = EventChild::all();
+            if($data->count()) {
+                foreach ($data as $key => $value) {
+                    $start_date = new Carbon($value->start_date);
+                    $sd = $start_date->toDateTimeString();
+                    $end_date = new Carbon($value->end_date);
+                    $ed = $end_date->toDateTimeString();
+                    $exists = $this->signUp_exists($value->id);
+                    if ($exists == 0) {
+                        $events[] = Calendar::event(
+                            $value->title,
+                            false,
+                            $sd,
+                            $ed,
+                            $value->id,
+                            [
+                                'description' => $value->description,
+                                'color' => $this->getColor($value->type, $exists),
+                                'link' => route('events.edit', $value->id),
+                                'sign_up' => route('events.event_sign_ups.create', $value->id),
+                                'button' => 'Sign up for an event',
+                                'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                            ]
+                        );
+                    }else
+                    {
+                        $enroll = $this->getSignUp($value->id);
+                        $enroll_id = $enroll->id;
+                        $event_id = $value->id;
+
+                        $events[] = Calendar::event(
+                            $value->title,
+                            false,
+                            $sd,
+                            $ed,
+                            $value->id,
+                            [
+                                'description' => $value->description,
+                                'color' => $this->getColor($value->type, $exists),
+                                'link' => route('events.edit', $value->id),
+                                'sign_up' => route('events.event_sign_ups.edit', compact('event_id', 'enroll_id')),
+                                'button' => 'Unenroll or Edit',
+                                'enroll_index' => route('events.event_sign_ups.index', $value->id),
+
+                            ]
+                        );
+                    }
+                }
+            }
+            if($data2->count()){
+                foreach ($data2 as $key => $value) {
+                    $parent = Event::withTrashed()->where('id', $value->parent_id)->first();
+                    $parent_id = $parent->id;
+                    $child_id = $value->id;
+                    $start_date = new Carbon($value->start_date);
+                    $sd = $start_date->toDateTimeString();
+                    $end_date = new Carbon($value->end_date);
+                    $ed = $end_date->toDateTimeString();
+                    $exists = $this->child_sign_up_exists($parent_id ,$value->id);
+                    if($exists == 0)
+                    {
+                        $events[] = Calendar::event(
+                            $parent->title,
+                            false,
+                            $sd,
+                            $ed,
+                            $value->id,
+                            [
+                                'description' => $parent->description,
+                                'color' => $this->getColor($parent->type, $exists),
+                                'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
+                                'sign_up' => route('events.event_child.sign_ups.create', [$parent->id, $value->id]),
+                                'button' => 'Sign up for an event',
+                                'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                            ]
+                        );
+                    }else
+                    {
+                        $enroll = $this->get_child_sign_up($parent_id, $value->id);
+                        $enroll_id = $enroll->id;
+
+                        $events[] = Calendar::event(
+                            $parent->title,
+                            false,
+                            $sd,
+                            $ed,
+                            $value->id,
+                            [
+                                'description' => $parent->description,
+                                'color' => $this->getColor($parent->type, $exists),
+                                'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
+                                'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
+                                'button' => 'Unenroll or Edit',
+                                'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+
+                            ]
+                        );
+
+                    }
+
+                }
+
+            }
+            $calendar = Calendar::addEvents($events)
+                ->setOptions([
+                    'defaultView' => 'listMonth',
+                    'header' => ['left'=> 'prev,next today', 'center' => 'title', 'right' => 'listMonth, month, agendaWeek'],
+                    'fixedWeekCount' => false,
+                    'scrollTime' => '09:00:00'
+                ])
+                ->setCallbacks([
+                    'eventClick' => 'function(event, jsEvent, view) {
+                                $("#modalTitle").html("<strong>" + event.title + "</strong>");
+                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
+                                $("#eventUrl").attr("href", event.link).html("Edit this event");
+                                $("#index").attr("href", event.enroll_index).html("View enrollment");
+                                $("#sign_up").attr("href", event.sign_up).html(event.button);
+                                $("#delete").attr("href", event.delete).html(event.delete_btn);
+                                $("#calendarModal").modal();
+                                }',
+                ]);
+
+                return view('home', compact('posts', 'calendar'));
         }
     }
+
+
 
     /**
      * Resend verification token
@@ -58,5 +191,65 @@ class HomeController extends Controller
         UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.', 'no-reply@depaulalumni.com');
         Session::flash('message', 'You will receive your verification email shortly.');
         return view('auth.errors.not-verified');
+    }
+
+
+    private function getColor($type, $exists)
+    {
+        if($exists == 1)
+        {
+            return '#009900';
+        }else
+        {
+            if ($type == "Volunteer"){
+                return "#ff7f00";
+            }else if($type == "Reunion"){
+                return "#053D63";
+            }else
+                return "#7f3f00";
+        }
+
+
+    }
+    private function signUp_exists($id)
+    {
+        $user_id = Auth::id();
+        if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->exists())
+        {
+            $flag = 1;
+        }else
+        {
+            $flag = 0;
+        }
+        return $flag;
+    }
+    private function getSignUp($id)
+    {
+        $user_id = Auth::id();
+        $enroll = EventSignUp::where('user_id', $user_id)->where('event_id', $id)->first();
+
+        return $enroll;
+
+    }
+
+    private function child_sign_up_exists($parent_id, $child_id)
+    {
+        $user_id = Auth::id();
+        if(EventSignUpChild::where('user_id', $user_id)->where('event_id', $parent_id)->where('child_id', $child_id)->exists())
+        {
+            $flag = 1;
+        }else
+        {
+            $flag = 0;
+        }
+        return $flag;
+    }
+
+    private function get_child_sign_up($parent_id, $child_id)
+    {
+        $user_id = Auth::id();
+        $enroll = EventSignUpChild::where('user_id', $user_id)->where('event_id', $parent_id)->where('child_id', $child_id)->first();
+
+        return $enroll;
     }
 }
