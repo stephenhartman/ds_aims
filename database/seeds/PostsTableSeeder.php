@@ -13,6 +13,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        $event_id = DB::table('events')->first()->id;
         \DB::table('posts')->insert(array (
             0 =>
             array (
@@ -32,7 +33,8 @@ class PostsTableSeeder extends Seeder
             array (
                 'title' => 'Reunion in two weeks!',
                 'body' => '<h4>Hey all!</h4>
-                    <p>As you may or may not know, the DePaul School reunion is coming up in two weeks.   You can find information on the event <a href="../events/11">here.</a></p>
+                    <p>As you may or may not know, the DePaul School reunion is coming up in two weeks.   
+                    You can find information on the event <a href="../events/' . $event_id . '">here.</a></p>
                     <p>We look forward to seeing everyone!</p>
                     <p>Thanks,</p>
                     <p>Mrs. Parker</p>',
