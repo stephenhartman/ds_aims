@@ -139,7 +139,10 @@
                             }
                         }
                     },
-                    'colvis'
+                    {
+                        extend:     'colvis',
+                        text:       'Visible Columns <i class="fa fa-columns"></i>'
+                    },
                 ],
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                 processing: true,
