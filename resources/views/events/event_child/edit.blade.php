@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Event Manger')
+@section('title', 'Edit Event')
 
 @section('content')
     {{ Form::model($event_child, ['route' => ['events.event_child.update', $event->id, $event_child], 'method' => 'PUT']) }}

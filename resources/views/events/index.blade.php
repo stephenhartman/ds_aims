@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
 @endpush
 
-@section('title', 'Events')
+@section('title', 'Event Calendar')
 
 @section('content')
 

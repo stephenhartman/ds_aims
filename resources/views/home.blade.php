@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'DePaul Alumni Outreach')
 
 @section('content')
     <div class="container">
