@@ -9,15 +9,17 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-4 col-md-offset-1">
-            <div class="bg-volunteer"> Volunteer events are orange</div>
-            <div class="bg-reunion"> Reunion events are blue</div>
-            <div class="bg-community_event"> Community events are brown</div>
-            <div class="bg-signed_up">Events you are signed up for are green</div>
+        <div class="col-md-8 col-md-offset-1">
+            <ul class="legend">
+                <li><span class="volunteer"></span> Volunteer Events</li>
+                <li><span class="reunion"></span> Reunion Events</li>
+                <li><span class="community"></span> Community Events</li>
+                <li><span class="signed-up"></span> Signed Up Events</li>
+            </ul>
         </div>
-        <div class="col-md-2 col-md-offset-4">
+        <div class="col-xs-12 col-md-2">
             @if (Auth::user()->hasRole('admin'))
-                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin: 18pt">New Event</a>
+                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg">New Event</a>
             @endif
         </div>
     </div>
