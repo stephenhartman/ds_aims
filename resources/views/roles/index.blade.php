@@ -26,7 +26,7 @@
                     </thead>
                     @foreach ($users as $user)
                         <tr>
-                            {{ Form::open( ['route' => ['roles.update', $user], 'method' => 'PUT']) }}
+                            {{ Form::open( ['route' => ['users.update', $user], 'method' => 'PUT']) }}
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             @if ($user->hasRole('admin'))

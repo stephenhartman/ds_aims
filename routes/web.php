@@ -24,11 +24,13 @@ Route::get('resend-verification/{id}', 'HomeController@resendVerification')->nam
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
     Route::resource('events.event_sign_ups', 'EventSignUpController');
-    Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
-    Route::resource('events', 'EventController', ['except' => 'index', 'show']);
+    Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
+    Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+    Route::resource('roles', 'RoleController', ['only' => 'index']);
+    Route::resource('users', 'UserController', ['only' => 'update']);
     //DataTables
     Route::get('alumni', 'UserController@index')->name('alumni');
     Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
