@@ -3,31 +3,47 @@
 @section('title', 'Edit Event')
 
 @section('content')
-    {{ Form::model($event, ['route' => ['events.update', $event->id], 'method' => 'PUT']) }}
+    {{ Form::model($event_child, ['route' => ['events.event_child.update', $event->id, $event_child], 'method' => 'PUT']) }}
     <div class="row">
         <div class="col-md-7 col-md-offset-2">
-            <h1>Event Manager</h1>
+            <h1>Event Manager </h1>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        @if( $event->repeats == 1 )
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>{{Form::checkbox('all_events', 1, false, array('id' =>'all_events_id', 'onchange' => ''))}} Make changes to all events of this type  </label>
-                                    <script>
-                                        $(document).ready(function(){
-                                            if($('#all_events_id').is(':checked'))
-                                            {
-                                                $('#delete_all').prop('checked', true);
-                                            }
-                                            $('#all_events_id').on('change', function(){
-                                                $('#delete_all').prop('checked', this.checked);
-                                            })
-                                        })
-                                    </script>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{Form::checkbox('all_events', 1, false, array('id' =>'all_events_id', 'onchange' => ''))}} Make changes to all events of this type  </label>
                             </div>
-                        @endif
+                            <script>
+                                $(document).ready(function(){
+                                    if($('#all_events_id').is(':checked'))
+                                    {
+                                        $('#event_description_edit').show();
+                                        $('#desc_label').show();
+                                        $('#event_updates_edit').hide();
+                                        $('#updates_label').hide();
+                                        $('#delete_all').prop('checked', true);
+                                    }else if
+                                    ($('#all_events_id').not(':checked'))
+                                    {
+                                        $('#title_edit').prop('readonly', !this.checked);
+                                        $('#type_edit').prop('disabled', !this.checked);
+                                        $('#event_updates_edit').show();
+                                        $('#updates_label').show();
+                                    }
+
+                                    $('#all_events_id').on('change', function(){
+                                        $('#title_edit').prop('readonly', !this.checked);
+                                        $('#type_edit').prop('disabled', !this.checked);
+                                        $('#event_description_edit').toggle(this.checked);
+                                        $('#event_updates_edit').toggle(!this.checked);
+                                        $('#desc_label').toggle(this.checked);
+                                        $('#updates_label').toggle(!this.checked);
+                                        $('#delete_all').prop('checked', this.checked);
+                                    })
+                                })
+                            </script>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 {{Form::label('event_title','Event Title')}}
@@ -44,7 +60,7 @@
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
                             {{Form::label ('event_start_date', 'Event Date')}}
-                            {{Form::date('event_start_date', $sd, array('class' => 'form-control') )}}
+                            {{Form::date('event_start_date', $sd, array('class' => 'form-control', 'readonly') )}}
                         </div>
                         <div class="col-md-3">
                             {{Form::label ('event_start_time', 'Event Start Time')}}
@@ -58,8 +74,12 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
+                            {{Form::label ('updates', 'Updates', ['id' => 'updates_label', 'style' => 'display:none'])}}
+                            {{Form::textarea('updates', null, ['class' => 'form-control', 'id' => 'event_updates_edit', 'style' => 'display:none'])}}
                             {{Form::label ('event_description', 'Event Description', ['style' => 'display:none', 'id' => 'desc_label'])}}
-                            {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'id' => 'event_description_edit') )}}
+                            {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'style' => 'display:none', 'id' => 'event_description_edit') )}}
+                            <hr>
+                            <br>
                         </div>
                     </div>
                 </div>
@@ -73,7 +93,7 @@
                             {{ Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block")) }}
                         </div>
                         <div class="col-md-3">
-                            {{ Form::open(['method' => 'DELETE', 'route' => ['events.destroy', $event->id]]) }}
+                            {{ Form::open(['method' => 'DELETE', 'route' => ['events.event_child.destroy', $event->id, $event_child->id]]) }}
                             {{Form::checkbox('delete_all', 1, false, ['id' => 'delete_all', 'style' => 'display:none'])}}
                             {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
                                 'type' => 'submit',
@@ -86,5 +106,4 @@
             </div>
         </div>
     </div>
-
 @endsection

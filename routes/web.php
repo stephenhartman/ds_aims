@@ -23,8 +23,11 @@ Route::get('resend-verification/{id}', 'HomeController@resendVerification')->nam
 
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
+    Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('posts', 'PostController', ['except' => 'index', 'show']);
     Route::resource('events', 'EventController', ['except' => 'index', 'show']);
+    Route::resource('events.event_child', 'EventChildController');
+    Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     //DataTables
     Route::get('alumni', 'UserController@index')->name('alumni');
@@ -42,6 +45,9 @@ Route::group(['middleware' => ['isVerified']], function () {
 
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
     Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
+    Route::resource('events.event_sign_ups', 'EventSignUpController');
+    Route::resource('events.event_child', 'EventChildController');
+    Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::resource('users', 'UserController', ['only' => 'show']);
 
     // Nested routes for alumni

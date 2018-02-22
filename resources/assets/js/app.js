@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+window.moment = require('moment');
+require('fullcalendar');
 
 window.Vue = require('vue');
 

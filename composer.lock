@@ -3993,16 +3993,16 @@
         },
         {
             "name": "yajra/laravel-datatables-buttons",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-buttons.git",
-                "reference": "5a6f9da44e63ae1e45f805cb2b976614317b918a"
+                "reference": "cdf7df773461900791491b1855397b099230b1f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/5a6f9da44e63ae1e45f805cb2b976614317b918a",
-                "reference": "5a6f9da44e63ae1e45f805cb2b976614317b918a",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/cdf7df773461900791491b1855397b099230b1f8",
+                "reference": "cdf7df773461900791491b1855397b099230b1f8",
                 "shasum": ""
             },
             "require": {
@@ -4053,7 +4053,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-02-11T14:23:44+00:00"
+            "time": "2018-02-21T07:00:03+00:00"
         },
         {
             "name": "yajra/laravel-datatables-fractal",
@@ -4115,16 +4115,16 @@
         },
         {
             "name": "yajra/laravel-datatables-html",
-            "version": "v3.6.0",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-html.git",
-                "reference": "5d542aea073c4ba0e0b6a363fd22fb9d8a0b9379"
+                "reference": "acb427643c78cb7748c80b63cfbe9b19eb4fe098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/5d542aea073c4ba0e0b6a363fd22fb9d8a0b9379",
-                "reference": "5d542aea073c4ba0e0b6a363fd22fb9d8a0b9379",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/acb427643c78cb7748c80b63cfbe9b19eb4fe098",
+                "reference": "acb427643c78cb7748c80b63cfbe9b19eb4fe098",
                 "shasum": ""
             },
             "require": {
@@ -4170,7 +4170,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-02-11T14:27:55+00:00"
+            "time": "2018-02-21T06:49:00+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",
@@ -4949,16 +4949,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.4",
+            "version": "1.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be"
+                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
-                "reference": "9f901e29c93dae4aa77c0bb161df4276f9c9a1be",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
                 "shasum": ""
             },
             "require": {
@@ -5008,7 +5008,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-11T18:49:29+00:00"
+            "time": "2018-02-19T10:16:54+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

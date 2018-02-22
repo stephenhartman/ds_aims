@@ -194,6 +194,11 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
+         * Full calender
+         */
+        MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+
+        /*
          * Reverse seed generator
          */
         Orangehill\Iseed\IseedServiceProvider::class,
@@ -217,7 +222,6 @@ return [
          * Email verification
          */
         Jrean\UserVerification\UserVerificationServiceProvider::class,
-
     ],
 
     /*
@@ -271,6 +275,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Carbon' => Carbon\Carbon::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
 		'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,

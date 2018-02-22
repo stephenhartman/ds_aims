@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Event extends Model
+class EventChild extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['name', 'type', 'start_date', 'time'];
+
+    public $table = "events_child";
+    protected $fillable =[
+        'parent_id', 'title', 'start_date', 'end_date'];
     protected $dates = ['deleted_at'];
 }

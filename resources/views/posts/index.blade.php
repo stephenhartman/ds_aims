@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All Posts')
+@section('title', 'Browse Posts')
 
 @section('content')
 	<div class="row">
@@ -20,31 +20,28 @@
 	</div>
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<table class="table">
-				<thead>
-				<th>Author</th>
-				<th>Title</th>
-				<th>Body</th>
-				<th>Created On</th>
-				<th></th>
-				</thead>
-				<tbody>
+			<div class="panel panel-default">
+				<br>
 				@foreach ($posts as $post)
-					<tr>
-						<th>{{ $post->user->name }}</th>
-						<td>{{ $post->title }}</td>
-						<td>{!!  $post->body !!}</td>
-						<td>{{ date('M j, Y', strtotime($post->created_at)) }}</td>
-						<td>
-							<a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-block btn-sm">View</a>
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1">
 							@if (Auth::user()->hasRole('admin'))
-								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-block btn-sm">Edit</a>
+								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
 							@endif
-						</td>
-					</tr>
+							<p class="h4">
+								{{ $post->title }}
+								<span class="text-muted pull-right">
+									By <strong>{{ $post->user->name }}</strong> on
+									{{ date('M j, Y', strtotime($post->created_at)) }}
+                        </span>
+							</p>
+							<hr>
+							<p>{!! $post->body !!}</p>
+						</div>
+					</div>
+					<hr class="posts">
 				@endforeach
-				</tbody>
-			</table>
+			</div>
 		</div>
 	</div>
 	<div class="row">

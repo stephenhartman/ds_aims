@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Edit Post')
+
 @push('styles')
 	{!! Html::style('css/parsley.css') !!}
 	{!! Html::style('css/select2.min.css') !!}

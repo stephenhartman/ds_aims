@@ -16,10 +16,15 @@ class MakeEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
 
            $table->increments('id');
-           $table->string('name');
+           $table->string('title');
            $table->text('type');
-           $table->date('date');
-           $table->time('time');
+           $table->dateTime('start_date');
+           $table->dateTime('end_date');
+           $table->integer('repeats');
+           $table->integer('repeat_freq');
+           $table->dateTime('repeat_until');
+           $table->text('description');
+            $table->softDeletes();
            $table->timestamps();
 
 
