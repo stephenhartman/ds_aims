@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css"/>
 @endpush
 
+@push('scripts')
+    {!! $calendar->script() !!}
+@endpush
+
 @section('title', 'Event Calendar')
 
 @section('content')
@@ -27,8 +31,6 @@
     <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 {!! $calendar->calendar() !!}
-
-                {!! $calendar->script() !!}
             </div>
         </div>
     </div>
