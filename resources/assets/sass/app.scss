@@ -70,24 +70,27 @@ html, body {
     text-decoration: none;
 }
 
-.bg-volunteer {
-    background-color: #ff7f00;
-    color: #FFFFFF;
+/* legend */
+.legend { list-style: none; }
+
+.legend li {
+    float: left;
+    margin-right: 10px;
 }
 
-.bg-reunion {
-    background-color: #053D63;
-    color: #FFFFFF;
+.legend span {
+    border-radius: 3px;
+    float: left;
+    width: 15px;
+    height: 15px;
+    margin: 2px;
 }
 
-.bg-community_event {
-    background-color: #7f3f00;
-    color: #FFFFFF;
-}
-.bg-signed_up {
-    background-color: #009900;
-    color: #FFFFFF;
-}
+/* colors */
+.legend .volunteer { background-color: #ff7f00; }
+.legend .reunion { background-color: #053D63; }
+.legend .community { background-color: #7f3f00; }
+.legend .signed-up { background-color: #009900; }
 
 hr.posts {
     height: 10px;
