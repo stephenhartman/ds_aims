@@ -63,23 +63,10 @@ class EducationController extends Controller
         $education->save();
 
         Session::flash('success', 'The education milestone was successfully created!');
-        if ($alumnus->inital_setup == 0)
+        if ($alumnus->inital_setup === 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         else
             return redirect()->route('users.show', compact('user'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param User  $user
-     * @param  Alumnus  $alumnus
-     * @param  \App\Education  $education
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user, Alumnus $alumnus, Education $education)
-    {
-        //
     }
 
     /**
@@ -132,8 +119,8 @@ class EducationController extends Controller
 
         $education->save();
 
-        Session::flash('success', 'The education milestone was successfully saved.');
-        if ($alumnus->inital_setup == 0)
+        Session::flash('success', 'The education milestone was successfully updated.');
+        if ($alumnus->inital_setup === 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         else
             return redirect()->route('users.show', compact('user'));
@@ -153,7 +140,7 @@ class EducationController extends Controller
         $education->delete();
 
         Session::flash('alert', 'The education milestone was successfully deleted.');
-        if ($alumnus->inital_setup == 0)
+        if ($alumnus->inital_setup === 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         else
             return redirect()->route('users.show', compact('user'));
