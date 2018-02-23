@@ -79,9 +79,13 @@ class UserController extends Controller
         if ($request->has('role'))
         {
             $user->roles()->attach($role_admin);
+            $user->roles()->detach($role_alumni);
         }
         else
+        {
             $user->roles()->attach($role_alumni);
+            $user->roles()->detach($role_admin);
+        }
 
 
         $users = DB::table('users');
