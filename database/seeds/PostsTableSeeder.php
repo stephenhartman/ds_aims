@@ -19,7 +19,7 @@ class PostsTableSeeder extends Seeder
             array (
                 'title' => 'Welcome Back!',
                 'body' => '<h4>Welcome back to the DePaul Alumni Page!</h4>
-                    <p>It is great to be here with you all.  Without a doubt this is the time to be a DePaul Schoo Alumni.  We just launched this application!  <img src="http://cdn.tinymce.com/4/plugins/emoticons/img/smiley-smile.gif" alt="smile"></p>
+                    <p>It is great to be here with you all.  Without a doubt this is the time to be a DePaul School Alumni.  We just launched this application!  <img src="http://cdn.tinymce.com/4/plugins/emoticons/img/smiley-smile.gif" alt="smile"></p>
                     <p>If you have any questions don\'t be afraid to ask!</p>
                     <p>Thanks,</p>
                     <p>Dr. Oliveira</p>',
