@@ -23,8 +23,6 @@ class PostsTableSeeder extends Seeder
                     <p>If you have any questions don\'t be afraid to ask!</p>
                     <p>Thanks,</p>
                     <p>Dr. Oliveira</p>',
-                'image' => NULL,
-                'alumni' => 'Admin',
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
                 'user_id' => DB::table('users')->first()->id,
@@ -38,8 +36,6 @@ class PostsTableSeeder extends Seeder
                     <p>We look forward to seeing everyone!</p>
                     <p>Thanks,</p>
                     <p>Mrs. Parker</p>',
-                'image' => NULL,
-                'alumni' => 'Admin',
                 'created_at' => new Carbon('now'),
                 'updated_at' => new Carbon('now'),
                 'user_id' => DB::table('users')->first()->id,

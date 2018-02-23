@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Post;
-use App\Category;
 use Session;
 use Purifier;
 use Image;
@@ -48,34 +44,20 @@ class PostController extends Controller
     {
         // validate the data
         $this->validate($request, array(
-                'title'         => 'required|max:255',
-
-                'body'          => 'required'
-            ));
+            'title'         => 'required|max:255',
+            'body'          => 'required'
+        ));
 
         // store in the database
         $post = new Post;
 
         $post->title = $request->title;
-		$post->alumni = $request->alumni;
-		$post->user_id = Auth::User()->id;
-
+        $post->user_id = Auth::User()->id;
         $post->body = Purifier::clean($request->body);
-
-        if ($request->hasFile('featured_img')) {
-          $image = $request->file('featured_img');
-          $filename = time() . '.' . $image->getClientOriginalExtension();
-          $location = public_path('images/' . $filename);
-          Image::make($image)->resize(800, 400)->save($location);
-
-          $post->image = $filename;
-        }
 
         $post->save();
 
-
         Session::flash('success', 'The blog post was successfully save!');
-
         return redirect()->route('posts.show', $post->id);
     }
 
@@ -121,8 +103,8 @@ class PostController extends Controller
         // Save the data to the database
         $post = Post::find($id);
 
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post->title = $request->title;
+        $post->body = $request->body;
 
         $post->save();
 
