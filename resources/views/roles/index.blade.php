@@ -23,11 +23,11 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             @if ($user->id == Auth::id())
-                                <td><input type="checkbox" name="role" disable="disabled" checked></td>
+                                <td><input class="form-control" type="checkbox" name="role" disabled="disabled" checked></td>
                             @elseif ($user->hasRole('admin'))
-                                <td><input type="checkbox" name="role" checked></td>
+                                <td><input class="form-control" type="checkbox" name="role" checked></td>
                             @elseif ($user->hasRole('alumni'))
-                                <td><input type="checkbox" name="role" unchecked></td>
+                                <td><input class="form-control" type="checkbox" name="role" unchecked></td>
                             @endif
                             <td>
                                 {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm btn-block']) }}
