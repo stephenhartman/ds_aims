@@ -40,28 +40,20 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Upcoming Events</h3>
-                            </div>
-                        </div>
+                        <h3>Upcoming Events</h3>
                     </div>
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <h4>Event Type</h4>
-                            <ul class="legend">
-                                <li><span class="volunteer"></span> Volunteer</li>
-                                <li><span class="reunion"></span> Reunion</li>
-                                <li><span class="community"></span> Community</li>
-                                <li><span class="signed-up"></span> Signed Up</li>
-                            </ul>
-                        </div>
+                    <div class="panel-body">
+                        <h4>Event Type</h4>
+                        <ul class="legend">
+                            <li><span class="volunteer"></span> Volunteer</li>
+                            <li><span class="reunion"></span> Reunion</li>
+                            <li><span class="community"></span> Community</li>
+                            <li><span class="signed-up"></span> Signed Up</li>
+                        </ul>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {!! $calendar->calendar() !!}
-                        </div>
+                    <hr class="posts">
+                    <div class="panel-body">
+                        {!! $calendar->calendar() !!}
                     </div>
                 </div>
             </div>
