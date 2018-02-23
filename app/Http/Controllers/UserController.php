@@ -79,15 +79,16 @@ class UserController extends Controller
         if ($request->has('role'))
         {
             $user->roles()->attach($role_admin);
+            $user->roles()->detach($role_alumni);
         }
         else
+        {
             $user->roles()->attach($role_alumni);
-
-
-        $users = DB::table('users');
+            $user->roles()->detach($role_admin);
+        }
 
         Session::flash('success', 'The user role was successfully saved.');
-        return redirect()->route('roles.index', compact('users'));
+        return redirect()->route('roles.index');
     }
     /**
      * Process Alumni DataTables ajax request.

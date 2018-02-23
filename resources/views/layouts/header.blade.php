@@ -27,6 +27,7 @@
                                 <li><a href="{{ URL::to('alumni') }}">Alumni Database</a></li>
                                 <li><a href="{{ URL::to('alumni/education') }}">Education Milestones</a></li>
                                 <li><a href="{{ URL::to('alumni/occupation') }}">Occupation Milestones</a></li>
+                                <li><a href="{{ URL::to('roles') }}">User Roles</a></li>
                             </ul>
                         </li>
                         <li>
