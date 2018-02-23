@@ -3,18 +3,19 @@
 @section('title', 'Create Post')
 
 @push('scripts')
-	<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
-	<script>
-		tinymce.init ({
+    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init ({
             selector: 'textarea',
             height: 500, theme: 'modern',
-            plugins: [ 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc' ],
+            plugins: [ 'advlist autolink lists link image print preview hr',
+                'searchreplace visualblocks visualchars  fullscreen',
+                'table contextmenu emoticons paste textcolor ',
+                'colorpicker textpattern imagetools help' ],
             branding: false,
             toolbar1: 'undo redo | styleselect | bold italic underline superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
             toolbar2: 'print preview | link image | emoticons',
+            block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header5=h5;Header6=h6;Horizontal Line=hr;',
             style_formats: [
                 { title: 'Headers', items: [
                         { title: 'Heading 1', block: 'h1' },
@@ -27,11 +28,18 @@
                 { title: 'Image', items: [
                         {title: 'Image Left', selector: 'img', styles: {
                                 'float' : 'left',
-                                'margin': '0 10px 0 10px'
+                                'margin': '0 20px'
+                            }},
+                        {title: 'Image Center', selector: 'img', styles: {
+                                'display' : 'block',
+                                'margin-left' : 'auto',
+                                'margin-right' : 'auto',
+                                'width' : '50%',
+                                'height' : 'auto'
                             }},
                         {title: 'Image Right', selector: 'img', styles: {
                                 'float' : 'right',
-                                'margin': '0 10px 0 10px'
+                                'margin': '0 20px'
                             }}
                     ]}
             ],
@@ -43,7 +51,7 @@
             },
             img_advtab: true,
             content_css: ['/css/tinymce.css'] });
-	</script>
+    </script>
     @include('mceImageUpload::upload_form')
 @endpush
 
