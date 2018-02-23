@@ -88,15 +88,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
+                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
                             <div class="col-md-4">
                                 {{ Form::open(['route' => ['users.alumni.occupation.destroy', $user, $alumnus, $occupation], 'method' => 'DELETE']) }}
-                                {{ Form::button('Delete', array(
+                                {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $occupation->id,
                                     'class' => 'btn btn-danger btn-lg btn-block',

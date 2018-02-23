@@ -34,14 +34,14 @@
 					@if (Auth::user()->hasRole('admin'))
 					<div class="col-md-6">
 						{{ Form::open(['method' => 'GET', 'route' => ['posts.edit', $post->id]]) }}
-						{{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Edit', array(
+						{{ Form::button('<i class="fa fa-edit"></i> Edit', array(
                             'type' => 'submit',
                             'class' => 'btn btn-info btn-lg btn-block')) }}
 						{{ Form::close() }}
 					</div>
 					<div class="col-md-6">
 						{{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'DELETE']) }}
-						{{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
+						{{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                             'type' => 'submit',
                             'data-id' => $post->id,
                             'class' => 'btn btn-danger btn-lg btn-block',

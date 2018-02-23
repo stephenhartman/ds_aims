@@ -5,8 +5,9 @@
                 <p class="h4">
                     {{ $post->title }}
                     <span class="text-muted pull-right">
-                            {{ date('M j, Y', strtotime($post->created_at)) }}
-                        </span>
+												By <strong>{{ $post->user->name }}</strong> on
+                        {{ date('M j, Y', strtotime($post->created_at)) }}
+											</span>
                 </p>
                 <hr>
                 <p>{!! $post->body !!}</p>
