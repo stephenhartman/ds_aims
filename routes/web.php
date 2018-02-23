@@ -23,14 +23,15 @@ Route::get('resend-verification/{id}', 'HomeController@resendVerification')->nam
 
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
-    Route::resource('events.event_sign_ups', 'EventSignUpController');
+    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
+    Route::resource('users', 'UserController', ['only' => 'update']);
+
     Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
+    Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
-    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
-    Route::resource('roles', 'RoleController', ['only' => 'index']);
-    Route::resource('users', 'UserController', ['only' => 'update']);
+
     //DataTables
     Route::get('alumni', 'UserController@index')->name('alumni');
     Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
@@ -38,6 +39,9 @@ Route::middleware(['admin'])->group(function () {
     Route::match(['get', 'post'], '/education-data', 'UserController@education_data');
     Route::get('alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
     Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
+    Route::get('roles', 'RoleController@index')->name('roles');
+    Route::match(['get', 'post'], '/role-data', 'RoleController@role_data');
+
 });
 
 // Verified Email routes
