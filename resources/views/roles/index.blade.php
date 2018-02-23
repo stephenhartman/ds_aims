@@ -1,12 +1,5 @@
 @extends('layouts.app')
 
-@push('styles')
-    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.min.css">
-@endpush
-
 @section('title', 'User Roles')
 
 @section('content')
@@ -29,7 +22,9 @@
                             {{ Form::open( ['route' => ['users.update', $user], 'method' => 'PUT']) }}
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            @if ($user->hasRole('admin'))
+                            @if ($user->id == Auth::id())
+                                <td><input type="checkbox" name="role" disable="disabled" checked></td>
+                            @elseif ($user->hasRole('admin'))
                                 <td><input type="checkbox" name="role" checked></td>
                             @elseif ($user->hasRole('alumni'))
                                 <td><input type="checkbox" name="role" unchecked></td>
