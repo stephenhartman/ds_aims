@@ -3,21 +3,22 @@
 @section('title', 'Browse Posts')
 
 @section('content')
-	<div class="row">
-		<div class="col-md-8 col-md-offset-1 col-sm-6 col-sm-offset-5">
-			<h1>All Posts</h1>
-		</div>
-		<div class="col-md-2 col-sm-12">
-			@if (Auth::user()->hasRole('admin'))
-				<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Post</a>
-			@endif
-		</div>
-	</div>
-	<br>
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<br>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-md-4">
+						<h2>Browse Posts</h2>
+					</div>
+					<div class="col-md-6"></div>
+					<div class="col-md-2 col-sm-12">
+						@if (Auth::user()->hasRole('admin'))
+							<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top: 18px">New Post</a>
+						@endif
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
 				@foreach ($posts as $post)
 					<div class="row">
 						<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1">
@@ -27,22 +28,24 @@
 							<p class="h4">
 								{{ $post->title }}
 								<span class="text-muted pull-right">
-									By <strong>{{ $post->user->name }}</strong> on
+												By <strong>{{ $post->user->name }}</strong> on
 									{{ date('M j, Y', strtotime($post->created_at)) }}
-                        </span>
+											</span>
 							</p>
 							<hr>
 							<p>{!! $post->body !!}</p>
 						</div>
 					</div>
-					<hr class="posts">
+					<div class="row">
+						<hr class="posts">
+					</div>
 				@endforeach
 			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="text-center">
-			{{ $posts->links() }}
+			<div class="panel-footer">
+				<div class="text-center">
+					{{ $posts->links() }}
+				</div>
+			</div>
 		</div>
 	</div>
 @stop
