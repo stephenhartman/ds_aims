@@ -2,13 +2,8 @@
 
 @section('title', 'Create Post')
 
-@push('styles')
-	{!! Html::style('css/parsley.css') !!}
-	{!! Html::style('css/select2.min.css') !!}
-@endpush
-
 @push('scripts')
-	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
 	<script>
 		tinymce.init ({
             selector: 'textarea',
@@ -49,6 +44,7 @@
             img_advtab: true,
             content_css: ['/css/tinymce.css'] });
 	</script>
+    @include('mceImageUpload::upload_form')
 @endpush
 
 @section('content')
@@ -69,7 +65,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                @include('mceImageUpload::upload_form')
                                 {{ Form::label('body', "Post Body") }}
                                 {{ Form::textarea('body', null, array('class' => 'form-control' ) ) }}
                             </div>
