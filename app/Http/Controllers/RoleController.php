@@ -22,6 +22,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         $users = $this->users->select('id', 'name', 'email')->paginate(10);
+        $users->setPath('/roles');
 
         if ($request->ajax()) {
             return view('roles.load', ['users' => $users])->render();

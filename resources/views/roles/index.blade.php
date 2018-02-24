@@ -16,11 +16,12 @@
 
             function getUsers(url) {
                 $.ajax({
+                    type: "GET",
                     url: url
                 }).done(function (data) {
                     $('.users').html(data);
                 }).fail(function () {
-                    alert('Posts could not be loaded.');
+                    alert('Roles could not be loaded.');
                 });
             }
         });
