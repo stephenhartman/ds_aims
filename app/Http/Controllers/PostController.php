@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Post;
 use Session;
 use Purifier;
-use Image;
 use Auth;
 
 
@@ -57,7 +56,7 @@ class PostController extends Controller
 
         $post->save();
 
-        Session::flash('success', 'The blog post was successfully save!');
+        Session::flash('success', 'The blog post was successfully saved!');
         return redirect()->route('posts.show', $post->id);
     }
 
@@ -109,7 +108,7 @@ class PostController extends Controller
         $post->save();
 
         // set flash data with success message
-        Session::flash('success', 'The post was successfully saved.');
+        Session::flash('success', 'The post was successfully updated.');
 
         // redirect with flash data to posts.show
         return redirect()->route('posts.show', $post->id);

@@ -31,11 +31,11 @@
                                 'margin': '0 20px'
                             }},
                         {title: 'Image Center', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '50%',
                                 'display' : 'block',
                                 'margin-left' : 'auto',
-                                'margin-right' : 'auto',
-                                'width' : '50%',
-                                'height' : 'auto'
+                                'margin-right' : 'auto'
                             }},
                         {title: 'Image Right', selector: 'img', styles: {
                                 'float' : 'right',
@@ -61,7 +61,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>Create Post</h2>
+                        <h2>Edit Post</h2>
                     </div>
                     <div class="panel-body">
                         {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'PUT']) !!}
