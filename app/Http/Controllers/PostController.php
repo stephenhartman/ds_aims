@@ -68,7 +68,8 @@ class PostController extends Controller
         $post->save();
 
         Session::flash('success', 'The blog post was successfully saved!');
-        return view('posts.index');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -120,8 +121,8 @@ class PostController extends Controller
 
         // set flash data with success message
         Session::flash('success', 'The post was successfully updated.');
-
-        return view('posts.index');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -137,6 +138,7 @@ class PostController extends Controller
         $post->delete();
 
         Session::flash('success', 'The post was successfully deleted.');
-        return redirect()->route('posts.index');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        return view('posts.index', compact('posts'));
     }
 }

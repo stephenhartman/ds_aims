@@ -27,17 +27,21 @@
                     ] },
                 { title: 'Image', items: [
                         {title: 'Image Left', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '33%',
                                 'float' : 'left',
                                 'margin': '0 20px'
                             }},
                         {title: 'Image Center', selector: 'img', styles: {
                                 'height' : 'auto',
-                                'width' : '50%',
+                                'width' : '33%',
                                 'display' : 'block',
                                 'margin-left' : 'auto',
                                 'margin-right' : 'auto'
                             }},
                         {title: 'Image Right', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '33%',
                                 'float' : 'right',
                                 'margin': '0 20px'
                             }}
