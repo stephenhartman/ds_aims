@@ -26,6 +26,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
 
         if ($request->ajax()) {
             return view('posts.load', ['posts' => $posts])->render();
@@ -69,6 +70,7 @@ class PostController extends Controller
 
         Session::flash('success', 'The blog post was successfully saved!');
         $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
         return view('posts.index', compact('posts'));
     }
 
@@ -122,6 +124,7 @@ class PostController extends Controller
         // set flash data with success message
         Session::flash('success', 'The post was successfully updated.');
         $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
         return view('posts.index', compact('posts'));
     }
 
@@ -139,6 +142,7 @@ class PostController extends Controller
 
         Session::flash('success', 'The post was successfully deleted.');
         $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
         return view('posts.index', compact('posts'));
     }
 }

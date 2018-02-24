@@ -16,6 +16,7 @@
 
             function getPosts(url) {
                 $.ajax({
+                    type: "GET",
                     url: url
                 }).done(function (data) {
                     $('.posts').html(data);
