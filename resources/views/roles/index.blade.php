@@ -2,40 +2,42 @@
 
 @section('title', 'User Roles')
 
+@push('scripts')
+    <script>
+        $(function() {
+            $('body').on('click', '.pagination a', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('href');
+                getUsers(url);
+                window.history.pushState("", "", url);
+                $("html, body").animate({ scrollTop: 63 }, 250);
+            });
+
+            function getUsers(url) {
+                $.ajax({
+                    url: url
+                }).done(function (data) {
+                    $('.users').html(data);
+                }).fail(function () {
+                    alert('Posts could not be loaded.');
+                });
+            }
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="container-fluid">
         <div class="col-md-10 col-md-offset-1">
             <h2>User Roles Database</h2>
             <hr>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Administrator?</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    @foreach ($users as $user)
-                        <tr>
-                            {{ Form::open( ['route' => ['users.update', $user], 'method' => 'PUT']) }}
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            @if ($user->id == Auth::id())
-                                <td><input class="form-control" type="checkbox" name="role" disabled="disabled" checked></td>
-                            @elseif ($user->hasRole('admin'))
-                                <td><input class="form-control" type="checkbox" name="role" checked></td>
-                            @elseif ($user->hasRole('alumni'))
-                                <td><input class="form-control" type="checkbox" name="role" unchecked></td>
-                            @endif
-                            <td>
-                                {{ Form::submit('Save', ['class' => 'btn btn-success btn-sm btn-block']) }}
-                                {{ Form::close() }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                    @if (count($users) > 0)
+                        <div class="users">
+                            @include('roles.load')
+                        </div>
+                    @endif
             </div>
         </div>
     </div>
