@@ -11,15 +11,26 @@ use Auth;
 
 class PostController extends Controller
 {
+    public function __construct(Post $posts)
+    {
+       $this->posts = $posts;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('posts.index')->withPosts($posts);
+        $posts = $this->posts->latest('created_at')->paginate(3);
+
+        if ($request->ajax()) {
+            return view('posts.load', ['posts' => $posts])->render();
+        }
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -57,7 +68,7 @@ class PostController extends Controller
         $post->save();
 
         Session::flash('success', 'The blog post was successfully saved!');
-        return redirect()->route('posts.show', $post->id);
+        return view('posts.index');
     }
 
     /**
@@ -110,8 +121,7 @@ class PostController extends Controller
         // set flash data with success message
         Session::flash('success', 'The post was successfully updated.');
 
-        // redirect with flash data to posts.show
-        return redirect()->route('posts.show', $post->id);
+        return view('posts.index');
     }
 
     /**

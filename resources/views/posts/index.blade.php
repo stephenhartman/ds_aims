@@ -2,6 +2,31 @@
 
 @section('title', 'Browse Posts')
 
+@push('scripts')
+	<script>
+        $(function() {
+            $('body').on('click', '.pagination a', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('href');
+                getPosts(url);
+                window.history.pushState("", "", url);
+                $("html, body").animate({ scrollTop: 63 }, 250);
+            });
+
+            function getPosts(url) {
+                $.ajax({
+                    url: url
+                }).done(function (data) {
+                    $('.posts').html(data);
+                }).fail(function () {
+                    alert('Posts could not be loaded.');
+                });
+            }
+        });
+	</script>
+@endpush
+
 @section('content')
 	<div class="container">
 		<div class="panel panel-default">
@@ -19,32 +44,11 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				@foreach ($posts as $post)
-					<div class="row">
-						<div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1">
-							@if (Auth::user()->hasRole('admin'))
-								<a href="{{ route('posts.edit', $post->id) }}" class="btn btn-default btn-sm">Edit</a>
-							@endif
-							<p class="h4">
-								{{ $post->title }}
-								<span class="text-muted pull-right">
-												By <strong>{{ $post->user->name }}</strong> on
-									{{ date('M j, Y', strtotime($post->created_at)) }}
-											</span>
-							</p>
-							<hr>
-							<p>{!! $post->body !!}</p>
-						</div>
-					</div>
-					<div class="row">
-						<hr class="posts">
-					</div>
-				@endforeach
-			</div>
-			<div class="panel-footer">
-				<div class="text-center">
-					{{ $posts->links() }}
-				</div>
+				@if (count($posts) > 0)
+					<section class="posts">
+						@include('posts.load')
+					</section>
+				@endif
 			</div>
 		</div>
 	</div>
