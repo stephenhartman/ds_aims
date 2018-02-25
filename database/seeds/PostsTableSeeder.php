@@ -13,6 +13,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $event_id = DB::table('events')->first()->id;
         \DB::table('posts')->insert(array (
             0 =>
@@ -41,5 +42,7 @@ class PostsTableSeeder extends Seeder
                 'user_id' => DB::table('users')->first()->id,
             ),
         ));
+        */
     }
+
 }
