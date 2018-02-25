@@ -46,7 +46,7 @@
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
                                 <li class="{{ Request::is('community') ? 'active' : '' }}">
-                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
+                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}">Community</a>
                                 </li>
                             @endif
                         @endif
