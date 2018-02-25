@@ -21,31 +21,31 @@
             <ul class="navbar-nav nav">
                 @if (!Auth::guest())
                     @if (Auth::user()->hasRole('admin'))
-                        <li class="dropdown">
+                        <li class="dropdown {{ Request::is('admin/*') ? 'active' : '' }}">
                             <a href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ URL::to('alumni') }}">Alumni Database</a></li>
-                                <li><a href="{{ URL::to('alumni/education') }}">Education Milestones</a></li>
-                                <li><a href="{{ URL::to('alumni/occupation') }}">Occupation Milestones</a></li>
-                                <li><a href="{{ URL::to('roles') }}">User Roles</a></li>
+                                <li class="{{ Request::is('admin/alumni') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni') }}">Alumni Database</a></li>
+                                <li class="{{ Request::is('admin/alumni/education') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni/education') }}">Education Milestones</a></li>
+                                <li class="{{ Request::is('admin/alumni/occupation') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni/occupation') }}">Occupation Milestones</a></li>
+                                <li class="{{ Request::is('admin/roles') ? 'active' : '' }}"><a href="{{ URL::to('admin/roles') }}">User Roles</a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="{{ Request::is('posts') ? 'active' : '' }}">
                             <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
-                        <li>
+                        <li class="{{ Request::is('events') ? 'active' : '' }}">
                             <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                     @else
-                        <li>
+                        <li class="{{ Request::is('posts') ? 'active' : '' }}">
                             <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
-                        <li>
+                        <li class="{{ Request::is('events') ? 'active' : '' }}">
                             <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
-                                <li>
+                                <li class="{{ Request::is('community') ? 'active' : '' }}">
                                     <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
                                 </li>
                             @endif
