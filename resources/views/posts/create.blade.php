@@ -2,67 +2,100 @@
 
 @section('title', 'Create Post')
 
-@push('styles')
-	{!! Html::style('css/parsley.css') !!}
-	{!! Html::style('css/select2.min.css') !!}
-@endpush
-
 @push('scripts')
-	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-	<script>
-		tinymce.init ({
+    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init ({
             selector: 'textarea',
             height: 500, theme: 'modern',
-            plugins: [ 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table contextmenu directionality',
-                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc' ],
-            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
-           
-			        relative_urls: false,
-        file_browser_callback: function(field_name, url, type, win) {
-            // trigger file upload form
-            if (type == 'image') $('#formUpload input').click();
-        },
-
-
-
-		   image_advtab: true,
-            templates: [ { title: 'Test template 1', content: 'Test 1' },
-                { title: 'Test template 2', content: 'Test 2' } ],
-            content_css: ['//www.tinymce.com/css/codepen.min.css' ] });
-	</script>
+            plugins: [ 'advlist autolink lists link image print preview hr',
+                'searchreplace visualblocks visualchars  fullscreen',
+                'table contextmenu emoticons paste textcolor ',
+                'colorpicker textpattern imagetools help' ],
+            branding: false,
+            toolbar1: 'undo redo | styleselect | bold italic underline superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
+            toolbar2: 'print preview | link image | emoticons',
+            block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header5=h5;Header6=h6;Horizontal Line=hr;',
+            style_formats: [
+                { title: 'Headers', items: [
+                        { title: 'Heading 1', block: 'h1' },
+                        { title: 'Heading 2', block: 'h2' },
+                        { title: 'Heading 3', block: 'h3' },
+                        { title: 'Heading 4', block: 'h4' },
+                        { title: 'Heading 5', block: 'h5' },
+                        { title: 'Heading 6', block: 'h6' }
+                    ] },
+                { title: 'Image', items: [
+                        {title: 'Image Left', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '33%',
+                                'float' : 'left',
+                                'margin': '0 20px'
+                            }},
+                        {title: 'Image Center', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '33%',
+                                'display' : 'block',
+                                'margin-left' : 'auto',
+                                'margin-right' : 'auto'
+                            }},
+                        {title: 'Image Right', selector: 'img', styles: {
+                                'height' : 'auto',
+                                'width' : '33%',
+                                'float' : 'right',
+                                'margin': '0 20px'
+                            }}
+                    ]}
+            ],
+            relative_urls: false,
+            file_browser_callback: function(field_name, url, type, win) {
+                // trigger file upload form
+                if (type == 'image')
+                    $('#formUpload').find('input').click();
+            },
+            img_advtab: true,
+            content_css: ['/css/tinymce.css'] });
+    </script>
+    @include('mceImageUpload::upload_form')
 @endpush
 
 @section('content')
-    <div class ="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h1><img class="img img-fluid img-rounded mx-auto" src="{{url('/images/lion.jpg')}}" alt="Image"/>Create New Post</h1>
-            <hr>
-			{!! Form::open(array('route' => 'posts.store', 'data-parsley-validate' => '', 'files' => true)) !!}
-
-            {{ Form::label('title', 'Post Title') }}
-            {{ Form::text('title', null, array('class' => 'form-control')) }}
-            <br>
-            {{ Form::label('alumni', 'Post Category') }}
-            {{ Form::select('alumni', ['Admin' => 'Administrator', 'Alumnus' => 'Alumni'], null, ['placeholder' => 'Pick a post category...', 'class' => 'form-control']) }}
-            <br>
-			{{ Form::label('featured_img', 'Upload an image to DePaul') }}
-			{{ Form::file('featured_img') }}
-			
-            {{ Form::label('body', "Body of post") }}
-            {{ Form::textarea('body', null, array('class' => 'form-control' ) ) }}
-					
-		
-					
-            {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
-
-            {!! Html::linkRoute('posts.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block", 'style' => 'margin-top: 20px')) !!}
-
-			{!! Form::close() !!}
+    <div class="container">
+        <div class ="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Create Post</h2>
+                    </div>
+                    <div class="panel-body">
+                        {!! Form::open(array('route' => 'posts.store', 'data-parsley-validate' => '', 'files' => true)) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ Form::label('title', 'Post Title') }}
+                                {{ Form::text('title', null, array('class' => 'form-control')) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ Form::label('body', "Post Body") }}
+                                {{ Form::textarea('body', null, array('class' => 'form-control' ) ) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-2">
+                                {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                                {{ Form::close() }}
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{ action('PostController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                                    <span class="fa fa-ban"></span> Cancel
+                                </a>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
-@include('mceImageUpload::upload_form')
-

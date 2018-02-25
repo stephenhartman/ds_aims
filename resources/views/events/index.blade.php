@@ -4,31 +4,40 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css"/>
 @endpush
 
+@push('scripts')
+    {!! $calendar->script() !!}
+@endpush
+
 @section('title', 'Event Calendar')
 
 @section('content')
-
-    <div class="row">
-        <div class="col-md-8 col-md-offset-1">
-            <ul class="legend">
-                <li><span class="volunteer"></span> Volunteer Events</li>
-                <li><span class="reunion"></span> Reunion Events</li>
-                <li><span class="community"></span> Community Events</li>
-                <li><span class="signed-up"></span> Signed Up Events</li>
-            </ul>
-        </div>
-        <div class="col-xs-12 col-md-2">
-            @if (Auth::user()->hasRole('admin'))
-                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg">New Event</a>
-            @endif
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Event Calendar</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Event Type</h4>
+                        <ul class="legend">
+                            <li><span class="volunteer"></span> Volunteer</li>
+                            <li><span class="reunion"></span> Reunion</li>
+                            <li><span class="community"></span> Community</li>
+                            <li><span class="signed-up"></span> Signed Up</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2">
+                        @if (Auth::user()->hasRole('admin'))
+                            <div class="pull-right">
+                                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top:10px">New Event</a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
                 {!! $calendar->calendar() !!}
-
-                {!! $calendar->script() !!}
             </div>
         </div>
     </div>
@@ -46,12 +55,11 @@
                         <a class="btn btn-success" id="index"></a>
                     @endif
                     @if (!Auth::user()->hasRole('admin'))
-                    <a class="btn btn-success" id="sign_up"></a>
+                        <a class="btn btn-success" id="sign_up"></a>
                     @endif
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection

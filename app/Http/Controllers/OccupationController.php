@@ -58,22 +58,10 @@ class OccupationController extends Controller
         $occupation->save();
 
         Session::flash('success', 'The occupation milestone was successfully created!');
-        if ($alumnus->inital_setup == 0)
+        if ($alumnus->inital_setup === 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         else
             return redirect()->route('users.show', compact('user'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Alumnus  $alumnus
-     * @param  \App\Occupation  $occupation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Alumnus $alumnus, Occupation $occupation)
-    {
-        //
     }
 
     /**
@@ -120,8 +108,8 @@ class OccupationController extends Controller
 
         $occupation->save();
 
-        Session::flash('success', 'The occupation milestone was successfully saved.');
-        if ($alumnus->inital_setup == 0)
+        Session::flash('success', 'The occupation milestone was successfully updated.');
+        if ($alumnus->inital_setup === 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
         else
             return redirect()->route('users.show', compact('user'));
@@ -131,15 +119,19 @@ class OccupationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @param  \App\Alumnus  $alumnus
-     * @param  \App\Occupation  $occupation
+     * @param  \App\Alumnus $alumnus
+     * @param  \App\Occupation $occupation
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(User $user, Alumnus $alumnus, Occupation $occupation)
     {
         $occupation->delete();
 
         Session::flash('alert', 'The occupation milestone was successfully deleted.');
-        return redirect()->route('users.show', compact('user'));
+        if ($alumnus->inital_setup === 0)
+            return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
+        else
+            return redirect()->route('users.show', compact('user'));
     }
 }

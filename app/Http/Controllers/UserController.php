@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Education;
 use App\Occupation;
+use App\Role;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -59,6 +61,37 @@ class UserController extends Controller
             Session::flash('error', 'You are not authorized to view this page.');
             return redirect()->route('home');
         }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        $role_admin  = Role::where('name', 'admin')->first();
+        $role_alumni = Role::where('name', 'alumni')->first();
+
+        // Save administrator checkbox
+        if ($request->has('role'))
+        {
+            $user->roles()->attach($role_admin);
+            $user->roles()->detach($role_alumni);
+        }
+        else
+        {
+            $user->roles()->attach($role_alumni);
+            $user->roles()->detach($role_admin);
+        }
+
+
+        $users = DB::table('users');
+
+        Session::flash('success', 'The user role was successfully saved.');
+        return redirect()->route('roles.index', compact('users'));
     }
     /**
      * Process Alumni DataTables ajax request.
