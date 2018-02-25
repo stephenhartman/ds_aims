@@ -93,12 +93,11 @@ class EventSignUpController extends Controller
         return redirect()->route('events.index');
     }
 
-    public function sign_up_data(Event $event)
+    public function event_sign_ups_data(Event $event)
     {
-
         $volunteers = DB::table('event_sign_ups')
             ->join('users', 'event_sign_ups.user_id', '=', 'users.id' )
-            ->where('event_sign_up.event_id', $event->id)
+            ->where('event_sign_ups.event_id', $event->id)
             ->select(['users.id','users.name','users.email', 'event_sign_ups.number_attending', 'event_sign_ups.notes']);
 
         return Datatables::of($volunteers)
