@@ -44,13 +44,9 @@ class HomeController extends Controller
         {
             $posts = Post::orderBy('id', 'desc')->paginate(3);
 
-            if ($request->user()->hasRole('admin'))
-                return view('admin.home')->withPosts($posts);
-            else
-
-                $events = [];
-                $data = Event::all();
-                $data2 = EventChild::all();
+            $events = [];
+            $data = Event::all();
+            $data2 = EventChild::all();
             if($data->count()) {
                 foreach ($data as $key => $value) {
                     $start_date = new Carbon($value->start_date);
@@ -172,6 +168,9 @@ class HomeController extends Controller
                                 }',
                 ]);
 
+            if ($request->user()->hasRole('admin'))
+                return view('admin.home', compact('posts', 'calendar'));
+            else
                 return view('home', compact('posts', 'calendar'));
         }
     }

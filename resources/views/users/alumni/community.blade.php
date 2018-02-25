@@ -111,7 +111,7 @@
                             </div>
                         <div class="row">
                             <div class="col-md-6 col-md-offset-3">
-                                {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block', 'style' => 'margin-top: 20px']) }}
+                                {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                                 {{ Form::close() }}
                             </div>
                         </div>

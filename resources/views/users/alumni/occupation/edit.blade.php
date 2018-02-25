@@ -2,23 +2,32 @@
 
 @section('title', 'Edit Occupation Milestone')
 
-@push('styles')
-    {!! Html::style('css/parsley.css') !!}
-    {!! Html::style('css/select2.min.css') !!}
-@endpush
-
 @push('scripts')
-    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
         tinymce.init ({
             selector: 'textarea',
             height: 200, theme: 'modern',
-            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
-            image_advtab: true,
-            templates: [ { title: 'Test template 1', content: 'Test 1' },
-                { title: 'Test template 2', content: 'Test 2' } ],
-            content_css: ['//www.tinymce.com/css/codepen.min.css' ] });
+            plugins: [ 'advlist autolink lists link print preview hr',
+                'searchreplace visualblocks visualchars  fullscreen',
+                'table contextmenu emoticons paste textcolor ',
+                'colorpicker textpattern help' ],
+            branding: false,
+            toolbar1: 'undo redo | styleselect | bold italic underline superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
+            toolbar2: 'print preview | link | emoticons',
+            block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header5=h5;Header6=h6;Horizontal Line=hr;',
+            style_formats: [
+                { title: 'Headers', items: [
+                        { title: 'Heading 1', block: 'h1' },
+                        { title: 'Heading 2', block: 'h2' },
+                        { title: 'Heading 3', block: 'h3' },
+                        { title: 'Heading 4', block: 'h4' },
+                        { title: 'Heading 5', block: 'h5' },
+                        { title: 'Heading 6', block: 'h6' }
+                    ] },
+            ],
+            relative_urls: false,
+            content_css: ['/css/tinymce.css'] });
     </script>
 @endpush
 @section('content')
@@ -88,15 +97,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
+                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
                             <div class="col-md-4">
                                 {{ Form::open(['route' => ['users.alumni.occupation.destroy', $user, $alumnus, $occupation], 'method' => 'DELETE']) }}
-                                {{ Form::button('Delete', array(
+                                {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $occupation->id,
                                     'class' => 'btn btn-danger btn-lg btn-block',

@@ -64,7 +64,7 @@
                         </form>
                     </div>
                     <div class="panel-footer clearfix">
-                        <div class="panel-title">Login with Social Media</div>
+                        <div class="h4">Login with Social Media</div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook btn-primary btn-block"><i class="fa fa-facebook"></i> Facebook</a>

@@ -2,9 +2,14 @@
 
 @section('title', 'DePaul Alumni Outreach')
 
+@push('scripts')
+    {!! $calendar->script() !!}
+@endpush
+
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css"/>
 @endpush
+
 
 @section('content')
     <div class="container">
@@ -33,9 +38,24 @@
                 </div>
             </div>
             <div class="col-md-6">
-                {!! $calendar->calendar() !!}
-
-                {!! $calendar->script() !!}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3>Upcoming Events</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h4>Event Type</h4>
+                        <ul class="legend">
+                            <li><span class="volunteer"></span> Volunteer</li>
+                            <li><span class="reunion"></span> Reunion</li>
+                            <li><span class="community"></span> Community</li>
+                            <li><span class="signed-up"></span> Signed Up</li>
+                        </ul>
+                    </div>
+                    <hr class="posts">
+                    <div class="panel-body">
+                        {!! $calendar->calendar() !!}
+                    </div>
+                </div>
             </div>
         </div>
         <div id="calendarModal" class="modal fade">

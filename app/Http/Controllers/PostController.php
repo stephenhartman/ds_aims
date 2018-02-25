@@ -3,28 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Post;
-use App\Category;
 use Session;
 use Purifier;
-use Image;
 use Auth;
 
 
 class PostController extends Controller
 {
+    public function __construct(Post $posts)
+    {
+       $this->posts = $posts;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('posts.index')->withPosts($posts);
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
+
+        if ($request->ajax()) {
+            return view('posts.load', ['posts' => $posts])->render();
+        }
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -48,35 +55,23 @@ class PostController extends Controller
     {
         // validate the data
         $this->validate($request, array(
-                'title'         => 'required|max:255',
-
-                'body'          => 'required'
-            ));
+            'title'         => 'required|max:255',
+            'body'          => 'required'
+        ));
 
         // store in the database
         $post = new Post;
 
         $post->title = $request->title;
-		$post->alumni = $request->alumni;
-		$post->user_id = Auth::User()->id;
-
+        $post->user_id = Auth::User()->id;
         $post->body = Purifier::clean($request->body);
-
-        if ($request->hasFile('featured_img')) {
-          $image = $request->file('featured_img');
-          $filename = time() . '.' . $image->getClientOriginalExtension();
-          $location = public_path('images/' . $filename);
-          Image::make($image)->resize(800, 400)->save($location);
-
-          $post->image = $filename;
-        }
 
         $post->save();
 
-
-        Session::flash('success', 'The blog post was successfully save!');
-
-        return redirect()->route('posts.show', $post->id);
+        Session::flash('success', 'The blog post was successfully saved!');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -121,16 +116,16 @@ class PostController extends Controller
         // Save the data to the database
         $post = Post::find($id);
 
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post->title = $request->title;
+        $post->body = $request->body;
 
         $post->save();
 
         // set flash data with success message
-        Session::flash('success', 'The post was successfully saved.');
-
-        // redirect with flash data to posts.show
-        return redirect()->route('posts.show', $post->id);
+        Session::flash('success', 'The post was successfully updated.');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -146,6 +141,8 @@ class PostController extends Controller
         $post->delete();
 
         Session::flash('success', 'The post was successfully deleted.');
-        return redirect()->route('posts.index');
+        $posts = $this->posts->latest('created_at')->paginate(3);
+        $posts->setPath('/posts');
+        return view('posts.index', compact('posts'));
     }
 }
