@@ -22,7 +22,7 @@
                 @if (!Auth::guest())
                     @if (Auth::user()->hasRole('admin'))
                         <li class="dropdown {{ Request::is('admin/*') ? 'active' : '' }}">
-                            <a href="#" class="dropdown-toggle btn btn-secondary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li class="{{ Request::is('admin/alumni') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni') }}">Alumni Database</a></li>
                                 <li class="{{ Request::is('admin/alumni/education') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni/education') }}">Education Milestones</a></li>
@@ -31,17 +31,17 @@
                             </ul>
                         </li>
                         <li class="{{ Request::is('posts') ? 'active' : '' }}">
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
+                            <a href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li class="{{ Request::is('events') ? 'active' : '' }}">
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
+                            <a href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                     @else
                         <li class="{{ Request::is('posts') ? 'active' : '' }}">
-                            <a class="btn btn-secondary" href="{{ URL::to('posts') }}">Browse Posts</a>
+                            <a href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
                         <li class="{{ Request::is('events') ? 'active' : '' }}">
-                            <a class="btn btn-secondary" href="{{ URL::to('events') }}">Event Calendar</a>
+                            <a href="{{ URL::to('events') }}">Event Calendar</a>
                         </li>
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
@@ -57,16 +57,16 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ route('register') }}">Register</a></li>
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li class="{{ Request::is('register') ? 'active' : '' }}"><a href="{{ route('register') }}">Register</a></li>
+                    <li class="{{ Request::is('login') ? 'active' : '' }}"><a href="{{ route('login') }}">Login</a></li>
                 @else
-                    <li class="dropdown">
+                    <li class="dropdown {{ Request::is('users/*') ? 'active' : '' }}"">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li>
+                            <li class="{{ Request::is('users/*') ? 'active' : '' }}">
                                 <a href="{{ route('users.show', Auth::user()) }}">Edit Profile</a>
                             </li>
                             <li>
