@@ -11,10 +11,10 @@
 
 @section('content')
     <div class="container-fluid">
-        <h2>Singed up for {{$event->title}}</h2>
+        <h2>Signed up for {{$event->title}}</h2>
         <hr>
         <div class="table-responsive">
-            <table class="table table-bordered table-striped dataTable" id="educations-table">
+            <table class="table table-bordered table-striped dataTable" id="signup-table">
                 <thead class="">
                 <tr>
                     <th>Name</th>
@@ -62,7 +62,7 @@
                 return month + '-' + day + '-' + year;
             }
 
-            var table = $('#volunteers-table').DataTable({
+            var table = $('#signup-table').DataTable({
                 dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
@@ -144,14 +144,14 @@
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                 processing: true,
                 ajax: {
-                    "url": '{{ url('volunteers-data') }}',
+                    "url": '{{ url('/events/'.$event->id.'/event_sign_ups_data') }}',
                     "type": 'POST',
                 },
                 columns: [
-                    { data: 'name' },
-                    { data: 'email' },
-                    { data: 'number attending' },
-                    { data: 'notes' },
+                    { data: 'name', name: 'users.name' },
+                    { data: 'email', name: 'users.email' },
+                    { data: 'number_attending', name: 'event_sign_ups.number_attending' },
+                    { data: 'notes', name: 'event_sign_ups.notes' }
                 ],
             });
 
