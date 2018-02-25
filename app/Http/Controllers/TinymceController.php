@@ -20,8 +20,8 @@ class TinymceController extends Controller
 
         $filename = $image->getClientOriginalName();
         $filename = str_replace(' ', '', $filename);
-        $location = $image->move(public_path('images/posts'), $filename);
-        ImageOptimizer::optimize($location);
+        $file = $image->move(public_path('images/posts'), $filename);
+        ImageOptimizer::optimize($file);
 
         return mce_back($filename);
     }
