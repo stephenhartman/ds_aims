@@ -140,13 +140,18 @@ class EventController extends Controller
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {
                                 $("#modalTitle").html("<strong>" + event.title + "</strong>");
-                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
+                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Description:</strong> " + event.description);
                                 $("#eventUrl").attr("href", event.link).html("Edit this event");
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
                                 $("#sign_up").attr("href", event.sign_up).html(event.button);
                                 $("#delete").attr("href", event.delete).html(event.delete_btn);
                                 $("#calendarModal").modal();
                                 }',
+                'dayClick' => 'function(date, jsEvent, view){
+                    $("#newEventTitle").html("<strong>" + date.format("dddd, MMMM Do YYYY") + "</strong>");
+                    $("#newModalDate").attr("value", date.format("YYYY/MM/DD"));
+                    $("#newEventModal").modal();
+                }'
             ]);
         return view('events.index', compact('calendar'));
     }
@@ -215,9 +220,15 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('events.create');
+        if(isset($request->date)){
+            $date = strtotime($request->date);
+        }else{
+            $date = Carbon::now()->timestamp;
+        }
+
+        return view('events.create',compact('date'));
     }
 
     /**

@@ -39,6 +39,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
     Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
     Route::match(['get', 'post'], '/events/{event}/event_sign_ups_data', 'EventSignUpController@event_sign_ups_data');
+    Route::match(['get', 'post'],  '/events/{event}/event_child/{event_child}/event_sign_ups_child_data/', 'EventSignUpChildController@event_sign_ups_child_data');
 });
 
 // Verified Email routes

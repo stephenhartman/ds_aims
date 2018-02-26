@@ -62,4 +62,27 @@
             </div>
         </div>
     </div>
+    <div id="newEventModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                    <h4 id="newEventTitle" class="modal-title"></h4>
+                </div>
+                <div class="modal-footer">
+                    @if (Auth::user()->hasRole('admin'))
+                        {{ Form::open(['method' => 'GET', 'route' => ['events.create']]) }}
+                        {{  Form::hidden('date', null, array('class' => 'form-control', 'id' => 'newModalDate') )}}
+                        {{ Form::button('New Event', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
+                        {{ Form::close() }}
+                    @endif
+                    @if (!Auth::user()->hasRole('admin'))
+                        <a class="btn btn-success" id="sign_up"></a>
+                    @endif
+                    <br>
+                    <button type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
