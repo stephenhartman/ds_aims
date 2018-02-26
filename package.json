@@ -19,6 +19,7 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
+        "bootswatch": "^3.3.7",
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.8.2",
         "jszip": "^3.1.5",

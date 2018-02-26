@@ -86,19 +86,22 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
-                            {{ Form::submit('Save Changes', array('class' => 'btn btn-success btn-lg btn-block')) }}
+                            {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-3">
-                            {{ Html::linkRoute('events.index', 'Cancel', array(), array('class' => "btn btn-danger btn-lg btn-block")) }}
+                            <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                                <span class="fa fa-ban"></span> Cancel
+                            </a>
                         </div>
                         <div class="col-md-3">
                             {{ Form::open(['method' => 'DELETE', 'route' => ['events.event_child.destroy', $event->id, $event_child->id]]) }}
-                            {{Form::checkbox('delete_all', 1, false, ['id' => 'delete_all', 'style' => 'display:none'])}}
-                            {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
+                            {{ Form::checkbox('delete_all', 1, false, ['id' => 'delete_all', 'style' => 'display:none']) }}
+                            {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
                                 'onclick' => "return confirm('Are you sure you want to delete this event? If you are making changes to all events of this type all related events will be deleted.')",
-                                'class' => 'btn btn-warning btn-lg btn-block')) }}
+                                'class' => 'btn btn-warning btn-lg btn-block',
+                                'style' => 'margin-top:20px')) }}
                             {{ Form::close() }}
                         </div>
                     </div>

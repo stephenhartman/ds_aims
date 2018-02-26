@@ -47,18 +47,20 @@
                     @if (Auth::user()->hasRole('admin'))
                         <div class="col-md-6">
                             {{ Form::open(['method' => 'GET', 'route' => ['events.edit', $event->id]]) }}
-                            {{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Edit', array(
+                            {{ Form::button('<i class="fa fa-edit"></i> Edit', array(
                                 'type' => 'submit',
-                                'class' => 'btn btn-info btn-lg btn-block')) }}
+                                'class' => 'btn btn-info btn-lg btn-block',
+                                'style' => 'margin-top:20px')) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-6">
                             {{ Form::open(['route' => ['events.destroy', $event->id], 'method' => 'DELETE']) }}
-                            {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
+                            {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
                                 'data-id' => $event->id,
                                 'class' => 'btn btn-danger btn-lg btn-block',
-                                'onclick' => "return confirm('Are you sure?')")) }}
+                                'onclick' => "return confirm('Are you sure?')",
+                                'style' => 'margin-top:20px')) }}
                             {{ Form::close() }}
                         </div>
                     @endif

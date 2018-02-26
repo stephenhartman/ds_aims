@@ -47,7 +47,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        if (Auth::user() === $user && Auth::user()->hasRole('admin'))
+        if (Auth::user() == $user && Auth::user()->hasRole('admin'))
             return view('admin.show', compact('user'));
 
         $alumnus = $user->alumnus()->first();
