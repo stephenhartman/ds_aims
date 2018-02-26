@@ -6,6 +6,32 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 @endpush
 
+@push('scripts')
+    <script>
+        $(function() {
+            $('body').on('click', '.pagination a', function (e) {
+                e.preventDefault();
+
+                var url = $(this).attr('href');
+                getUsers(url);
+                window.history.pushState("", "", url);
+                $("html, body").animate({ scrollTop: 63 }, 250);
+            });
+
+            function getUsers(url) {
+                $.ajax({
+                    type: "GET",
+                    url: url
+                }).done(function (data) {
+                    $('.users').html(data);
+                }).fail(function () {
+                    alert('Roles could not be loaded.');
+                });
+            }
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="container-fluid">
         <div class="col-md-10 col-md-offset-1">

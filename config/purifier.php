@@ -24,8 +24,15 @@ return [
     'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,span[style],img[width|height|alt|src]',
-            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align',
+
+            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title],ul,ol,li,p[style],br,' .
+                'span[style],img[width|height|alt|src|style],h1,h2,h3,h4,h5,h6,hr',
+
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,' .
+                'text-decoration,padding-left,color,background-color,text-align,float,margin,' .
+                'margin-left,margin-right,height,width,display',
+
+            'CSS.AllowTricky' => true,
             'AutoFormat.AutoParagraph' => true,
             'AutoFormat.RemoveEmpty'   => true,
         ],

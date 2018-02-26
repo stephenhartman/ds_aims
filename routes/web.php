@@ -31,31 +31,30 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
-
+    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
+    Route::resource('/admin/roles', 'RoleController', ['only' => 'index']);
+    Route::resource('users', 'UserController', ['only' => 'update']);
     //DataTables
-    Route::get('alumni', 'UserController@index')->name('alumni');
+    Route::get('/admin/alumni', 'UserController@index')->name('alumni');
     Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
-    Route::get('alumni/education', 'UserController@education')->name('alumni/education');
+    Route::get('/admin/alumni/education', 'UserController@education')->name('alumni/education');
     Route::match(['get', 'post'], '/education-data', 'UserController@education_data');
-    Route::get('alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
+    Route::get('/admin/alumni/occupation', 'UserController@occupation')->name('alumni/occupation');
     Route::match(['get', 'post'], '/occupation-data', 'UserController@occupation_data');
     Route::get('roles', 'RoleController@index')->name('roles');
     Route::match(['get', 'post'], '/role-data', 'RoleController@role_data');
-
+    Route::match(['get', 'post'], '/events/{event}/event_sign_ups_data', 'EventSignUpController@event_sign_ups_data');
 });
 
 // Verified Email routes
 Route::group(['middleware' => ['isVerified']], function () {
-
     Route::get('/home', 'HomeController@index')->name('home');
-
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
     Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::resource('users', 'UserController', ['only' => 'show']);
-
     // Nested routes for alumni
     Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
     Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');

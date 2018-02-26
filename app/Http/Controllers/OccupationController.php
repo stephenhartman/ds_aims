@@ -58,9 +58,10 @@ class OccupationController extends Controller
         $occupation->save();
 
         Session::flash('success', 'The occupation milestone was successfully created!');
-        if ($alumnus->inital_setup === 0)
+        $setup = $alumnus->initial_setup;
+        if ($setup == 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
-        else
+        elseif ($setup == 1)
             return redirect()->route('users.show', compact('user'));
     }
 
@@ -109,9 +110,10 @@ class OccupationController extends Controller
         $occupation->save();
 
         Session::flash('success', 'The occupation milestone was successfully updated.');
-        if ($alumnus->inital_setup === 0)
+        $setup = $alumnus->initial_setup;
+        if ($setup == 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
-        else
+        elseif ($setup == 1)
             return redirect()->route('users.show', compact('user'));
     }
 
@@ -129,9 +131,10 @@ class OccupationController extends Controller
         $occupation->delete();
 
         Session::flash('alert', 'The occupation milestone was successfully deleted.');
-        if ($alumnus->inital_setup === 0)
+        $setup = $alumnus->initial_setup;
+        if ($setup == 0)
             return redirect()->route('users.alumni.milestones.index', compact('user', 'alumnus'));
-        else
+        elseif ($setup == 1)
             return redirect()->route('users.show', compact('user'));
     }
 }

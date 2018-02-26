@@ -8,15 +8,23 @@ use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use Html;
 use Form;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function __construct(User $users)
+    {
+        $this->users = $users;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::user()->hasRole('admin')) {
             return view('roles.index');

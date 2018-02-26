@@ -12,13 +12,14 @@ use Illuminate\Support\Facades\Session;
 use \Calendar;
 use Auth;
 use App\EventSignUp;
+use Yajra\DataTables\DataTables;
+use Html;
 
 class EventSignUpController extends Controller
 {
     public function index(Event $event)
     {
-        $volunteers = EventSignUp::where('event_id', $event->id)->get();
-        return view('events.event_sign_ups.index', compact('event', 'volunteers'));
+        return view('events.event_sign_ups.index', compact('event'));
     }
 
 
@@ -90,5 +91,23 @@ class EventSignUpController extends Controller
 
         Session::flash('success', 'You have been unenrolled!');
         return redirect()->route('events.index');
+    }
+
+    public function event_sign_ups_data(Event $event)
+    {
+        $volunteers = DB::table('event_sign_ups')
+            ->join('users', 'event_sign_ups.user_id', '=', 'users.id' )
+            ->where('event_sign_ups.event_id', $event->id)
+            ->select(['users.id','users.name','users.email', 'event_sign_ups.number_attending', 'event_sign_ups.notes']);
+
+        return Datatables::of($volunteers)
+            ->editColumn('name', function ($model){
+                return Html::linkAction('UserController@show', $model->name, $model->id);
+            })
+            ->editColumn('email', function ($model) {
+                return Html::mailto($model->email);
+            })
+            ->rawColumns(['name', 'email'])
+            ->make();
     }
 }

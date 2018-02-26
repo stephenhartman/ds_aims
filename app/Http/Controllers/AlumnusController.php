@@ -219,14 +219,13 @@ class AlumnusController extends Controller
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
             {
                 $filename = bin2hex(random_bytes(12)) . '.' . $extension;
-                $filepath = '/images/alumni/' . $filename;
-                $location = public_path($filepath);
                 $img = Image::make($image);
+                $file = $image->move(public_path('images/alumni'), $filename);
                 $img->resize(320, null, function ($constraint) {
                     $constraint->aspectRatio();
-                })->save($location);
-                ImageOptimizer::optimize($location);
-                $alumnus->photo_url = $filepath;
+                })->save($file);
+                ImageOptimizer::optimize($file);
+                $alumnus->photo_url = '/images/alumni/'. $file->getFilename();
             }
             else
             {

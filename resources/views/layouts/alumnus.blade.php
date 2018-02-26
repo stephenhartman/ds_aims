@@ -145,11 +145,13 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                {{ Form::submit('Submit', ['class' => 'btn btn-lg btn-success btn-block', 'style' => 'margin-top:20px']) }}
+                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                 {{ Form::close() }}
             </div>
             <div class="col-md-3">
-                {!! Html::linkRoute('home', 'Cancel', array(), array('class' => "btn btn-warning btn-lg btn-block", 'style' => 'margin-top:20px')) !!}
+                <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                    <span class="fa fa-ban"></span> Cancel
+                </a>
             </div>
             <div class="text-center col-md-6">
                 <h5>
