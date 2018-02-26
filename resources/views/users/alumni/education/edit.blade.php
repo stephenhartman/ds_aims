@@ -40,11 +40,6 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <h4>Select a milestone to add...</h4>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <a class="btn btn-sm btn-block btn-default" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}">Occupation</a>
                             </div>

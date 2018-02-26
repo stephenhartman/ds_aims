@@ -152,7 +152,8 @@
                                 <div class="text-center col-md-6">
                                     <h5>
                                         A <span class="required"></span>
-                                        indicates a required field.</h5>
+                                        indicates a required field.
+                                    </h5>
                                 </div>
                             </div>
                         </div>
