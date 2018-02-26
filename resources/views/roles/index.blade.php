@@ -19,7 +19,6 @@
                         <th>Email</th>
                         <th>Administrator?</th>
                         <th>Action</th>
-                        <th></th>
                     </tr>
                     </thead>
                 </table>
@@ -55,17 +54,19 @@
                     { data: 'name' },
                     { data: 'email' },
                     { data: 'role', sortable: false },
-                    { data: 'action', sortable: false },
-                    { data: 'close' },
+                    { data: 'action', sortable: false }
                 ]
             });
 
-            $(document).ready(function() {
-                $('#form').submit(function () {
-                    var sData = table.$('input').serialize();
-                    alert("The following data would have been submitted to the server: \n\n" + sData);
-                    return false;
+            $('.btn-ajax').click(function () {
+                var id = $('input').attr('data-id');
+                var data = table.$('input').serialize();
+                $.ajax({
+                    url: "/users/" + id + "/update",
+                    type: "POST"
                 });
+                alert("The following data would have been submitted to the server: \n\n" + data);
+                return false;
             });
         });
     </script>

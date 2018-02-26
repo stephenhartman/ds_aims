@@ -42,19 +42,16 @@ class RoleController extends Controller
             ->editColumn('email', function ($user) {
                 return Html::mailto($user->email) ;
             })
-            ->setRowAttr('form', function (User $user) {
-                return array(Form::open( ['route' => ['users.update', $user], 'method' => 'PUT']));
-            })
             ->addColumn('role', function (User $user) {
                 if ($user->id == Auth::id())
-                    return '<input class="form-control" type="checkbox" name="role" checked disabled="disabled"></td>';
+                    return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" checked disabled="disabled"></td>';
                 elseif ($user->hasRole('admin'))
-                    return '<input class="form-control" type="checkbox" name="role" checked>';
+                    return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" checked>';
                 elseif ($user->hasRole('alumni'))
-                    return '<input class="form-control" type="checkbox" name="role" unchecked>';
+                    return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" unchecked>';
             })
             ->addColumn('action', function() {
-                return Form::submit('Save', ['class' => 'btn btn-success btn-sm btn-block btn-ajax']) . Form::close();
+                return '<button class="btn btn-success btn-sm btn-block btn-ajax">Save</button>';
             })
             ->rawColumns(array(0, 1, 2, 3, 4, 5))
             ->make();
