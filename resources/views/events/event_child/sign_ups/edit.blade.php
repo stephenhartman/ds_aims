@@ -88,7 +88,7 @@
                             {{ Form::button('Unenroll', array(
                                 'type' => 'submit',
                                 'data-id' => $enroll->id,
-                                'class' => 'btn btn-warning btn-lg btn-block',
+                                'class' => 'btn btn-warning btn-lg btn-block'))}}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-3">

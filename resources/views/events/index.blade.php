@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
+    @if (Auth::user()->hasRole('admin'))
     <div id="newEventModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -85,4 +86,5 @@
             </div>
         </div>
     </div>
+    @endif
 @endsection
