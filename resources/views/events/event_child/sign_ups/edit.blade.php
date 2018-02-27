@@ -2,6 +2,29 @@
 
 @section('title', 'Sign Up!')
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Unenroll from this event?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("You have unenrolled from this event.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
@@ -61,12 +84,11 @@
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-3">
-                            {{ Form::open(['route' => ['events.event_child.sign_ups.destroy', $event->id, $child->id, $enroll->id], 'method' => 'DELETE']) }}
+                            {{ Form::open(['route' => ['events.event_child.sign_ups.destroy', $event->id, $child->id, $enroll->id], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                             {{ Form::button('Unenroll', array(
                                 'type' => 'submit',
                                 'data-id' => $enroll->id,
                                 'class' => 'btn btn-warning btn-lg btn-block',
-                                'onclick' => "return confirm('Are you sure you want to unenroll from this event?')")) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-3">

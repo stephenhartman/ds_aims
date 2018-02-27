@@ -2,6 +2,29 @@
 
 @section('title', $event->title )
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this event?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("The event has been deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
@@ -52,17 +75,18 @@
                     @if (Auth::user()->hasRole('admin'))
                         <div class="col-md-6">
                             {{ Form::open(['method' => 'GET', 'route' => ['events.event_child.edit', $event->id, $event_child->id]]) }}
-                            {{ Form::button('<i class="glyphicon glyphicon-pencil"></i> Edit', array(
+                            {{ Form::button('<i class="fa fa-edit"></i> Edit', array(
                                 'type' => 'submit',
-                                'class' => 'btn btn-info btn-lg btn-block')) }}
+                                'class' => 'btn btn-info btn-lg btn-block',
+                                'style' => 'margin-top:20px')) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-6">
-                            {{ Form::open(['route' => ['events.event_child.destroy', $event->id, $event_child], 'method' => 'DELETE']) }}
-                            {{ Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', array(
+                            {{ Form::open(['route' => ['events.event_child.destroy', $event->id, $event_child], 'method' => 'DELETE', 'id' => 'form-delete']) }}
+                            {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
                                 'class' => 'btn btn-danger btn-lg btn-block',
-                                'onclick' => "return confirm('Are you sure?')")) }}
+                                'style' => 'margin-top:20px')) }}
                             {{ Form::close() }}
                         </div>
                     @endif
