@@ -98,6 +98,7 @@ class EventSignUpController extends Controller
         $volunteers = DB::table('event_sign_ups')
             ->join('users', 'event_sign_ups.user_id', '=', 'users.id' )
             ->where('event_sign_ups.event_id', $event->id)
+            ->where('event_sign_ups.deleted_at', null)
             ->select(['users.id','users.name','users.email', 'event_sign_ups.number_attending', 'event_sign_ups.notes']);
 
         return Datatables::of($volunteers)

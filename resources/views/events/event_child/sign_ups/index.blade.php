@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h2>Signed up for {{$event->title}} and {{$child_id}}</h2>
+        <h2>Signed up for {{$event->title}}</h2>
         <hr>
         <div class="table-responsive">
             <table class="table table-bordered table-striped dataTable" id="signup-table">

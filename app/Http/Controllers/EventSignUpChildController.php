@@ -150,6 +150,7 @@ class EventSignUpChildController extends Controller
             ->join('users', 'event_sign_ups_child.user_id', '=', 'users.id' )
             ->where('event_sign_ups_child.event_id', $event->id)
             ->where('event_sign_ups_child.child_id', $child_id)
+            ->where('event_sign_ups_child.deleted_at', null)
             ->select(['users.id','users.name','users.email', 'event_sign_ups_child.number_attending', 'event_sign_ups_child.notes']);
 
         return Datatables::of($volunteers)

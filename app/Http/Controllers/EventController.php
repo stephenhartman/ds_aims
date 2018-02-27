@@ -96,7 +96,7 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
-                            'description' => $parent->description,
+                            'description' => $parent->description . "<br>" .  "<strong> Updates</strong>:  " . $value->updates,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                             'sign_up' => route('events.event_child.sign_ups.create', [$parent->id, $value->id]),
@@ -116,7 +116,7 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
-                            'description' => $parent->description,
+                            'description' => $parent->description . "<br>" .  "<strong> Updates</strong>:  " . $value->updates,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                             'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
