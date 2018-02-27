@@ -18,7 +18,7 @@ class TinymceController extends Controller
     {
         $image = $request->file('image');
 
-        $filename = $image->getClientOriginalName();
+        $filename = bin2hex(random_bytes(12)) . "." . $image->getClientOriginalExtension();
         $filename = str_replace(' ', '', $filename);
         $file = $image->move(public_path('images/posts'), $filename);
         ImageOptimizer::optimize($file);
