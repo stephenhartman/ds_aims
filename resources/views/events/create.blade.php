@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
                             {{Form::label ('event_start_date', 'Event Date')}}
-                            {{Form::date('event_start_date', \Carbon\Carbon::now()->toDateString(), array('class' => 'form-control') )}}
+                            {{Form::date('event_start_date', \Carbon\Carbon::createFromTimestamp($date)->format('Y-m-d'), array('class' => 'form-control') )}}
                         </div>
                         <div class="col-md-3">
                             {{Form::label ('event_start_time', 'Event Start Time')}}

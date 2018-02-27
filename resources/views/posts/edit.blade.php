@@ -110,7 +110,7 @@
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ action('PostController@show', $post->id) }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                                <a href="{{ action('PostController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
                                     <span class="fa fa-ban"></span> Cancel
                                 </a>
                             </div>
