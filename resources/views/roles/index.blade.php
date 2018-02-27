@@ -84,9 +84,9 @@
                     },
                     success: function (){
                         if (checkbox_value === 'on')
-                            swal("Success", "Successfully changed " + name + " from Alumni to Administrator.", "success");
+                            swal("Success", name + " successfully changed from Alumni to Administrator.", "success");
                         else
-                            swal("Success", "Successfully changed " + name + " from Administrator to Alumni.", "success");
+                            swal("Success", name + " successfully changed from Administrator to Alumni.", "success");
                     }
                 }).always(function (data) {
                     $(table).DataTable().draw(false);
