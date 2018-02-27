@@ -2,6 +2,29 @@
 
 @section('title', $post->title)
 
+@push('scripts')
+	<script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this post?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("The post has been deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+	</script>
+@endpush
+
 @section('content')
 	<div class="col-md-8 col-md-offset-2">
 		<div class="panel panel-default">
@@ -39,15 +62,15 @@
                             'class' => 'btn btn-info btn-lg btn-block')) }}
 						{{ Form::close() }}
 					</div>
-					<div class="col-md-6">
-						{{ Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'DELETE']) }}
-						{{ Form::button('<i class="fa fa-trash"></i> Delete', array(
-                            'type' => 'submit',
-                            'data-id' => $post->id,
-                            'class' => 'btn btn-danger btn-lg btn-block',
-                            'onclick' => "return confirm('Are you sure?')")) }}
-						{{ Form::close() }}
-					</div>
+						<div class="col-md-6">
+							{{ Form::open(['route' => ['posts.destroy', $post->id ], 'method' => 'DELETE', 'id' => 'form-delete']) }}
+							{{ Form::button('<i class="fa fa-trash"></i> Delete', array(
+                                'type' => 'submit',
+                                'data-id' => $post->id,
+                                'style' => 'margin-top: 20px;',
+                                'class' => 'btn btn-danger btn-lg btn-block' )) }}
+							{{ Form::close() }}
+						</div>
 					@endif
 				</div>
 			</div>

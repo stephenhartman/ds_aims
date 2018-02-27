@@ -3,6 +3,29 @@
 @section('title', 'Edit Education Milestone')
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this education milestone?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("Milestone deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
+@push('scripts')
         <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
         <script>
             tinymce.init ({
@@ -129,13 +152,12 @@
                                 <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
                             <div class="col-md-4">
-                                {{ Form::open(['route' => ['users.alumni.education.destroy', $user, $alumnus, $education], 'method' => 'DELETE']) }}
+                                {{ Form::open(['route' => ['users.alumni.education.destroy', $user, $alumnus, $education], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                                 {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $education->id,
                                     'class' => 'btn btn-danger btn-lg btn-block',
-                                    'style' => 'margin-top: 20px;',
-                                    'onclick' => "return confirm('Are you sure?')")) }}
+                                    'style' => 'margin-top: 20px;')) }}
                                 {{ Form::close() }}
                             </div>
                         </div>

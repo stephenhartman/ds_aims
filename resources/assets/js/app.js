@@ -8,7 +8,7 @@
 require('./bootstrap');
 window.moment = require('moment');
 require('fullcalendar');
-
+window.swal = require('sweetalert');
 window.Vue = require('vue');
 
 /**

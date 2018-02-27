@@ -2,6 +2,29 @@
 
 @section('title', 'Sign Up!')
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Unenroll from this event?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("You are no longer enrolled in this event.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
@@ -55,22 +78,21 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-1">
+                        <div class="col-md-4">
                             {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
                             {{ Form::close() }}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
                                 <span class="fa fa-ban"></span> Cancel
                             </a>
                         </div>
-                        <div class="col-md-3">
-                            {{ Form::open(['route' => ['events.event_sign_ups.destroy', $event->id, $enroll->id], 'method' => 'DELETE']) }}
+                        <div class="col-md-4">
+                            {{ Form::open(['route' => ['events.event_sign_ups.destroy', $event->id, $enroll->id], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                             {{ Form::button('<i class="fa fa-trash"></i> Unenroll', array(
                                 'type' => 'submit',
                                 'data-id' => $enroll->id,
-                                'class' => 'btn btn-warning btn-lg btn-block',
-                                'onclick' => "return confirm('Are you sure you want to unenroll from this event?')")) }}
+                                'class' => 'btn btn-warning btn-lg btn-block' )) }}
                             {{ Form::close() }}
                         </div>
                     </div>

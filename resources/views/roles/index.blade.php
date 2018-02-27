@@ -60,7 +60,9 @@
 
             table.on('click', '.btn-ajax', function (e) {
                 e.preventDefault();
+
                 var id = $(this).attr('data-id');
+                var name = $('a[data-id='+id+']').text();
 
                 var checkbox_value = "";
                 $(":checkbox").each(function () {
@@ -73,8 +75,6 @@
                     }
                 });
 
-                var name = $('a[data-id='+id+']').text();
-                alert(name);
                 $.ajax({
                     url: "{{ url('admin/roles/change') }}",
                     method: "POST",
@@ -84,9 +84,9 @@
                     },
                     success: function (){
                         if (checkbox_value === 'on')
-                            alert('Successfully changed ' + name + ' from Alumni to Administrator');
+                            swal("Success", "Successfully changed " + name + " from Alumni to Administrator.", "success");
                         else
-                            alert('Successfully changed ' + name + ' from Administrator to Alumni');
+                            swal("Success", "Successfully changed " + name + " from Administrator to Alumni.", "success");
                     }
                 }).always(function (data) {
                     $(table).DataTable().draw(false);
