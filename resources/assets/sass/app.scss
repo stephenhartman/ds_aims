@@ -25,6 +25,9 @@
 // Bootstrap
 @import "node_modules/bootswatch/spacelab/bootstrap";
 
+* {
+    font-family: Metrophobic, sans-serif;
+}
 //html, body {
 //    background-color: #fff;
 //    color: #636b6f;
@@ -78,7 +81,7 @@
 
 // Logo margin in header
 .depaul-brand {
-    margin-top: 5px;
+    margin: 5px;
 }
 
 .social {
