@@ -12,6 +12,7 @@
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
+        "jrean/laravel-user-verification": "5.0",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
@@ -24,8 +25,7 @@
         "spatie/laravel-image-optimizer": "^1.1",
         "spatie/laravel-tags": "^2.0",
         "yajra/laravel-datatables": "^1.0",
-        "yajra/laravel-datatables-oracle": "^8.0",
-        "jrean/laravel-user-verification": "5.0"
+        "yajra/laravel-datatables-oracle": "^8.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
