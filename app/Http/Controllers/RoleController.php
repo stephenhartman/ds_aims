@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -45,7 +46,7 @@ class RoleController extends Controller
 
         return $datatables->eloquent($builder)
             ->editColumn('name', function ($user) {
-                return Html::linkAction('UserController@show', $user->name, $user->id) ;
+                return Html::linkAction('UserController@show', $user->name, $user->id, array('data-id' => $user->id));
             })
             ->editColumn('email', function ($user) {
                 return Html::mailto($user->email) ;
@@ -58,10 +59,34 @@ class RoleController extends Controller
                 elseif ($user->hasRole('alumni'))
                     return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" unchecked>';
             })
-            ->addColumn('action', function() {
-                return '<button class="btn btn-success btn-sm btn-block btn-ajax">Save</button>';
+            ->addColumn('action', function(User $user) {
+                return '<button class="btn btn-success btn-sm btn-block btn-ajax" data-id="'.$user->id.'">Save</button>';
             })
-            ->rawColumns(array(0, 1, 2, 3, 4, 5))
+            ->rawColumns(array('name', 'email', 'role', 'action'))
             ->make();
+    }
+
+    /**
+     * Update the specified user role in storage.
+     *
+     * @param Request $request
+     */
+    public function updateRole(Request $request)
+    {
+        $role_admin = Role::where('name', 'admin')->first();
+        $role_alumni = Role::where('name', 'alumni')->first();
+
+        $user = User::find($request['id']);
+
+        // Save administrator checkbox
+        if ($request->ajax()) {
+            if ($request['value'] == 'on') {
+                $user->roles()->attach($role_admin);
+                $user->roles()->detach($role_alumni);
+            } else {
+                $user->roles()->attach($role_alumni);
+                $user->roles()->detach($role_admin);
+            }
+        }
     }
 }
