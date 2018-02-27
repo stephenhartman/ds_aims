@@ -6,32 +6,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
 @endpush
 
-@push('scripts')
-    <script>
-        $(function() {
-            $('body').on('click', '.pagination a', function (e) {
-                e.preventDefault();
-
-                var url = $(this).attr('href');
-                getUsers(url);
-                window.history.pushState("", "", url);
-                $("html, body").animate({ scrollTop: 63 }, 250);
-            });
-
-            function getUsers(url) {
-                $.ajax({
-                    type: "GET",
-                    url: url
-                }).done(function (data) {
-                    $('.users').html(data);
-                }).fail(function () {
-                    alert('Roles could not be loaded.');
-                });
-            }
-        });
-    </script>
-@endpush
-
 @section('content')
     <div class="container-fluid">
         <div class="col-md-10 col-md-offset-1">
@@ -84,15 +58,39 @@
                 ]
             });
 
-            $('.btn-ajax').click(function () {
-                var id = $('input').attr('data-id');
-                var data = table.$('input').serialize();
-                $.ajax({
-                    url: "/users/" + id + "/update",
-                    type: "POST"
+            table.on('click', '.btn-ajax', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('data-id');
+
+                var checkbox_value = "";
+                $(":checkbox").each(function () {
+                    if ($(this).attr('data-id') === id)
+                    {
+                        var ischecked = $(this).is(":checked");
+                        if (ischecked) {
+                            checkbox_value += $(this).val();
+                        }
+                    }
                 });
-                alert("The following data would have been submitted to the server: \n\n" + data);
-                return false;
+
+                var name = $('a[data-id='+id+']').text();
+                alert(name);
+                $.ajax({
+                    url: "{{ url('admin/roles/change') }}",
+                    method: "POST",
+                    data: {
+                        id: id,
+                        value: checkbox_value
+                    },
+                    success: function (){
+                        if (checkbox_value === 'on')
+                            alert('Successfully changed ' + name + ' from Alumni to Administrator');
+                        else
+                            alert('Successfully changed ' + name + ' from Administrator to Alumni');
+                    }
+                }).always(function (data) {
+                    $(table).DataTable().draw(false);
+                });
             });
         });
     </script>

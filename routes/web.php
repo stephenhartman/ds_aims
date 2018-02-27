@@ -33,7 +33,7 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('/admin/roles', 'RoleController', ['only' => 'index']);
-    Route::resource('users', 'UserController', ['only' => 'update']);
+    Route::post('/admin/roles/change', 'RoleController@updateRole');
     //DataTables
     Route::get('/admin/alumni', 'UserController@index')->name('alumni');
     Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');
