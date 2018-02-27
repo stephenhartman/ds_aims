@@ -140,14 +140,10 @@ class HomeController extends Controller
                                 'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
                                 'button' => 'Unenroll or Edit',
                                 'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
-
                             ]
                         );
-
                     }
-
                 }
-
             }
             $calendar = Calendar::addEvents($events)
                 ->setOptions([
@@ -192,7 +188,6 @@ class HomeController extends Controller
         return view('auth.errors.not-verified');
     }
 
-
     private function getColor($type, $exists)
     {
         if($exists == 1)
@@ -210,18 +205,17 @@ class HomeController extends Controller
 
 
     }
+
     private function signUp_exists($id)
     {
         $user_id = Auth::id();
         if(EventSignUp::where('user_id', $user_id)->where('event_id', $id)->exists())
-        {
             $flag = 1;
-        }else
-        {
+        else
             $flag = 0;
-        }
         return $flag;
     }
+
     private function getSignUp($id)
     {
         $user_id = Auth::id();
@@ -235,12 +229,9 @@ class HomeController extends Controller
     {
         $user_id = Auth::id();
         if(EventSignUpChild::where('user_id', $user_id)->where('event_id', $parent_id)->where('child_id', $child_id)->exists())
-        {
             $flag = 1;
-        }else
-        {
+        else
             $flag = 0;
-        }
         return $flag;
     }
 

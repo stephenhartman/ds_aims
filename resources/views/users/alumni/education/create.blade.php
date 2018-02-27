@@ -30,11 +30,7 @@
                         <h4>Milestones</h4>
                     </div>
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <h4>Select a milestone to add...</h4>
-                            </div>
-                        </div>
+                        <h4>Select a milestone to add...</h4>
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
                                 <a class="btn btn-sm btn-block btn-default" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}">Occupation</a>
@@ -107,9 +103,13 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
-                                {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
-                                {{ Form::checkbox('share', 1, null, ['class' => 'form-control'] ) }}
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    {{ Form::checkbox('share', 1, null, ['class' => 'form-control'] ) }}
+                                </div>
+                                <div class="col-md-10">
+                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
+                                </div>
                             </div>
                         </div>
                         <div class="row">

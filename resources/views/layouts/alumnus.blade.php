@@ -18,16 +18,18 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
+            <div class="form-group">
+                <div class="col-md-1">
                     {{ Form::checkbox('loyal_lion', $alumnus->loyal_lion == 1 ? true : null, null, ['class' => 'form-control'] ) }}
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
+                <div class="col-md-5">
+                    {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
+                </div>
+                <div class="col-md-1">
                     {{ Form::checkbox('volunteer', $alumnus->volunteer == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                </div>
+                <div class="col-md-5">
+                    {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
                 </div>
             </div>
         </div>

@@ -3,6 +3,29 @@
 @section('title', 'Edit Post')
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this post?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("The post has been deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
+@push('scripts')
     <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
         tinymce.init ({
@@ -87,18 +110,17 @@
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ action('PostController@show', $post->id) }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                                <a href="{{ action('PostController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
                                     <span class="fa fa-ban"></span> Cancel
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                {{ Form::open(['route' => ['posts.destroy', $post->id ], 'method' => 'DELETE']) }}
+                                {{ Form::open(['route' => ['posts.destroy', $post->id ], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                                 {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $post->id,
                                     'style' => 'margin-top: 20px;',
-                                    'class' => 'btn btn-danger btn-lg btn-block',
-                                    'onclick' => "return confirm('Are you sure?')")) }}
+                                    'class' => 'btn btn-danger btn-lg btn-block' )) }}
                                 {{ Form::close() }}
                             </div>
                         </div>

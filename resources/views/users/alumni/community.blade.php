@@ -28,16 +28,18 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
-                                        {{ Form::checkbox('loyal_lion', 1, null, ['class' => 'form-control'] ) }}
+                                <div class="form-group">
+                                    <div class="col-md-1">
+                                        {{ Form::checkbox('loyal_lion', null, null, ['class' => 'form-control'] ) }}
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="col-md-5">
+                                        {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
+                                    </div>
+                                    <div class="col-md-1">
+                                        {{ Form::checkbox('volunteer', null, null, ['class' => 'form-control'] ) }}
+                                    </div>
+                                    <div class="col-md-5">
                                         {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
-                                        {{ Form::checkbox('volunteer', 1, null, ['class' => 'form-control'] ) }}
                                     </div>
                                 </div>
                             </div>
