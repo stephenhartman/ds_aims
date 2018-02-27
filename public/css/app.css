@@ -11700,8 +11700,12 @@ button.close {
   color: #fff;
 }
 
+* {
+  font-family: Metrophobic, sans-serif;
+}
+
 .depaul-brand {
-  margin-top: 5px;
+  margin: 5px;
 }
 
 .social {

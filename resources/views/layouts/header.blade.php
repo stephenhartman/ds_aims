@@ -10,7 +10,7 @@
             </button>
             <!-- Branding Image -->
             <a class="pull-left" href="{{ url('/home') }}">
-                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="40px">
+                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="45px">
             </a>
             <ul class="navbar-nav nav">
                 <li class="{{ Request::is('home') || Request::is('admin/home') ? 'active' : '' }}" style="font-size:18px;">
