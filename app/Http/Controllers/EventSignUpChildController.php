@@ -14,6 +14,9 @@ use \Calendar;
 use Auth;
 use App\EventSignUp;
 use App\EventSignUpChild;
+use Yajra\DataTables\DataTables;
+use Html;
+
 
 class EventSignUpChildController extends Controller
 {
@@ -24,8 +27,8 @@ class EventSignUpChildController extends Controller
      */
     public function index(Event $event, $child_id)
     {
-        $volunteers = EventSignUpChild::where('event_id', $event->id)->where('child_id', $child_id)->get();
-        return view('events.event_child.sign_ups.index', compact('event', 'child', 'volunteers'));
+
+        return view('events.event_child.sign_ups.index', compact('event', 'child_id'));
     }
 
     /**
@@ -139,5 +142,24 @@ class EventSignUpChildController extends Controller
 
         Session::flash('success', 'You have been unenrolled!');
         return redirect()->route('events.index');
+    }
+
+    public function event_sign_ups_child_data(Event $event, $child_id)
+    {
+        $volunteers = DB::table('event_sign_ups_child')
+            ->join('users', 'event_sign_ups_child.user_id', '=', 'users.id' )
+            ->where('event_sign_ups_child.event_id', $event->id)
+            ->where('event_sign_ups_child.child_id', $child_id)
+            ->select(['users.id','users.name','users.email', 'event_sign_ups_child.number_attending', 'event_sign_ups_child.notes']);
+
+        return Datatables::of($volunteers)
+            ->editColumn('name', function ($model){
+                return Html::linkAction('UserController@show', $model->name, $model->id);
+            })
+            ->editColumn('email', function ($model) {
+                return Html::mailto($model->email);
+            })
+            ->rawColumns(['name', 'email'])
+            ->make();
     }
 }
