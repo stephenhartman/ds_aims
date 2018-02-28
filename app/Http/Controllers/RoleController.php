@@ -60,7 +60,7 @@ class RoleController extends Controller
                     return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" unchecked>';
             })
             ->addColumn('action', function(User $user) {
-                return '<button class="btn btn-success btn-sm btn-block btn-ajax" data-id="'.$user->id.'">Save</button>';
+                return '<button class="btn btn-success btn-sm btn-block btn-ajax" data-id="'.$user->id.'"><i class="fa fa-save"></i> Save</button>';
             })
             ->rawColumns(array('name', 'email', 'role', 'action'))
             ->make();
