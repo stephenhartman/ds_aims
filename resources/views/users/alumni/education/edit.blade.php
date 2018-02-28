@@ -23,36 +23,21 @@
             });
         });
     </script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script>
+        tinymce.init ({
+            selector: 'textarea',
+            height: 200, theme: 'modern',
+            plugins: [ 'advlist autolink lists link print preview hr',
+                'searchreplace visualblocks visualchars fullscreen',
+                'table contextmenu paste textcolor ',
+                'colorpicker textpattern help' ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',
+            toolbar2: 'print preview media | forecolor backcolor ',
+            content_css: ['/css/tinymce.css' ] });
+    </script>
 @endpush
 
-@push('scripts')
-        <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
-        <script>
-            tinymce.init ({
-                selector: 'textarea',
-                height: 200, theme: 'modern',
-                plugins: [ 'advlist autolink lists link print preview hr',
-                    'searchreplace visualblocks visualchars  fullscreen',
-                    'table contextmenu emoticons paste textcolor ',
-                    'colorpicker textpattern help' ],
-                branding: false,
-                toolbar1: 'undo redo | styleselect | bold italic underline superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
-                toolbar2: 'print preview | link | emoticons',
-                block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header5=h5;Header6=h6;Horizontal Line=hr;',
-                style_formats: [
-                    { title: 'Headers', items: [
-                            { title: 'Heading 1', block: 'h1' },
-                            { title: 'Heading 2', block: 'h2' },
-                            { title: 'Heading 3', block: 'h3' },
-                            { title: 'Heading 4', block: 'h4' },
-                            { title: 'Heading 5', block: 'h5' },
-                            { title: 'Heading 6', block: 'h6' }
-                        ] },
-                ],
-                relative_urls: false,
-                content_css: ['/css/tinymce.css'] });
-        </script>
-@endpush
 @section('content')
     <div class="container">
         <div class="row">

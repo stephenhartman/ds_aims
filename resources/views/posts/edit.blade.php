@@ -23,21 +23,23 @@
             });
         });
     </script>
-@endpush
-
-@push('scripts')
     <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="/js/tinymceEmoji.min.js"></script>
     <script>
         tinymce.init ({
             selector: 'textarea',
             height: 500, theme: 'modern',
             plugins: [ 'advlist autolink lists link image print preview hr',
                 'searchreplace visualblocks visualchars  fullscreen',
-                'table contextmenu emoticons paste textcolor ',
+                'table contextmenu tinymceEmoji paste textcolor ',
                 'colorpicker textpattern imagetools help' ],
             branding: false,
             toolbar1: 'undo redo | styleselect | bold italic underline superscript subscript | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |',
-            toolbar2: 'print preview | link image | emoticons',
+            toolbar2: 'print preview | link image | tinymceEmoji',
+            emoji_add_space: true,
+            emoji_show_groups: true,
+            emoji_show_subgroups: true,
+            emoji_show_tab_icons: true,
             block_formats: 'Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header5=h5;Header6=h6;Horizontal Line=hr;',
             style_formats: [
                 { title: 'Headers', items: [

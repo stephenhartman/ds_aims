@@ -2,25 +2,22 @@
 
 @section('title', 'Add Education Milestone')
 
-@push('styles')
-    {!! Html::style('css/parsley.css') !!}
-    {!! Html::style('css/select2.min.css') !!}
-@endpush
-
 @push('scripts')
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
         tinymce.init ({
             selector: 'textarea',
             height: 200, theme: 'modern',
-            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
-            image_advtab: true,
-            templates: [ { title: 'Test template 1', content: 'Test 1' },
-                { title: 'Test template 2', content: 'Test 2' } ],
-            content_css: ['//www.tinymce.com/css/codepen.min.css' ] });
+            plugins: [ 'advlist autolink lists link print preview hr',
+                'searchreplace visualblocks visualchars fullscreen',
+                'table contextmenu paste textcolor ',
+                'colorpicker textpattern help' ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link ',
+            toolbar2: 'print preview media | forecolor backcolor ',
+            content_css: ['/css/tinymce.css' ] });
     </script>
 @endpush
+
 @section('content')
     <div class="container">
         <div class="row">
