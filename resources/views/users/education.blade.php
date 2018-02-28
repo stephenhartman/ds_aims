@@ -74,7 +74,7 @@
                 buttons: [
                     {
                         extend:    'copyHtml5',
-                        text:      'Copy <i class="fa fa-files-o"></i>',
+                        text:      '<i class="fa fa-files-o"></i> Copy',
                         exportOptions : {
                             columns : ':visible',
                             format : {
@@ -91,7 +91,7 @@
                     },
                     {
                         extend:    'excelHtml5',
-                        text:      'Export to Excel <i class="fa fa-table"></i>',
+                        text:      '<i class="fa fa-table"></i> Export Excel',
                         exportOptions : {
                             columns : ':visible',
                             format : {
@@ -108,8 +108,8 @@
                     },
                     {
                         extend:    'csvHtml5',
-                        text:      'Export to CSV <i class="fa fa-table"></i>',
-                        title:     'Alumni-Education-' + getFormattedDate(),
+                        text:      '<i class="fa fa-table"></i> Export CSV',
+                        title:     'Alumni-' + getFormattedDate(),
                         exportOptions : {
                             columns : ':visible',
                             format : {
@@ -126,7 +126,7 @@
                     },
                     {
                         extend:    'print',
-                        text:      'Print <i class="fa fa-print"></i>',
+                        text:      '<i class="fa fa-print"></i> Print',
                         exportOptions : {
                             columns : ':visible',
                             format : {
@@ -143,7 +143,7 @@
                     },
                     {
                         extend:     'colvis',
-                        text:       'Visible Columns <i class="fa fa-columns"></i>'
+                        text:       '<i class="fa fa-columns"></i> Visible Columns'
                     },
                 ],
                 lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],

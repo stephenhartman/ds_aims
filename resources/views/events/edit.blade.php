@@ -29,7 +29,7 @@
 @section('content')
     {{ Form::model($event, ['route' => ['events.update', $event->id], 'method' => 'PUT']) }}
     <div class="row">
-        <div class="col-md-7 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2">
             <h1>Event Manager</h1>
             <div class="panel panel-default">
                 <div class="panel-heading">
