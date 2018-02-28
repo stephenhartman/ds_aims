@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-3 col-md-offset-1">
                             {{Form::label ('event_start_date', 'Event Date')}}
-                            {{Form::date('event_start_date', \Carbon\Carbon::now()->toDateString(), array('class' => 'form-control') )}}
+                            {{Form::date('event_start_date', \Carbon\Carbon::createFromTimestamp($date)->format('Y-m-d'), array('class' => 'form-control') )}}
                         </div>
                         <div class="col-md-3">
                             {{Form::label ('event_start_time', 'Event Start Time')}}
@@ -80,11 +80,11 @@
                 <div class="panel-footer">
                     <div class="row">
                         <div class="col-md-4 col-md-offset-2">
-                            {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                            {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                            <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block">
                                 <span class="fa fa-ban"></span> Cancel
                             </a>
                         </div>

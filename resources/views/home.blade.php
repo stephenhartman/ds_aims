@@ -8,11 +8,16 @@
 
 @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css"/>
+    <style>
+        .fc-list-item {
+            cursor: pointer;
+        }
+    </style>
 @endpush
 
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
@@ -62,7 +67,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
                         <h4 id="modalTitle" class="modal-title"></h4>
                     </div>
                     <div id="modalBody" class="modal-body"> </div>
@@ -74,7 +79,7 @@
                         @if (!Auth::user()->hasRole('admin'))
                             <a class="btn btn-success" id="sign_up"></a>
                         @endif
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
                     </div>
                 </div>
             </div>

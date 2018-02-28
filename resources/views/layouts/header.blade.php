@@ -11,9 +11,9 @@
             <!-- Branding Image -->
             <a class="pull-left" href="{{ url('/home') }}">
                 <span>
-                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="40px">
+                    <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="45px">
                 </span>
-                <p class="navbar-brand" style="float:right; padding-left:1.5em">DePaul Alumni System</p>
+                <p class="navbar-brand {{ Request::is('home') ? 'active' : '' }}" style="float:right;">DePaul Alumni System</p>
             </a>
         </div>
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -46,7 +46,7 @@
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
                                 <li class="{{ Request::is('community') ? 'active' : '' }}">
-                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}" class="btn btn-secondary">Community</a>
+                                    <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}">Community</a>
                                 </li>
                             @endif
                         @endif

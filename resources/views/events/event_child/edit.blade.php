@@ -2,6 +2,30 @@
 
 @section('title', 'Edit Event')
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this event?",
+                    text: 'If you are making changes to all events of this type all related events will be deleted.',
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("The event has been deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('content')
     {{ Form::model($event_child, ['route' => ['events.event_child.update', $event->id, $event_child], 'method' => 'PUT']) }}
     <div class="row">
@@ -85,23 +109,21 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-md-3 col-md-offset-1">
-                            {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                        <div class="col-md-4">
+                            {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                             {{ Form::close() }}
                         </div>
-                        <div class="col-md-3">
-                            <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                        <div class="col-md-4">
+                            <a href="{{ action('EventController@index') }}" class="btn btn-warning btn-lg btn-block">
                                 <span class="fa fa-ban"></span> Cancel
                             </a>
                         </div>
-                        <div class="col-md-3">
-                            {{ Form::open(['method' => 'DELETE', 'route' => ['events.event_child.destroy', $event->id, $event_child->id]]) }}
+                        <div class="col-md-4">
+                            {{ Form::open(['method' => 'DELETE', 'route' => ['events.event_child.destroy', $event->id, $event_child->id], 'id' => 'form-delete']) }}
                             {{ Form::checkbox('delete_all', 1, false, ['id' => 'delete_all', 'style' => 'display:none']) }}
                             {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
-                                'onclick' => "return confirm('Are you sure you want to delete this event? If you are making changes to all events of this type all related events will be deleted.')",
-                                'class' => 'btn btn-warning btn-lg btn-block',
-                                'style' => 'margin-top:20px')) }}
+                                'class' => 'btn btn-danger btn-lg btn-block')) }}
                             {{ Form::close() }}
                         </div>
                     </div>

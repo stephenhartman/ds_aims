@@ -3,6 +3,29 @@
 @section('title', 'Edit Occupation Milestone')
 
 @push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-delete').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Delete this occupation milestone?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        swal("Milestone deleted.", {
+                            icon: "success",
+                        });
+                        $("#form-delete").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
+@push('scripts')
     <script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
     <script>
         tinymce.init ({
@@ -90,27 +113,29 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="col-md-12">
-                                {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
-                                {{ Form::checkbox('share', $occupation->share == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                            <div class="form-group">
+                                <div class="col-md-1 col-md-offset-1">
+                                    {{ Form::checkbox('share', $occupation->share == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                                </div>
+                                <div class="col-md-10">
+                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)', ['class' => 'checkbox-inline']) }}
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;"><span class="fa fa-ban"></span> Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
                             <div class="col-md-4">
-                                {{ Form::open(['route' => ['users.alumni.occupation.destroy', $user, $alumnus, $occupation], 'method' => 'DELETE']) }}
+                                {{ Form::open(['route' => ['users.alumni.occupation.destroy', $user, $alumnus, $occupation], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                                 {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $occupation->id,
-                                    'class' => 'btn btn-danger btn-lg btn-block',
-                                    'style' => 'margin-top: 20px;',
-                                    'onclick' => "return confirm('Are you sure?')")) }}
+                                    'class' => 'btn btn-danger btn-lg btn-block')) }}
                                 {{ Form::close() }}
                             </div>
                         </div>
