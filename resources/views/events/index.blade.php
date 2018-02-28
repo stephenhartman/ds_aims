@@ -30,7 +30,7 @@
                     <div class="col-md-2">
                         @if (Auth::user()->hasRole('admin'))
                             <div class="pull-right">
-                                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg" style="margin-top:10px">New Event</a>
+                                <a href="{{ route('events.create') }}" class="btn btn-block btn-primary btn-lg">New Event</a>
                             </div>
                         @endif
                     </div>

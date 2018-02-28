@@ -77,16 +77,14 @@
                             {{ Form::open(['method' => 'GET', 'route' => ['events.event_child.edit', $event->id, $event_child->id]]) }}
                             {{ Form::button('<i class="fa fa-edit"></i> Edit', array(
                                 'type' => 'submit',
-                                'class' => 'btn btn-info btn-lg btn-block',
-                                'style' => 'margin-top:20px')) }}
+                                'class' => 'btn btn-info btn-lg btn-block')) }}
                             {{ Form::close() }}
                         </div>
                         <div class="col-md-6">
                             {{ Form::open(['route' => ['events.event_child.destroy', $event->id, $event_child], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                             {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
-                                'class' => 'btn btn-danger btn-lg btn-block',
-                                'style' => 'margin-top:20px')) }}
+                                'class' => 'btn btn-danger btn-lg btn-block')) }}
                             {{ Form::close() }}
                         </div>
                     @endif

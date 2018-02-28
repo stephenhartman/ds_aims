@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-title">Register</div>
                 </div>
@@ -71,11 +71,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="panel-footer clearfix">
-                    <div class="panel-title">Register with Social Media</div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
+                <div class="panel-footer">
+                    <div class="h4">Register with Social Media</div>
+                    <div class="row">
+                        <div class="col-md-5 col-md-offset-1">
                             <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook btn-primary btn-block"><i class="fa fa-facebook"></i> Facebook</a>
+                        </div>
+                        <div class="col-md-5">
                             <a href="{{ url('/auth/google') }}" class="btn btn-google btn-danger btn-block"><i class="fa fa-google"></i> Google</a>
                         </div>
                     </div>

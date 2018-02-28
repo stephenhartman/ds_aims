@@ -135,7 +135,9 @@ class EventController extends Controller
             ->setOptions([
                 'header' => ['left'=> 'prev,next today', 'center' => 'title', 'right' => 'month, agendaWeek, agendaDay'],
                 'fixedWeekCount' => false,
-                'scrollTime' => '07:00:00'
+                'scrollTime' => '07:00:00',
+                'themeSystem' => 'bootstrap3',
+                'cursor' => 'pointer'
             ])
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {

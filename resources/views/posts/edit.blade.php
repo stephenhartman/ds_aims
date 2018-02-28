@@ -106,11 +106,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                {{ Form::button('<i class="fa fa-save"></i> Save Changes', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;'] )  }}
+                                {{ Form::button('<i class="fa fa-save"></i> Save Changes', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ action('PostController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                                <a href="{{ action('PostController@index') }}" class="btn btn-warning btn-lg btn-block">
                                     <span class="fa fa-ban"></span> Cancel
                                 </a>
                             </div>
@@ -119,7 +119,6 @@
                                 {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $post->id,
-                                    'style' => 'margin-top: 20px;',
                                     'class' => 'btn btn-danger btn-lg btn-block' )) }}
                                 {{ Form::close() }}
                             </div>
