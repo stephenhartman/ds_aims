@@ -33,10 +33,10 @@
                         <h4>Select a milestone to add...</h4>
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1">
-                                <a class="btn btn-sm btn-block btn-default" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}">Occupation</a>
+                                <a class="btn btn-sm btn-block btn-default" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}"><i class="fa fa-plus-square"></i> Occupation</a>
                             </div>
                             <div class="col-md-5">
-                                <a class="btn btn-sm btn-block btn-primary" href="#">Education</a>
+                                <a class="btn btn-sm btn-block btn-primary" href="#"><i class="fa fa-plus-square"></i> Education</a>
                             </div>
                         </div>
                         <br>
@@ -104,23 +104,25 @@
                         <br>
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-2">
+                                <div class="col-md-1 col-md-offset-1">
                                     {{ Form::checkbox('share', 1, null, ['class' => 'form-control'] ) }}
                                 </div>
                                 <div class="col-md-10">
-                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
+                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)', ['class' => 'checkbox-inline']) }}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                {{ Form::submit('Submit', array('class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top: 20px;')) }}
+                            <div class="col-md-1"></div>
+                            <div class="col-md-5">
+                                {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
+                                {{ Form::close() }}
                             </div>
-                            <div class="col-md-6">
-                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Cancel</a>
+                            <div class="col-md-5">
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
+                            <div class="col-md-1"></div>
                         </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

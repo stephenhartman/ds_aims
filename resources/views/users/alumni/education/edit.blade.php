@@ -135,29 +135,28 @@
                         <br>
                         <div class="row">
                             <div class="form-group">
-                                <div class="col-md-2">
+                                <div class="col-md-1 col-md-offset-1">
                                     {{ Form::checkbox('share',  $education->share == 1 ? true : null, null, ['class' => 'form-control'] ) }}
                                 </div>
                                 <div class="col-md-10">
-                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)') }}
+                                    {{ Form::label('share', 'By checking this box, I agree to share this data with the DePaul School and Alumni (Optional)', ['class' => 'checkbox-inline']) }}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                                 {{ Form::close() }}
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;"><span class="fa fa-ban"></span> Cancel</a>
+                                <a href="{{ url()->previous() }}" class="btn btn-warning btn-lg btn-block"><span class="fa fa-ban"></span> Cancel</a>
                             </div>
                             <div class="col-md-4">
                                 {{ Form::open(['route' => ['users.alumni.education.destroy', $user, $alumnus, $education], 'method' => 'DELETE', 'id' => 'form-delete']) }}
                                 {{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                     'type' => 'submit',
                                     'data-id' => $education->id,
-                                    'class' => 'btn btn-danger btn-lg btn-block',
-                                    'style' => 'margin-top: 20px;')) }}
+                                    'class' => 'btn btn-danger btn-lg btn-block')) }}
                                 {{ Form::close() }}
                             </div>
                         </div>

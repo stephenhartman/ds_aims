@@ -145,11 +145,11 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block', 'style' => 'margin-top:20px;']) }}
+                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                 {{ Form::close() }}
             </div>
             <div class="col-md-3">
-                <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px">
+                <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block">
                     <span class="fa fa-ban"></span> Cancel
                 </a>
             </div>

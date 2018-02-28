@@ -9,7 +9,7 @@
                 <h4>Select a milestone to add...</h4>
             </div>
             <div class="col-md-5">
-                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-warning btn-sm btn-block" style="margin-top: 20px;">Skip this Step</a>
+                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-warning btn-sm btn-block">Skip this Step</a>
             </div>
             @else
             <div class="col-md-10 col-md-offset-1">
@@ -19,10 +19,10 @@
         </div>
         <div class="row">
             <div class="col-md-5 col-md-offset-1">
-                <a class="btn btn-sm btn-block btn-primary" style="margin-top:20px" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}">Occupation</a>
+                <a class="btn btn-sm btn-block btn-primary" href="{{ route('users.alumni.occupation.create', [$user, $alumnus]) }}"><i class="fa fa-plus-square"></i> Occupation</a>
             </div>
             <div class="col-md-5">
-                <a class="btn btn-sm btn-block btn-primary" style="margin-top:20px" href="{{ route('users.alumni.education.create', [$user, $alumnus]) }}">Education</a>
+                <a class="btn btn-sm btn-block btn-primary" href="{{ route('users.alumni.education.create', [$user, $alumnus]) }}"><i class="fa fa-plus-square"></i> Education</a>
             </div>
         </div>
         <br>
@@ -56,7 +56,7 @@
         @if ($alumnus->initial_setup == 0)
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-success btn-lg btn-block" style="margin-top: 20px;">Continue</a>
+                <a href="{{ route('community', array($user, $alumnus)) }}" class="btn btn-success btn-lg btn-block">Continue</a>
             </div>
         </div>
         @endif

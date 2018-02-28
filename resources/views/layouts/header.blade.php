@@ -10,22 +10,18 @@
             </button>
             <!-- Branding Image -->
             <a class="pull-left" href="{{ url('/home') }}">
+                <span>
                     <img class="depaul-brand" src="{{ url('/images/logo.png') }}" height="45px">
+                </span>
+                <p class="navbar-brand {{ Request::is('home') ? 'active' : '' }}" style="float:right;">DePaul Alumni System</p>
             </a>
-            <ul class="navbar-nav nav">
-                <li class="{{ Request::is('home') || Request::is('admin/home') ? 'active' : '' }}" style="font-size:18px;">
-                    <a href="{{ url('/home') }}">
-                        DePaul Alumni System
-                    </a>
-                </li>
-            </ul>
         </div>
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav nav">
                 @if (!Auth::guest())
                     @if (Auth::user()->hasRole('admin'))
-                        <li class="dropdown {{ Request::is('admin/*') && !Request::is('admin/home') ? 'active' : '' }}">
+                        <li class="dropdown {{ Request::is('admin/*') ? 'active' : '' }}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li class="{{ Request::is('admin/alumni') ? 'active' : '' }}"><a href="{{ URL::to('admin/alumni') }}">Alumni Database</a></li>

@@ -150,7 +150,9 @@ class HomeController extends Controller
                     'defaultView' => 'listMonth',
                     'header' => ['left'=> 'prev,next today', 'center' => 'title', 'right' => 'listMonth, month, agendaWeek'],
                     'fixedWeekCount' => false,
-                    'scrollTime' => '09:00:00'
+                    'scrollTime' => '09:00:00',
+                    'themeSystem' => 'bootstrap3',
+                    'cursor' => 'pointer'
                 ])
                 ->setCallbacks([
                     'eventClick' => 'function(event, jsEvent, view) {

@@ -14,16 +14,16 @@
     Bootswatch
  */
 // Variables
-@import "node_modules/bootswatch/spacelab/_variables";
+@import "node_modules/bootswatch/lumen/_variables";
 
 // Mixins
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
 // Bootswatch
-@import "node_modules/bootswatch/spacelab/_bootswatch";
+@import "node_modules/bootswatch/lumen/_bootswatch";
 
 // Bootstrap
-@import "node_modules/bootswatch/spacelab/bootstrap";
+@import "node_modules/bootswatch/lumen/bootstrap";
 
 * {
     font-family: Metrophobic, sans-serif;
@@ -115,7 +115,7 @@
 
 hr.posts {
     height: 10px;
-    border: 0 solid $panel-default-border;
+    border: 0 solid #e7e7e7;
     border-top-width: 1px;
     border-radius: 5px;
 }
@@ -125,7 +125,7 @@ hr.posts:before {
     content: "";
     height: 30px;
     margin-top: -31px;
-    border: 0 solid $panel-default-border;
+    border: 0 solid #e7e7e7;
     border-bottom-width: 1px;
     border-radius: 5px;
 }

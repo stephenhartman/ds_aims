@@ -67,7 +67,6 @@
 							{{ Form::button('<i class="fa fa-trash"></i> Delete', array(
                                 'type' => 'submit',
                                 'data-id' => $post->id,
-                                'style' => 'margin-top: 20px;',
                                 'class' => 'btn btn-danger btn-lg btn-block' )) }}
 							{{ Form::close() }}
 						</div>
