@@ -3,23 +3,23 @@
         <div class="col-md-3 col-md-offset-3">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="https://www.facebook.com/depaulschool" target="_blank" title="Facebook Profile">
+                    <a class="btn" href="https://www.facebook.com/depaulschool" target="_blank" title="Facebook Profile">
                         <span class="icon fa fa-facebook-square social"></span>
                         Facebook
                     </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12"style="padding-top:20px;">
-                    <a href="https://www.twitter.com/depaulschooljax" target="_blank" title="Twitter Profile">
+                <div class="col-md-12"style="padding-top:10px;">
+                    <a class="btn" href="https://www.twitter.com/depaulschooljax" target="_blank" title="Twitter Profile">
                         <span class="icon fa fa-twitter-square social"></span>
                         Twitter
                     </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12"style="padding-top:20px;">
-                    <a href="http://www.depaulschool.com" target="_blank" title="Home Page">
+                <div class="col-md-12"style="padding-top:10px;">
+                    <a class="btn" href="http://www.depaulschool.com" target="_blank" title="Home Page">
                                 <span>
                                     <img class="social" src="{{ url('/images/logo.png') }}" height="28px">
                                 </span>
