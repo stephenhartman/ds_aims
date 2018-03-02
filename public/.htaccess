@@ -5,8 +5,8 @@
 
     # HSTS (HTTP Strict Transport Security)
     RewriteEngine On
-#    RewriteCond %{HTTPS} !=on
-#    RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+    RewriteCond %{HTTP:X-Forwarded-Port} !=443
+    RewriteRule (.*) https://%{HTTP_HOST}/$1 [R=301,L]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -26,7 +26,7 @@
     Header always append X-Frame-Options SAMEORIGIN
     Header set X-XSS-Protection "1; mode=block"
     Header set X-Content-Type-Options nosniff
-    Header set Strict-Transport-Security "max-age=2592000" env=HTTPS
+    Header set Strict-Transport-Security "max-age=2592000"
     Header set Referrer-Policy strict-origin-when-cross-origin
 #    Header set Content-Security-Policy "default-src * 'self'"
 
