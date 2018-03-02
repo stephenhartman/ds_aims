@@ -11,7 +11,6 @@
         <div class="text-center h1" style="">
             DePaul School Alumni Outreach System
         </div>
-        <br>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">

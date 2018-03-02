@@ -39,7 +39,7 @@
 					<div class="col-md-6"></div>
 					<div class="col-md-2 col-sm-12">
 						@if (Auth::user()->hasRole('admin'))
-							<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg">New Post</a>
+							<a href="{{ route('posts.create') }}" class="btn btn-block btn-primary btn-lg"><i class="fa fa-plus-square"></i> New Post</a>
 						@endif
 					</div>
 				</div>
