@@ -2,8 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            ![Logo]( {{ asset('/images/logo.png') }} "DePaul Logo")
-            {{ config('app.name') }}
+            DePaul Alumni Outreach System
         @endcomponent
     @endslot
 
@@ -22,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+            © {{ date('Y') }} DePaul School of Northeast Florida. All rights reserved.
         @endcomponent
     @endslot
 @endcomponent

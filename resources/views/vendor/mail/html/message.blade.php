@@ -2,7 +2,7 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-            {{ config('app.name') }}
+            DePaul Alumni Outreach System
         @endcomponent
     @endslot
 
@@ -21,7 +21,8 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+            © {{ date('Y') }} DePaul School of Northeast Florida. All rights reserved.
         @endcomponent
     @endslot
 @endcomponent
+
