@@ -26,7 +26,32 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
+	
+	
+	
+	/**
+     * Show the file upload button on the dashboard.
+     *
+     * @param Request $request
+     * @return image successfully uploaded
+     */
+	public function fileUpload(Request $request)
 
+    {
+        $this->validate($request, [ 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', ]);
+        $image = $request->file('image');
+        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+		$name = $input['imagename'];
+		$connect = mysqli_connect("localhost", "root", "", "dsaims_dev");
+		$query = "INSERT INTO `banner` ( `banner_image`) VALUES( '$name'  )";
+		$result = mysqli_query($connect, $query);
+        $destinationPath = public_path('/images/carousel');
+        $image->move($destinationPath, $input['imagename']);
+        return back()->with('success','Image Upload successful');
+    }
+
+	
+	
     /**
      * Show the application dashboard.
      *

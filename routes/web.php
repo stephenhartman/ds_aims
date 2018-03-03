@@ -72,3 +72,17 @@ Route::get('auth/{driver}/callback', 'Auth\SocialController@handleProviderCallba
 // Email verification
 Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+
+
+
+Route::group(['middleware' => 'web'], function () {
+
+	Route::get('fileUpload', function () {
+
+        return view('fileUpload');
+
+    });
+
+    Route::post('fileUpload', ['as'=>'fileUpload','uses'=>'HomeController@fileUpload']);
+
+});
