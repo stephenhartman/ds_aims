@@ -27,6 +27,7 @@ class PhotoController extends Controller
     public function index(Request $request)
     {
         $photos = $this->photos->latest('created_at')->paginate(5);
+        $photos->setPath('/photos');
         return view('photos.index', compact('photos'));
     }
 
@@ -60,6 +61,7 @@ class PhotoController extends Controller
 
         Session::flash('success', 'The photo was successfully saved!');
         $photos = $this->photos->latest('created_at')->paginate(5);
+        $photos->setPath('/photos');
         return view('photos.index', compact('photos'));
     }
 
@@ -93,6 +95,7 @@ class PhotoController extends Controller
 
         Session::flash('success', 'The photo was successfully updated!');
         $photos = $this->photos->latest('created_at')->paginate(5);
+        $photos->setPath('/photos');
         return view('photos.index', compact('photos'));
     }
 
@@ -108,10 +111,9 @@ class PhotoController extends Controller
         $photo->delete();
 
         Session::flash('success', 'The photo was successfully deleted.');
-        $photos = $this->photos->latest('created_at')->paginate(3);
+        $photos = $this->photos->latest('created_at')->paginate(5);
         $photos->setPath('/photos');
         return view('photos.index', compact('photos'));
-        //
     }
 
     /**
