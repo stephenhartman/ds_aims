@@ -8,13 +8,13 @@
             $('#form-delete').submit(function (event) {
                 event.preventDefault();
                 swal({
-                    title: "Delete this post?",
+                    title: "Delete this photo?",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
                 }).then((willDelete) => {
                     if(willDelete) {
-                        swal("The post has been deleted.", {
+                        swal("The photo has been deleted.", {
                             icon: "success",
                         });
                         $("#form-delete").off("submit").submit();
@@ -31,12 +31,19 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>Create Photo</h2>
+                        <h2>Edit Photo</h2>
                     </div>
                     <div class="panel-body">
                         {!! Form::model($photo, ['route' => ['photos.update', $photo], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-4">
+                                <figure class="figure">
+                                    @if ($photo->photo_url !== null)
+                                        <img class="img-thumbnail img-responsive" src="{{ url($photo->photo_url) }}">
+                                    @endif
+                                </figure>
+                            </div>
+                            <div class="col-md-8">
                                 {{ Form::label('photo_url', 'Upload New Photo') }}
                                 {{ Form::file('photo_url', null, array('class' => 'form-control', 'id' => 'uploadFile')) }}
                             </div>
