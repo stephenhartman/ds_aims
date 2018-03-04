@@ -30,18 +30,24 @@
                                 <li class="{{ Request::is('admin/roles') ? 'active' : '' }}"><a href="{{ URL::to('admin/roles') }}">User Roles</a></li>
                             </ul>
                         </li>
-                        <li class="{{ Request::is('posts') ? 'active' : '' }}">
+                        <li class="{{ Request::is('posts*') ? 'active' : '' }}">
                             <a href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
-                        <li class="{{ Request::is('events') ? 'active' : '' }}">
+                        <li class="{{ Request::is('events*') ? 'active' : '' }}">
                             <a href="{{ URL::to('events') }}">Event Calendar</a>
+                        </li>
+                        <li class="{{ Request::is('photos*') ? 'active' : '' }}">
+                            <a href="{{ URL::to('photos') }}">Photo Gallery</a>
                         </li>
                     @else
-                        <li class="{{ Request::is('posts') ? 'active' : '' }}">
+                        <li class="{{ Request::is('posts*') ? 'active' : '' }}">
                             <a href="{{ URL::to('posts') }}">Browse Posts</a>
                         </li>
-                        <li class="{{ Request::is('events') ? 'active' : '' }}">
+                        <li class="{{ Request::is('events*') ? 'active' : '' }}">
                             <a href="{{ URL::to('events') }}">Event Calendar</a>
+                        </li>
+                        <li class="{{ Request::is('photos*') ? 'active' : '' }}">
+                            <a href="{{ URL::to('photos') }}">Photo Gallery</a>
                         </li>
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
