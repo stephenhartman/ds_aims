@@ -32,28 +32,6 @@
                             <div class="col-md-3">
                                 <a class="btn btn-sm btn-block btn-primary" href="{{ route('events.create') }}"><i class="fa fa-plus-square"></i> Create new event</a>
                             </div>
-							<div class="col-md-3">
-							@if (count($errors) > 0)
-							<div class="alert alert-danger">
-								<strong>Whoops!</strong> There were some problems with your input.<br><br>
-								<ul>
-									@foreach ($errors->all() as $error)
-										<li>{{ $error }}</li>
-									@endforeach
-								</ul>
-							</div>
-						@endif
-						{!! Form::open(array('route' => 'fileUpload','enctype' => 'multipart/form-data')) !!}
-							<div class="row cancel">
-								<div class="col-md-4">
-									{!! Form::file('image', array('class' => 'image')) !!}
-								</div>
-								<div class="col-md-4">
-									<button type="submit" class="btn btn-success">Carousel Image</button>
-								</div>
-							</div>
-						{!! Form::close() !!}
-						</div>							
                         </div>
                     </div>
                     <div class="panel-body">
