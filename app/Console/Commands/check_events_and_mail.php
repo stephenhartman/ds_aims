@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\CommunityEventMail;
+use App\Mail\ReunionEventMail;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Event;
@@ -45,48 +48,62 @@ class check_events_and_mail extends Command
         $event_signups = EventSignUp::all();
         $event_children_signups = EventSignUpChild::all();
 
-        foreach ($event_signups as $signup)
+        foreach ($event_signups as $event_signup)
         {
-            $event = Event::find($signup->event_id);
-            $date = Carbon::parse($event->start_date);
-            $diff = $date->diffInDays($now);
-            switch ($event->type)
+            if ($event_signup->deleted_at == null)
             {
-                case 'Community Event':
-                    if($diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
-                case 'Reunion':
-                    if($diff == 180 || $diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
-                case 'Volunteer':
-                    if($diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
+                $event = Event::find($event_signup->event_id);
+                $user = User::find($event_signup->user_id);
+                $date = Carbon::parse($event->start_date);
+                $diff = $date->diffInDays($now);
+                switch ($event->type)
+                {
+                    case 'Community Event':
+                        if($diff == 30 || $diff == 7)
+                            Mail::to($user->email)
+                                ->send(new CommunityEventMail($event_signup, $event));
+                        break;
+                    case 'Reunion':
+                        if($diff == 180 || $diff == 30 || $diff == 7)
+                        Mail::to($user->email)
+                            ->send(new ReunionEventMail($event_signup, $event));
+                        break;
+                    case 'Volunteer':
+                        if($diff == 30 || $diff == 7)
+                            Mail::to($user->email)
+                                ->send(new VolunteerEventMail($event_signup, $event));
+                        break;
+                }
             }
         }
 
-        foreach ($event_children_signups as $signup)
+        foreach ($event_children_signups as $event_child_signup)
         {
-            $event_child = EventChild::find($signup->event_id);
-            $event_parent = Event::find($event_child->parent_id);
-            $date = Carbon::parse($event_child->start_date);
-            $diff = $date->diffInDays($now);
-            switch ($event_parent->type)
+            if ($event_child_signup != null)
             {
-                case 'Community Event':
-                    if($diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
-                case 'Reunion':
-                    if($diff == 180 || $diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
-                case 'Volunteer':
-                    if($diff == 30 || $diff == 7)
-                        Mail::send();
-                    break;
+                $event_child = EventChild::find($event_child_signup->child_id);
+                $user = User::find($event_child_signup->user_id);
+                $event = Event::find($event_child_signup->event_id);
+                $date = Carbon::parse($event_child->start_date);
+                $diff = $date->diffInDays($now);
+                switch ($event->type)
+                {
+                    case 'Community Event':
+                        if($diff == 30 || $diff == 7)
+                            Mail::to($user->email)
+                                ->send(new CommunityEventMail($event, null, $event_child, $event_child_signup));
+                        break;
+                    case 'Reunion':
+                        if($diff == 180 || $diff == 30 || $diff == 7)
+                            Mail::to($user->email)
+                                ->send(new ReunionEventMail($event, null, $event_child, $event_child_signup));
+                        break;
+                    case 'Volunteer':
+                        if($diff == 30 || $diff == 7)
+                            Mail::to($user->email)
+                                ->send(new VolunteerEventMail($event, null, $event_child, $event_child_signup));
+                        break;
+                }
             }
         }
     }
