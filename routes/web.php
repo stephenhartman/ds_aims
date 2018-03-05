@@ -13,8 +13,8 @@
 
 Route::get(
     '/', function () {
-		$photo = \App\Photo::all();
-		return view('welcome')->withPhotos($photo);
+		$photos = \App\Photo::latest('created_at')->paginate(5);
+		return view('welcome')->withPhotos($photos);
     }
 );
 
