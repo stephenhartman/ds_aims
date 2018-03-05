@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Event;
 use App\EventSignUp;
@@ -40,18 +41,51 @@ class check_events_and_mail extends Command
      */
     public function handle()
     {
+        $now = Carbon::now();
         $event_signups = EventSignUp::all();
         $event_children_signups = EventSignUpChild::all();
+
         foreach ($event_signups as $signup)
         {
-            $event = Event::where($signup->event_id);
+            $event = Event::find($signup->event_id);
+            $date = Carbon::parse($event->start_date);
+            $diff = $date->diffInDays($now);
             switch ($event->type)
             {
                 case 'Community Event':
+                    if($diff == 30 || $diff == 7)
+                        Mail::send();
                     break;
                 case 'Reunion':
+                    if($diff == 180 || $diff == 30 || $diff == 7)
+                        Mail::send();
                     break;
                 case 'Volunteer':
+                    if($diff == 30 || $diff == 7)
+                        Mail::send();
+                    break;
+            }
+        }
+
+        foreach ($event_children_signups as $signup)
+        {
+            $event_child = EventChild::find($signup->event_id);
+            $event_parent = Event::find($event_child->parent_id);
+            $date = Carbon::parse($event_child->start_date);
+            $diff = $date->diffInDays($now);
+            switch ($event_parent->type)
+            {
+                case 'Community Event':
+                    if($diff == 30 || $diff == 7)
+                        Mail::send();
+                    break;
+                case 'Reunion':
+                    if($diff == 180 || $diff == 30 || $diff == 7)
+                        Mail::send();
+                    break;
+                case 'Volunteer':
+                    if($diff == 30 || $diff == 7)
+                        Mail::send();
                     break;
             }
         }
