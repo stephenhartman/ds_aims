@@ -13,7 +13,8 @@
 
 Route::get(
     '/', function () {
-        return view('welcome');
+		$photos = \App\Photo::latest('created_at')->paginate(5);
+		return view('welcome')->withPhotos($photos);
     }
 );
 
@@ -26,6 +27,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
     Route::resource('users', 'UserController', ['only' => 'update']);
+    Route::resource('photos', 'PhotoController', ['except' => 'index']);
 
     Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
@@ -52,6 +54,7 @@ Route::group(['middleware' => ['isVerified']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
     Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
+    Route::resource('photos', 'PhotoController', ['only' => 'index']);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');

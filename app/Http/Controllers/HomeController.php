@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
+	
     /**
      * Show the application dashboard.
      *
@@ -173,8 +173,6 @@ class HomeController extends Controller
         }
     }
 
-
-
     /**
      * Resend verification token
      *
@@ -204,8 +202,6 @@ class HomeController extends Controller
             }else
                 return "#7f3f00";
         }
-
-
     }
 
     private function signUp_exists($id)
