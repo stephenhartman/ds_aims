@@ -13,7 +13,8 @@
 
 Route::get(
     '/', function () {
-        return view('welcome');
+		$photo = \App\Photo::all();
+		return view('welcome')->withPhotos($photo);
     }
 );
 

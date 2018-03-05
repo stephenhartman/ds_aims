@@ -12,87 +12,83 @@
             DePaul School Alumni Outreach System
         </div>
         <div class="row">
-
 		
-			<?php
-			//index.php
-			$connect = mysqli_connect("localhost", "root", "", "dsaims_dev");
-			function make_query($connect) {
-				$query = "SELECT * FROM banner ORDER BY banner_id ASC";
-				$result = mysqli_query($connect, $query);
-				return $result;
-			}
-			function make_slide_indicators($connect) {
-				$output = '';
-				$count = 0;
-				$result = make_query($connect);
-				while ($row = mysqli_fetch_array($result)) {
-					if ($count == 0) {
-						$output.= '
-			   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '" class="active"></li>
-			   ';
-					} else {
-						$output.= '
-			   <li data-target="#dynamic_slide_show" data-slide-to="' . $count . '"></li>
-			   ';
+			@push('styles')
+				<style>
+					.carousel .left > span,
+					.carousel .right > span {
+						position: absolute;
+						left: 20px;
+						top: 50%;
+						transform: translateY(-50%);
 					}
-					$count = $count + 1;
-				}
-				return $output;
-			}
-			function make_slides($connect) {
-				$output = '';
-				$count = 0;
-				$result = make_query($connect);
-				while ($row = mysqli_fetch_array($result)) {
-					if ($count == 0) {
-						$output.= '<div class="item active">';
-					} else {
-						$output.= '<div class="item">';
+					.carousel .right > span {
+						left: auto;
+						right: 20px;
 					}
-					$output.= '
-			   <img src="images/carousel/' . $row["banner_image"] . '" alt="' . $row["banner_title"] . '" />
-			   <div class="carousel-caption">
-				<h3>' . $row["banner_title"] . '</h3>
-			   </div>
-			  </div>
-			  ';
-					$count = $count + 1;
-				}
-				return $output;
-			}
-			?>
+					.carousel-caption {
+						background: rgba(0, 0, 0, 0.50);
+					}
+				</style>
+			@endpush
 
-			<!DOCTYPE html>
-			<html>
-			   <head>
-				  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-				  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-				  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-			   </head>
-			   <body>
-				  <br />
-				  <div class="container">
-					 <br />
-					 <div id="dynamic_slide_show" class="carousel slide" data-ride="carousel">
-						<ol class="carousel-indicators">
-						   <?php echo make_slide_indicators($connect); ?>
-						</ol>
-						<div class="carousel-inner">
-						   <?php echo make_slides($connect); ?>
+			@section('content')
+				<div class="container">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-md-4">
+									<h2>Carousel</h2>
+								</div>
+								<div class="col-md-6"></div>
+								<div class="col-md-2 col-sm-12">
+									
+										
+								</div>
+							</div>
 						</div>
-						<a class="left carousel-control" href="#dynamic_slide_show" data-slide="prev">
-						<span class="glyphicon glyphicon-chevron-left"></span>
-						<span class="sr-only">Previous</span>
-						</a>
-						<a class="right carousel-control" href="#dynamic_slide_show" data-slide="next">
-						<span class="glyphicon glyphicon-chevron-right"></span>
-						<span class="sr-only">Next</span>
-						</a>
-					 </div>
-				  </div>
-			   </body>
-			</html>
+						<div class="panel-body">
+							<div id="carousel-photos" class="carousel slide" data-ride="carousel">
+
+								<!-- Indicators -->
+								<ol class="carousel-indicators">
+									@foreach( $photos as $photo )
+										<li data-target="#carousel-photos" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+									@endforeach
+								</ol>
+
+								<!-- Wrapper for slides -->
+								<div class="carousel-inner" role="listbox">
+									@foreach( $photos as $photo )
+										<div class="item {{ $loop->first ? ' active' : '' }}" >
+											<img src="{{ $photo->photo_url }}" alt="Photo {{ $photo->id }}">
+											<div class="carousel-caption" style="padding-top: 40px;">
+												<p>{{ $photo->caption }}</p>
+											   
+													
+											</div>
+										</div>
+									@endforeach
+								</div>
+
+								<!-- Controls -->
+								<a class="left carousel-control" href="#carousel-photos" role="button" data-slide="prev">
+									<span class="fa fa-chevron-left" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="right carousel-control" href="#carousel-photos" role="button" data-slide="next">
+									<span class="fa fa-chevron-right" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+							<div class="text-center">
+								
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			
 
             <div class="col-md-4"></div>
             <div class="col-md-4">
