@@ -17,6 +17,9 @@
         }
         .carousel-caption {
             background: rgba(0, 0, 0, 0.50);
+            max-width: 100%;
+            width:100%;
+            left: 0;
         }
     </style>
 @endpush

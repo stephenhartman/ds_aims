@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ Form::label('caption', "Photo Caption (Maximum 500 characters)") }}
-                                {{ Form::textarea('caption', null, array('class' => 'form-control' ) ) }}
+                                {{ Form::textarea('caption', null, array('class' => 'form-control', 'maxlength' => '500')) }}
                             </div>
                         </div>
                         <div class="row">

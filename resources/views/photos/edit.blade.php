@@ -36,14 +36,14 @@
                     <div class="panel-body">
                         {!! Form::model($photo, ['route' => ['photos.update', $photo], 'method' => 'PUT', 'enctype' => 'multipart/form-data']) !!}
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <figure class="figure">
                                     @if ($photo->photo_url !== null)
                                         <img class="img-thumbnail img-responsive" src="{{ url($photo->photo_url) }}">
                                     @endif
                                 </figure>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 {{ Form::label('photo_url', 'Upload New Photo') }}
                                 {{ Form::file('photo_url', null, array('class' => 'form-control', 'id' => 'uploadFile')) }}
                             </div>
@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ Form::label('caption', "Photo Caption (Maximum 500 characters)") }}
-                                {{ Form::textarea('caption', $photo->caption , array('class' => 'form-control' ) ) }}
+                                {{ Form::textarea('caption', $photo->caption , array('class' => 'form-control', 'maxlength' => '500')) }}
                             </div>
                         </div>
                         <div class="row">
