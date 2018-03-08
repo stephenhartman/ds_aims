@@ -108,6 +108,7 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
+        File::delete(public_path($photo->photo_url));
         $photo->delete();
 
         Session::flash('success', 'The photo was successfully deleted.');
@@ -136,7 +137,9 @@ class PhotoController extends Controller
                 $filename = bin2hex(random_bytes(12)) . '.' . $extension;
                 $img = Image::make($image);
                 $file = $image->move(public_path('images/photos'), $filename);
-                $img->save($file);
+                $img->resize(null, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($file);
                 ImageOptimizer::optimize($file);
                 $photo->photo_url = '/images/photos/'. $file->getFilename();
             }
