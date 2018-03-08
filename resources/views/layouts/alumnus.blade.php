@@ -34,14 +34,19 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="form-group">
+            <div class="form-group">
+                <br>
+                <div class="col-md-1">
+                    {{ Form::checkbox('is_parent', $alumnus->is_parent == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                </div>
+                <div class="col-md-5">
+                    {{ Form::label('is_parent', 'Check this box if you are a parent') }}
+                </div>
+                <div class="col-md-6">
                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
                     {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
         <div class="row">
             <div class="col-md-6">

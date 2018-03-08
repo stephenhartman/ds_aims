@@ -24,6 +24,7 @@
                     <th>Graduation Year</th>
                     <th>Volunteer?</th>
                     <th>Loyal Lion?</th>
+                    <th>Parent?</th>
                     <th>Last Login</th>
                 </tr>
                 </thead>
@@ -158,7 +159,8 @@
                     { data: 'year_graduated', name: 'alumni.year_graduated' },
                     { data: 'volunteer', name: 'alumni.state' },
                     { data: 'loyal_lion', name: 'alumni.loyal_lion' },
-                    { data: 'last_login_at', orderData: 8 },
+                    { data: 'is_parent', name: 'alumni.is_parent' },
+                    { data: 'last_login_at', orderData: 9 },
                     { data: 'date_sort', type: 'num', visible: false }
                 ],
             });
@@ -178,6 +180,9 @@
                 filter_default_label: ''
             }, {
                 column_number: 6,
+                filter_default_label: ''
+            }, {
+                column_number: 7,
                 filter_default_label: ''
             }]);
         });

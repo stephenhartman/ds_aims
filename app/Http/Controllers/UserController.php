@@ -112,6 +112,15 @@ class UserController extends Controller
                         else
                             return '';
                 })
+                ->addColumn('is_parent', function (User $user) {
+                    if ($user->alumnus)
+                        if ($user->alumnus->is_parent == 1)
+                            return 'Yes';
+                        elseif ($user->alumnus->is_parent == 0)
+                            return 'No';
+                        else
+                            return '';
+                })
                 ->addColumn('date_sort', function ($user) {
                     if ($user->last_login_at !== null)
                         return Carbon::parse($user->last_login_at)->format('Ymd');
