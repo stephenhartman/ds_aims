@@ -83,7 +83,7 @@ class UserController extends Controller
             $users = User::all();
             foreach ($users as $user_check)
             {
-                if ($user->email == $user_check->email){
+                if ($request->email == $user_check->email){
                     Session::flash('error', 'That email is already registered with an account');
                     return redirect()->route('users.show', compact('user'));
                 }

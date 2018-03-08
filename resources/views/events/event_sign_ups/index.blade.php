@@ -154,7 +154,6 @@
                     { data: 'notes', name: 'event_sign_ups.notes' }
                 ],
             });
-
         });
     </script>
 @endpush

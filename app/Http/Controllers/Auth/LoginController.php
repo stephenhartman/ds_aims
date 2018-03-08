@@ -47,12 +47,9 @@ class LoginController extends Controller
     public function authenticated(Request $request)
     {
         Session::flash('success', 'You have successfully logged in!  Welcome to the DePaul Alumni Outreach System!');
-        // Logic that determines where to send the user
-        if($request->user()->hasRole('alumni')){
+        if($request->user()->hasRole('alumni'))
             return redirect('/home');
-        }
-        if($request->user()->hasRole('admin')){
+        else if($request->user()->hasRole('admin'))
             return redirect('/admin/home');
-        }
     }
 }
