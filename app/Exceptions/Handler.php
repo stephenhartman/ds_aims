@@ -55,8 +55,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Illuminate\Http\Exceptions\PostTooLargeException) {
-            Session::flash('error', 'The file size is too large, please limit your file to 2 MB');
-            Session::save();
+            session()->flash('error', 'The file size is too large, please limit your file to 2 MB');
             return redirect()->back();
         }
 
@@ -64,6 +63,10 @@ class Handler extends ExceptionHandler
             return response()->view('auth.errors.not-verified', [], 401); //  <----- The magic
         }
 
+        if ($exception instanceof \ErrorException) {
+            session()->flash('error', 'You must log in to view this page');
+            return redirect('login');
+        }
         return parent::render($request, $exception);
     }
 }
