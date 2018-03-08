@@ -135,3 +135,33 @@ hr.posts:before {
     color:red;
     padding-left:5px;
 }
+
+//Carousel Properties
+.carousel {
+    border: 4px #e7e7e7;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.carousel .left > span,
+.carousel .right > span {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.carousel .right > span {
+    left: auto;
+    right: 20px;
+}
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.50);
+    max-width: 100%;
+    width:100%;
+    left: 0;
+}
+.carousel-inner > .item > img {
+    margin: 0 auto;
+}
+.carousel-inner {
+    background-color: #f8f8f8;
+}

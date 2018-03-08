@@ -135,6 +135,11 @@ class RegisterController extends Controller
         if (config('user-verification.auto-login') === true) {
             auth()->loginUsingId($user->id);
         }
+        if ($request->user()->password == NULL && $request->user()->provider == 'none')
+        {
+            Session::flash('message', 'You will need to reset your password to complete changes to your account');
+            return redirect()->route('password.request');
+        }
         Session::flash('success', 'Thanks for verifying your email!  Please continue by creating an alumni account.');
         return redirect($this->redirectAfterVerification());
     }

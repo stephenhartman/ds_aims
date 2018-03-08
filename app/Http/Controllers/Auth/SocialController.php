@@ -45,7 +45,7 @@ class SocialController extends Controller
         $authUser = $this->findOrCreateUser($user, $provider);
         if($authUser->provider == 'none') {
             Session::flash('error', 'You already created an account using '.$user->email.'.  Please sign in
-                using your email and password');
+                using your email and password.  If you have forgotten your password, click the "Forgot Password" button below');
             return redirect('login');
         }
         elseif($authUser->provider != $provider) {
@@ -89,7 +89,7 @@ class SocialController extends Controller
             ->attach(Role::where('name', 'alumni')->first());
 
         UserVerification::generate($user);
-        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.', 'no-reply@depaulalumni.com');
+        UserVerification::send($user, 'Please verify to complete registration at the DePaul Alumni Outreach System.');
 
         return $user;
     }

@@ -4,25 +4,6 @@
 
 @push('styles')
 	<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
-	<style>
-		.carousel .left > span,
-		.carousel .right > span {
-			position: absolute;
-			left: 20px;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-		.carousel .right > span {
-			left: auto;
-			right: 20px;
-		}
-		.carousel-caption {
-			background: rgba(0, 0, 0, 0.50);
-			max-width: 100%;
-			width:100%;
-			left: 0;
-		}
-	</style>
 @endpush
 
 @section('content')

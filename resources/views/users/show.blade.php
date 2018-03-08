@@ -1,11 +1,36 @@
 @extends('layouts.app')
 
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#form-change').submit(function (event) {
+                event.preventDefault();
+                swal({
+                    title: "Change your email?",
+                    text: 'If you change your email address you will no longer be able to log in with social media.  You will also be prompted to change your password after email verification.',
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if(willDelete) {
+                        $("#form-change").off("submit").submit();
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
+
 @section('content')
     <div class="container">
-        {{ Form::model($alumnus, ['route' => array('users.alumni.update', $user, $alumnus),
-        'method' => 'PATCH', 'enctype' => 'multipart/form-data']) }}
-        <div class="row">
+       <div class="row">
             <div class="col-md-6">
+                {{ Form::model($user, ['route' => array('users.update', $user),
+                'method' => 'PATCH', 'id' => 'form-change']) }}
+                @include('layouts.email')
+                {{ Form::close() }}
+                {{ Form::model($alumnus, ['route' => array('users.alumni.update', $user, $alumnus),
+                'method' => 'PATCH', 'enctype' => 'multipart/form-data']) }}
                 @include('layouts.alumnus')
             </div>
             <div class="row">

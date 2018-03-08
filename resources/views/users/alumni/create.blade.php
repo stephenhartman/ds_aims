@@ -13,6 +13,15 @@
                     <div class="panel-body">
                         {{ Form::open(['route' => array('users.alumni.store', $user), 'enctype' => 'multipart/form-data']) }}
                         <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-8 col-md-offset-2">
+                                    {{ Form::checkbox('is_parent', 1, null, ['class' => 'checkbox-inline'] ) }}
+                                    {{ Form::label('is_parent', 'Check this box if you are a parent signing up for your child', ['class' => 'checkbox-inline', 'style' => 'font-weight:800']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('first_name', 'First Name', ['class' => 'required']) }}
@@ -36,7 +45,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
-                                    {{ Form::selectYear('year_graduated', 1980, 2020, Carbon::now()->year, ['class' => 'form-control'] ) }}
+                                    {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
                                 </div>
                             </div>
                         </div>

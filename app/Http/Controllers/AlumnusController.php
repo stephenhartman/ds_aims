@@ -79,6 +79,20 @@ class AlumnusController extends Controller
                 $request->merge(['volunteer' => 1]);
             $alumnus->volunteer = $request->volunteer;
 
+            // Save loyal_lion checkbox
+            if(!$request->has('loyal_lion'))
+                $request->merge(['loyal_lion' => 0]);
+            else
+                $request->merge(['loyal_lion' => 1]);
+            $alumnus->loyal_lion = $request->loyal_lion;
+
+            // Save is_parent checkbox
+            if(!$request->has('is_parent'))
+                $request->merge(['is_parent' => 0]);
+            else
+                $request->merge(['is_parent' => 1]);
+            $alumnus->is_parent = $request->is_parent;
+
             $this->upload_photo($request, $alumnus);
 
             $alumnus->save();
@@ -147,6 +161,20 @@ class AlumnusController extends Controller
         else
             $request->merge(['volunteer' => 1]);
         $alumnus->volunteer = $request->volunteer;
+
+        // Save loyal_lion checkbox
+        if(!$request->has('loyal_lion'))
+            $request->merge(['loyal_lion' => 0]);
+        else
+            $request->merge(['loyal_lion' => 1]);
+        $alumnus->loyal_lion = $request->loyal_lion;
+
+        // Save is_parent checkbox
+        if(!$request->has('is_parent'))
+            $request->merge(['is_parent' => 0]);
+        else
+            $request->merge(['is_parent' => 1]);
+        $alumnus->is_parent = $request->is_parent;
 
         $this->upload_photo($request, $alumnus);
 

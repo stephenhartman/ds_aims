@@ -23,11 +23,13 @@ class EventSignUpChildController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param $parent_id Parent event id
+     * @param $child_id Child event id
      * @return \Illuminate\Http\Response
      */
-    public function index(Event $event, $child_id)
+    public function index($parent_id, $child_id)
     {
-
+        $event = Event::withTrashed()->find($parent_id);
         return view('events.event_child.sign_ups.index', compact('event', 'child_id'));
     }
 
@@ -144,11 +146,11 @@ class EventSignUpChildController extends Controller
         return redirect()->route('events.index');
     }
 
-    public function event_sign_ups_child_data(Event $event, $child_id)
+    public function event_sign_ups_child_data($event_id, $child_id)
     {
         $volunteers = DB::table('event_sign_ups_child')
             ->join('users', 'event_sign_ups_child.user_id', '=', 'users.id' )
-            ->where('event_sign_ups_child.event_id', $event->id)
+            ->where('event_sign_ups_child.event_id', $event_id)
             ->where('event_sign_ups_child.child_id', $child_id)
             ->where('event_sign_ups_child.deleted_at', null)
             ->select(['users.id','users.name','users.email', 'event_sign_ups_child.number_attending', 'event_sign_ups_child.notes']);
