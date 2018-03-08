@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Jrean\UserVerification\Facades\UserVerification;
 use Yajra\DataTables\DataTables;
 use \Carbon\Carbon;
 use Html;
@@ -64,6 +65,52 @@ class UserController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param User $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        //validate
+        $this->validate($request, array(
+            'email' => 'required|email',
+        ));
+
+        if ($request->email !== $user->email)
+        {
+            $users = User::all();
+            foreach ($users as $user_check)
+            {
+                if ($user->email == $user_check->email){
+                    Session::flash('error', 'That email is already registered with an account');
+                    return redirect()->route('users.show', compact('user'));
+                }
+            }
+            $user->email = $request->email;
+            $user->verified = 0;
+            $user->verification_token = NULL;
+            $user->provider = 'none';
+            $user->provider_id = NULL;
+            $user->save();
+            UserVerification::generate($user);
+            UserVerification::send($user, 'Please verify your new email address to update registration at the DePaul Alumni Outreach System.');
+        }
+
+        if ($user->hasRole('admin'))
+        {
+            $user->name = $request->name;
+            $user->save();
+        }
+
+        $user->save();
+
+        Session::flash('success', 'Your account was successfully updated!');
+        return redirect()->route('users.show', compact('user'));
+    }
+
+    /**
      * Process Alumni DataTables ajax request.
      *
      * @param $datatables DataTables object
@@ -80,7 +127,7 @@ class UserController extends Controller
                     return Carbon::parse($user->last_login_at)->format('m/d/Y g:i A ');
                 })
                 ->editColumn('name', function ($user) {
-                    return Html::linkAction('UserController@show', $user->name, $user->id) ;
+                    return Html::linkAction('UserController@show', $user->alumnus->first_name . ' ' . $user->alumnus->last_name, $user->id) ;
                 })
                 ->editColumn('email', function ($user) {
                     return Html::mailto($user->email) ;
@@ -139,13 +186,13 @@ class UserController extends Controller
         $occupations = DB::table('users')
             ->join('alumni', 'users.id', '=', 'alumni.user_id')
             ->join('occupations', 'alumni.id', '=', 'occupations.alumnus_id')
-            ->select(['users.id', 'users.name', 'users.email', 'occupations.organization'
+            ->select(['users.id', 'alumni.first_name', 'alumni.last_name', 'users.email', 'occupations.organization'
                 , 'occupations.position', 'occupations.start_year', 'occupations.end_year'
                 , 'occupations.testimonial', 'occupations.share']);
 
         return Datatables::of($occupations)
             ->editColumn('name', function ($model) {
-                return Html::linkAction('UserController@show', $model->name, $model->id) ;
+                return Html::linkAction('UserController@show', $model->first_name . ' ' . $model->last_name, $model->id) ;
             })
             ->editColumn('email', function ($model) {
                 return Html::mailto($model->email) ;
@@ -173,13 +220,13 @@ class UserController extends Controller
         $educations = DB::table('users')
             ->join('alumni', 'users.id', '=', 'alumni.user_id')
             ->join('educations', 'alumni.id', '=', 'educations.alumnus_id')
-            ->select(['users.id', 'users.name', 'users.email', 'educations.diploma'
+            ->select(['users.id', 'alumni.first_name', 'alumni.last_name', 'users.email', 'educations.diploma'
                 , 'educations.school', 'educations.location', 'educations.start_year'
                 , 'educations.end_year', 'educations.testimonial', 'educations.share']);
 
         return Datatables::of($educations)
             ->editColumn('name', function ($model) {
-                return Html::linkAction('UserController@show', $model->name, $model->id) ;
+                return Html::linkAction('UserController@show', $model->first_name . ' ' . $model->last_name, $model->id) ;
             })
             ->editColumn('email', function ($model) {
                 return Html::mailto($model->email) ;

@@ -8,6 +8,7 @@
         "php": ">=7.1",
         "ext-gd": "*",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",
+        "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.3",
