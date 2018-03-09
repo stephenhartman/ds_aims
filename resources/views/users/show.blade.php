@@ -11,8 +11,8 @@
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                }).then((willDelete) => {
-                    if(willDelete) {
+                }).then((ok) => {
+                    if(ok) {
                         $("#form-change").off("submit").submit();
                     }
                 });

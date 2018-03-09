@@ -5,7 +5,7 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            $('#form-change').submit(function (event) {
+            $('#email').one("click", function (event) {
                 event.preventDefault();
                 swal({
                     title: "Change your email?",
@@ -13,9 +13,9 @@
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                }).then((willDelete) => {
-                    if(willDelete) {
-                        $("#form-change").off("submit").submit();
+                }).then((ok) => {
+                    if(ok) {
+                        $("#email").focus();
                     }
                 });
             });
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('email', 'Email Address', ['class' => 'required']) }}
-                                    {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
+                                    {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required', 'id' => 'email']) }}
                                 </div>
                             </div>
                         </div>
