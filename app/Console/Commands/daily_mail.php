@@ -113,9 +113,10 @@ class daily_mail extends Command
         {
             $date = Carbon::parse($user->created_at);
             $diff = $date->diffInDays($now);
+            $year = $date->diffInYears($now);
             if ($diff % 365 == 0)
                 Mail::to($user->email)
-                    ->send(new UpdateUser($user));
+                    ->send(new UpdateUser($user, $year));
         }
 
     }

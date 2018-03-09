@@ -18,10 +18,12 @@ class UpdateUser extends Mailable
      * Create a new message instance.
      *
      * @param $user User to email
+     * @param int $year Years since registered
      */
-    public function __construct($user)
+    public function __construct($user, int $year)
     {
         $this->user = $user;
+        $this->year = $year;
     }
 
     /**
@@ -33,7 +35,8 @@ class UpdateUser extends Mailable
     {
         return $this->markdown('mail.user_update')
             ->with([
-                'user' => $this->user
+                'user' => $this->user,
+                'year' => $this->year
             ]);
     }
 }
