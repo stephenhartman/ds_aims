@@ -67,7 +67,7 @@ class daily_mail extends Command
                                 ->send(new EventSignupMail($event, $event_signup));
                         break;
                     case 'Reunion':
-                        if($diff == 180 || $diff == 30 || $diff == 7)
+                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7)
                         Mail::to($user->email)
                             ->send(new EventSignupMail($event, $event_signup));
                         break;
@@ -97,7 +97,7 @@ class daily_mail extends Command
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
                         break;
                     case 'Reunion':
-                        if($diff == 180 || $diff == 30 || $diff == 7)
+                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7)
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
                         break;
