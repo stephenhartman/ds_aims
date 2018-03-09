@@ -5,6 +5,8 @@ use Faker\Generator as Faker;
 $factory->define(App\Occupation::class, function (Faker $faker) {
     $year = $faker->numberBetween($min = 1990, $max = 2013);
     return [
+        'type' => $faker
+            ->randomElement( array('Administrative', 'Commercial', 'Professional')),
         'organization' => $faker->company,
         'position' => $faker->jobTitle,
         'start_year' => $year,
