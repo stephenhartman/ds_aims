@@ -68,8 +68,8 @@ class daily_mail extends Command
                         break;
                     case 'Reunion':
                         if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7)
-                        Mail::to($user->email)
-                            ->send(new EventSignupMail($event, $event_signup));
+                            Mail::to($user->email)
+                                ->send(new EventSignupMail($event, $event_signup));
                         break;
                     case 'Volunteer':
                         if($diff == 30 || $diff == 7)
