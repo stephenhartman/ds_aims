@@ -104,7 +104,7 @@
                     {
                         extend:    'csvHtml5',
                         text:      '<i class="fa fa-table"></i> Export CSV',
-                        title:     'Alumni-' + getFormattedDate(),
+                        title:     '{{ snake_case($event->title) }}_signups_' + getFormattedDate(),
                         exportOptions : {
                             columns : ':visible',
                             format : {

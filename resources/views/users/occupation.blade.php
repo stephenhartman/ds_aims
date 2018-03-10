@@ -109,7 +109,7 @@
                     {
                         extend:    'csvHtml5',
                         text:      '<i class="fa fa-table"></i> Export CSV',
-                        title:     'Alumni-' + getFormattedDate(),
+                        title:     'occupation_data_' + getFormattedDate(),
                         exportOptions : {
                             columns : ':visible',
                             format : {

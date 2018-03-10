@@ -45,7 +45,7 @@
                             </div>
                             <div class="col-md-7">
                                 {{ Form::label('photo_url', 'Upload New Photo') }}
-                                {{ Form::file('photo_url', null, array('class' => 'form-control', 'id' => 'uploadFile')) }}
+                                {{ Form::file('photo_url', ['accept' => 'image/*'], array('class' => 'form-control', 'id' => 'uploadFile')) }}
                             </div>
                         </div>
                         <div class="row">
