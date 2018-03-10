@@ -1,8 +1,10 @@
 @component('mail::message')
 
-## Hello from the DePaul School of Northeast Florida!
+# Hello from the DePaul School of Northeast Florida!
 
-This email is a reminder that you signed up for the upcoming Reunion Event, {{ $event->title }}.
+This email is a reminder that you signed up for the upcoming Reunion Event:
+
+## {{ $event->title }}.
 
 The event will be taking place on {{ Carbon::parse($event->start_date)->format('l\, F jS Y \a\t g:i A') }}.
 

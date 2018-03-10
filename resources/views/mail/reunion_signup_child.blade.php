@@ -10,7 +10,9 @@ The event will be taking place on {{ Carbon::parse($event_child->start_date)->fo
 
 Event Description: {{ $event->description }}
 
-Event Additional Notes: {{ $event_child->updates }}
+@if ($event_child->update !== NULL)
+    Event Additional Notes: {{ $event_child->updates }}
+@endif
 
 Number attending: {{ $event_signup_child->number_attending }}
 

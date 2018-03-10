@@ -49,7 +49,7 @@ class daily_mail extends Command
         $now = Carbon::now();
         $event_signups = EventSignUp::all();
         $event_signups_children = EventSignUpChild::all();
-        $users = User::has('alumnus');
+        $users = User::has('alumnus')->get();
 
         foreach ($event_signups as $event_signup)
         {
