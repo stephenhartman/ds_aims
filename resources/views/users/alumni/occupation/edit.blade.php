@@ -63,6 +63,18 @@
                         <br>
                         {{ Form::model($occupation, ['route' => array('users.alumni.occupation.update', $user, $alumnus, $occupation), 'method' => 'PATCH']) }}
                         <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <div class="form-group">
+                                    {{ Form::label('type', 'Type of Occupation', ['class' => 'required']) }}
+                                    {{ Form::select('type', [
+                                    'Administrative' => 'Administrative',
+                                    'Commercial' => 'Commercial',
+                                    'Professional' => 'Professional'],
+                                    $occupation->type, ['class' => 'form-control', 'placeholder' => 'Select an Occupation Type', 'required' => 'required']) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('organization', 'Company Name', ['class' => 'required']) }}
@@ -80,13 +92,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('start_year', 'Start Year', ['class' => 'required']) }}
-                                    {{ Form::selectYear('start_year', 1980, 2020, $occupation->start_year, ['class' => 'form-control', 'required' => 'required']) }}
+                                    {{ Form::selectYear('start_year', 1980, 2025, $occupation->start_year, ['class' => 'form-control', 'required' => 'required']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('end_year', 'End Year') }}
-                                    {{ Form::selectYear('end_year', 1980, 2020, $occupation->end_year, ['class' => 'form-control', 'required' => 'required']) }}
+                                    {{ Form::selectYear('end_year', 1980, 2025, $occupation->end_year, ['class' => 'form-control', 'required' => 'required']) }}
                                 </div>
                             </div>
                         </div>

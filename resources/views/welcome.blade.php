@@ -8,7 +8,7 @@
 
 @section('content')
 	<a href="{{ url('/home') }}" style="font-size:2em!important;text-decoration:none">
-		<div class="text-center h1">
+		<div class="text-center h1" style="margin-top:0px">
 			DePaul School Alumni Outreach System
 		</div>
 	</a>

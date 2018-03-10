@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class InviteUser extends Mailable
+class UpdateUser extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,10 +18,12 @@ class InviteUser extends Mailable
      * Create a new message instance.
      *
      * @param $user User to email
+     * @param int $year Years since registered
      */
-    public function __construct($user)
+    public function __construct($user, int $year)
     {
         $this->user = $user;
+        $this->year = $year;
     }
 
     /**
@@ -31,6 +33,10 @@ class InviteUser extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.users.invite');
+        return $this->markdown('mail.user_update')
+            ->with([
+                'user' => $this->user,
+                'year' => $this->year
+            ]);
     }
 }
