@@ -113,7 +113,9 @@ class UserController extends Controller
                     $filename = bin2hex(random_bytes(12)) . '.' . $extension;
                     $img = Image::make($image);
                     $file = $image->move(public_path('images/users'), $filename);
-                    $img->save($file);
+                    $img->resize(null, 200, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($file);
                     ImageOptimizer::optimize($file);
                     $user->photo_url = '/images/users/'. $file->getFilename();
                 }
