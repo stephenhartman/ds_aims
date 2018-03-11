@@ -45,7 +45,7 @@ class EventSignUpController extends Controller
         $today = Carbon::now()->toDateString();
 
         if ($sd < $today){
-            Session::flash('success', "You can't sign up for an event that's already over");
+            Session::flash('error', "You can't sign up for an event that's already over");
             return redirect()->route('events.index');
         }else{
             $enroll = new EventSignUp;
