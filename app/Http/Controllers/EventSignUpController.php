@@ -38,17 +38,30 @@ class EventSignUpController extends Controller
 
     public function store(Request $request)
     {
-        $enroll = new EventSignUp;
-        $enroll->user_id = $request->user_id;
-        $enroll->event_id = $request->event_id;
-        $enroll->number_attending = $request->number_attending;
-        $enroll->notes = $request->notes;
+
+        $event = Event::find($request->event_id);
+        $start_date = new Carbon($event->start_date);
+        $sd = $start_date->toDateString();
+        $today = Carbon::now()->toDateString();
+
+        if ($sd < $today){
+            Session::flash('success', "You can't sign up for an event that's already over");
+            return redirect()->route('events.index');
+        }else{
+            $enroll = new EventSignUp;
+            $enroll->user_id = $request->user_id;
+            $enroll->event_id = $request->event_id;
+            $enroll->number_attending = $request->number_attending;
+            $enroll->notes = $request->notes;
 
 
-        $enroll->save();
+            $enroll->save();
 
-        Session::flash('success', 'You have been signed up!');
-        return redirect()->route('events.index');
+            Session::flash('success', 'You have been signed up!');
+            return redirect()->route('events.index');
+        }
+
+
     }
 
     public function show(Event $event, EventSignUp $enroll)
