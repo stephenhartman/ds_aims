@@ -2,15 +2,17 @@
 
 # Hello from the DePaul School of Northeast Florida!
 
-This email is a reminder that you signed up for the upcoming Reunion Event:
+This email is a reminder that you signed up for the upcoming {{ $event->type }} Event:
 
 ## {{ $event->title }}
 
 The event will be taking place on {{ Carbon::parse($event_child->start_date)->format('l\, F jS Y \a\t g:i A') }}.
 
+Event Location: {{ $event->location }}
+
 Event Description: {{ $event->description }}
 
-@if ($event_child->update !== NULL)
+@if ($event_child->updates !== NULL)
     Event Additional Notes: {{ $event_child->updates }}
 @endif
 
@@ -20,6 +22,10 @@ Notes: {{ $event_signup_child->notes }}
 
 @component('mail::button', ['url' => route('events.index')])
     Click here to view the event
+@endcomponent
+
+@component('mail::button', ['url' => $event->location_url, 'target' => '_blank'])
+    Click here to view the event location
 @endcomponent
 
 We hope to see you there!

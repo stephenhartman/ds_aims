@@ -567,6 +567,5 @@ class EventController extends Controller
             $location_url = 'https://www.google.com/maps/search/?api=1&query=' . $escape_commas;
             return $location_url;
         }
-
     }
 }

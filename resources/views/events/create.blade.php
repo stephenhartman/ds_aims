@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-md-4 col-md-offset-2" >
                                 {{Form::label('event_type','Event Type')}}<br>
-                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], null, ['class' => 'form-control', 'placeholder' => 'Please Select an Option']) }}
+                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community' => 'Community'], null, ['class' => 'form-control', 'placeholder' => 'Please Select an Option']) }}
                             </div>
                         </div>
                     </div>

@@ -38,44 +38,15 @@ class EventSignupMail extends Mailable
      */
     public function build()
     {
-        if ($this->event->type == 'Community Event')
-        {
-            return $this->event_signup != null ? $this->markdown('mail.community_signup')
-                ->with([
-                    'event' => $this->event,
-                    'event_signup' => $this->event_signup,
-                ]) : $this->markdown('mail.community_signup_child')
-                ->with([
-                    'event' => $this->event,
-                    'event_child' => $this->event_child,
-                    'event_signup_child' => $this->event_signup_child,
-                ]);
-        }
-        else if ($this->event->type == 'Reunion')
-        {
-            return $this->event_signup != null ? $this->markdown('mail.reunion_signup')
-                ->with([
-                    'event' => $this->event,
-                    'event_signup' => $this->event_signup,
-                ]) : $this->markdown('mail.reunion_signup_child')
-                ->with([
-                    'event' => $this->event,
-                    'event_child' => $this->event_child,
-                    'event_signup_child' => $this->event_signup_child,
-                ]);
-        }
-        else if ($this->event->type == 'Volunteer')
-        {
-            return $this->event_signup != null ? $this->markdown('mail.volunteer_signup')
-                ->with([
-                    'event' => $this->event,
-                    'event_signup' => $this->event_signup,
-                ]) : $this->markdown('mail.volunteer_signup_child')
-                ->with([
-                    'event' => $this->event,
-                    'event_child' => $this->event_child,
-                    'event_signup_child' => $this->event_signup_child,
-                ]);
-        }
+        return $this->event_signup != null ? $this->markdown('mail.event_signup')
+            ->with([
+                'event' => $this->event,
+                'event_signup' => $this->event_signup,
+            ]) : $this->markdown('mail.event_signup_child')
+            ->with([
+                'event' => $this->event,
+                'event_child' => $this->event_child,
+                'event_signup_child' => $this->event_signup_child,
+            ]);
     }
 }
