@@ -49,6 +49,7 @@ class EventController extends Controller
                         $value->id,
                         [
                             'location' => $value->location,
+                            'location_url' => $value->location_url,
                             'description' => $value->description,
                             'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
@@ -73,6 +74,7 @@ class EventController extends Controller
                         $value->id,
                         [
                             'location' => $value->location,
+                            'location_url' => $value->location_url,
                             'description' => $value->description,
                             'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
@@ -109,6 +111,7 @@ class EventController extends Controller
                         $value->id,
                         [
                             'location' => $parent->location,
+                            'location_url' => $parent->location_url,
                             'description' => $parent->description,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
@@ -133,6 +136,7 @@ class EventController extends Controller
                         $value->id,
                         [
                             'location' => $parent->location,
+                            'location_url' => $parent->location_url,
                             'description' => $parent->description,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
@@ -168,7 +172,7 @@ class EventController extends Controller
                                 }else{
                                     $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description);
                                 }
-                                
+                                $("#location").attr("href", event.location_url).html("Event location");
                                 $("#eventUrl").attr("href", event.link).html("Edit this event");
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
                                 if (moment().format("YYYYMMDD") <= moment(event.start).format("YYYYMMDD"))
@@ -324,7 +328,10 @@ class EventController extends Controller
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
-                'event_location' => "required|regex:[A-Za-z0-9'\.\-\s\,]",
+                'event_location' => [
+                    "required",
+                    "regex:/[A-Za-z0-9'\.\-\s\,]+/"
+                ],
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
 
@@ -335,6 +342,7 @@ class EventController extends Controller
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->location = $request->event_location;
+            $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
@@ -355,7 +363,10 @@ class EventController extends Controller
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
-                'event_location' => 'required',
+                'event_location' => [
+                    "required",
+                    "regex:/[A-Za-z0-9'\.\-\s\,]+/"
+                ],
                 'event_description' => 'required',
                 'repeat_freq' => 'required',
                 'repeat_until' => 'required|date_format:Y-m-d|after:event_start_date'
@@ -373,6 +384,7 @@ class EventController extends Controller
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->location = $request->event_location;
+            $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
             $event->repeats = $request->repeats;
             $event->repeat_freq = $request->repeat_freq;
@@ -461,7 +473,10 @@ class EventController extends Controller
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
-                'event_location' => 'required',
+                'event_location' => [
+                    "required",
+                    "regex:/[A-Za-z0-9'\.\-\s\,]+/"
+                ],
                 'event_description' => 'required'
             ]);
 
@@ -470,6 +485,7 @@ class EventController extends Controller
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->location = $request->event_location;
+            $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
             $event->save();
 
@@ -494,6 +510,7 @@ class EventController extends Controller
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
             $event->location = $request->event_location;
+            $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
             $event->save();
 
@@ -520,8 +537,10 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param Event $event
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Request $request,Event $event)
     {
@@ -538,5 +557,16 @@ class EventController extends Controller
 
         Session::flash('success', 'The event was successfully deleted.');
         return redirect()->route('events.index');
+    }
+
+    public function getLocationURL(Request $request)
+    {
+        if ($request->has('event_location')) {
+            $location = preg_replace('/\s+/', '+', $request->event_location);
+            $escape_commas = preg_replace('/\,/', '%2C', $location);
+            $location_url = 'https://www.google.com/maps/search/?api=1&query=' . $escape_commas;
+            return $location_url;
+        }
+
     }
 }
