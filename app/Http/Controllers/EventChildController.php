@@ -108,6 +108,7 @@ class EventChildController extends Controller
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
                 'event_start_time' => 'required|date_format:H:i',
+                'event_location' => 'required',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
             ]);
@@ -122,6 +123,7 @@ class EventChildController extends Controller
             $event->type = $request->event_type;
             $event->start_date = $ed . " " . $request->event_start_time;
             $event->end_date = $ed . " " . $request->event_end_date;
+            $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->save();
             foreach($children as $child){

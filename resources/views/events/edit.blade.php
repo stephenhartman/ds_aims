@@ -82,8 +82,20 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            {{Form::label ('event_description', 'Event Description', ['style' => 'display:none', 'id' => 'desc_label'])}}
-                            {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'id' => 'event_description_edit') )}}
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{Form::label ('event_location', 'Event Address'), ['id' => 'event_location_edit']}}
+                                    {{Form::text('event_location', $event->location, array('class' => 'form-control', 'required' => 'required', 'id' => 'event_description_edit') )}}
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{Form::label ('event_description', 'Event Description', ['id' => 'desc_label'])}}
+                                    {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'id' => 'event_description_edit') )}}
+                                    <br>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -34,6 +34,8 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
+                            <h4> Location: {{$event->location}}</h4>
+                            <br>
                             <p> {{$event->description}}</p>
                         </div>
                     </div>

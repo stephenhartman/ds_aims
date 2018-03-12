@@ -20,6 +20,7 @@ class MakeEventsTable extends Migration
            $table->text('type');
            $table->dateTime('start_date');
            $table->dateTime('end_date');
+           $table->text('location');
            $table->integer('repeats');
            $table->integer('repeat_freq');
            $table->dateTime('repeat_until');

@@ -40,9 +40,20 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            {{Form::label ('event_description', 'Event Description')}}
-                            {{Form::textarea('event_description', null, array('class' => 'form-control', 'required' => 'required') )}}
-                            <br>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{Form::label ('event_location', 'Event Location (Enter a valid address with no special characters)')}}
+                                    {{Form::text('event_location', null, array('class' => 'form-control', 'required' => 'required') )}}
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{Form::label ('event_description', 'Event Description')}}
+                                    {{Form::textarea('event_description', null, array('class' => 'form-control', 'required' => 'required') )}}
+                                    <br>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

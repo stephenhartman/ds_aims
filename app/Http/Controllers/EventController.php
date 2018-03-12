@@ -39,7 +39,7 @@ class EventController extends Controller
                 $ed = $end_date->toDateTimeString();
                 $exists = $this->signUp_exists($value->id);
 
-                //if no one is signed up
+                //if user is not signed up
                 if ($exists == 0) {
                     $events[] = Calendar::event(
                         $value->title,
@@ -48,15 +48,17 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
+                            'location' => $value->location,
                             'description' => $value->description,
                             'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
                             'sign_up' => route('events.event_sign_ups.create', $value->id),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                            'child' => '0'
                         ]
                     );
-                    //if there are users signed up
+                    //if user is signed up
                 }else
                 {
                     $enroll = $this->getSignUp($value->id);
@@ -70,12 +72,14 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
+                            'location' => $value->location,
                             'description' => $value->description,
                             'color' => $this->getColor($value->type, $exists),
                             'link' => route('events.edit', $value->id),
                             'sign_up' => route('events.event_sign_ups.edit', compact('event_id', 'enroll_id')),
                             'button' => 'Unenroll or Edit',
                             'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                            'child' => '0'
                         ]
                     );
                 }
@@ -94,7 +98,7 @@ class EventController extends Controller
                 $ed = $end_date->toDateTimeString();
                 $exists = $this->child_sign_up_exists($parent_id ,$value->id);
 
-                //if no one is signed up
+                //if user is signed up
                 if($exists == 0)
                 {
                     $events[] = Calendar::event(
@@ -104,15 +108,18 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
-                            'description' => $parent->description . "<br>" .  "<strong> Updates</strong>:  " . $value->updates,
+                            'location' => $parent->location,
+                            'description' => $parent->description,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                             'sign_up' => route('events.event_child.sign_ups.create', [$parent->id, $value->id]),
                             'button' => 'Sign up for an event',
                             'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                            'child' => '1',
+                            'updates' => $value->updates
                         ]
                     );
-                    //if users are signed up
+                    //if user is not signed up
                 }else
                 {
                     $enroll = $this->get_child_sign_up($parent_id, $value->id);
@@ -125,12 +132,15 @@ class EventController extends Controller
                         $ed,
                         $value->id,
                         [
-                            'description' => $parent->description . "<br>" .  "<strong> Updates</strong>:  " . $value->updates,
+                            'location' => $parent->location,
+                            'description' => $parent->description,
                             'color' => $this->getColor($parent->type, $exists),
                             'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                             'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
                             'button' => 'Unenroll or Edit',
                             'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                            'child' => '1',
+                            'updates' => $value->updates
                         ]
                     );
                 }
@@ -149,7 +159,16 @@ class EventController extends Controller
             ->setCallbacks([
                 'eventClick' => 'function(event, jsEvent, view) {
                                 $("#modalTitle").html("<strong>" + event.title + "</strong>");
-                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Description:</strong> " + event.description);
+                                if (event.child == 1){
+                                    if(event.updates != null){
+                                        $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description + "<br>" + "<strong>Updates:</strong> " + event.updates);
+                                    }else{
+                                        $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description);
+                                    }
+                                }else{
+                                    $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description);
+                                }
+                                
                                 $("#eventUrl").attr("href", event.link).html("Edit this event");
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
                                 if (moment().format("YYYYMMDD") <= moment(event.start).format("YYYYMMDD"))
@@ -305,6 +324,7 @@ class EventController extends Controller
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
+                'event_location' => "required|regex:[A-Za-z0-9'\.\-\s\,]",
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
                 'event_description' => 'required'
 
@@ -314,6 +334,7 @@ class EventController extends Controller
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
@@ -334,6 +355,7 @@ class EventController extends Controller
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_location' => 'required',
                 'event_description' => 'required',
                 'repeat_freq' => 'required',
                 'repeat_until' => 'required|date_format:Y-m-d|after:event_start_date'
@@ -350,6 +372,7 @@ class EventController extends Controller
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->repeats = $request->repeats;
             $event->repeat_freq = $request->repeat_freq;
@@ -438,6 +461,7 @@ class EventController extends Controller
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_location' => 'required',
                 'event_description' => 'required'
             ]);
 
@@ -445,6 +469,7 @@ class EventController extends Controller
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->save();
 
@@ -460,6 +485,7 @@ class EventController extends Controller
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
                 'event_start_time' => 'required|date_format:H:i',
                 'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_location' => 'required',
                 'event_description' => 'required'
             ]);
 
@@ -467,6 +493,7 @@ class EventController extends Controller
             $event->type = $request->event_type;
             $event->start_date = $request->event_start_date . " " . $request->event_start_time;
             $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->save();
 
