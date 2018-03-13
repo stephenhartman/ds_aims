@@ -52,6 +52,14 @@ class RoleController extends Controller
                 return Html::mailto($user->email) ;
             })
             ->addColumn('role', function (User $user) {
+                if ($user->hasRole('admin'))
+                    return 'Administrator';
+                elseif ($user->hasRole('alumni'))
+                    return 'Alumnus';
+                else
+                    return '';
+            })
+            ->addColumn('form', function (User $user) {
                 if ($user->id == Auth::id())
                     return '<input class="form-control" type="checkbox" data-id="'.$user->id.'" name="role" checked disabled="disabled"></td>';
                 elseif ($user->hasRole('admin'))
@@ -62,7 +70,7 @@ class RoleController extends Controller
             ->addColumn('action', function(User $user) {
                 return '<button class="btn btn-success btn-sm btn-block btn-ajax" data-id="'.$user->id.'"><i class="fa fa-save"></i> Save</button>';
             })
-            ->rawColumns(array('name', 'email', 'role', 'action'))
+            ->rawColumns(array('name', 'email', 'form', 'action'))
             ->make();
     }
 

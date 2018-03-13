@@ -17,7 +17,8 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Administrator?</th>
+                        <th>Role</th>
+                        <th>Admin?</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -53,9 +54,11 @@
                 columns: [
                     { data: 'name' },
                     { data: 'email' },
-                    { data: 'role', sortable: false },
+                    { data: 'role' },
+                    { data: 'form', sortable: false },
                     { data: 'action', sortable: false }
-                ]
+                ],
+                order: [[ '2', 'asc']]
             });
 
             table.on('click', '.btn-ajax', function (e) {
@@ -91,6 +94,7 @@
                 }).always(function (data) {
                     $(table).DataTable().draw(false);
                 });
+                table.ajax.reload();
             });
         });
     </script>
