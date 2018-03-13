@@ -46,6 +46,7 @@ class OccupationController extends Controller
         $occupation->position = $request->position;
         $occupation->start_year = $request->start_year;
         $occupation->end_year = $request->end_year;
+        $occupation->type = $request->type;
         $occupation->testimonial = Purifier::clean($request->testimonial);
 
         // Save share checkbox
@@ -98,6 +99,7 @@ class OccupationController extends Controller
         $occupation->position = $request->position;
         $occupation->start_year = $request->start_year;
         $occupation->end_year = $request->end_year;
+        $occupation->type = $request->type;
         $occupation->testimonial = Purifier::clean($request->testimonial);
 
         // Save share checkbox
