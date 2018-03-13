@@ -21,7 +21,7 @@ $factory->define(App\Event::class, function (Faker $faker) {
 
     return [
         'title' => $faker->catchPhrase,
-        'type' => $faker->randomElement($array = array('Volunteer', 'Reunion', 'Community Event')),
+        'type' => $faker->randomElement($array = array('Volunteer', 'Reunion', 'Community')),
         'start_date' => $sd,
         'end_date' => $ed,
         'description' => $faker->sentence($nbWords = 9, $variableNbWords = true),

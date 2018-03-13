@@ -140,7 +140,10 @@ class RegisterController extends Controller
             Session::flash('message', 'You will need to reset your password to complete changes to your account');
             return redirect()->route('password.request');
         }
-        Session::flash('success', 'Thanks for verifying your email!  Please continue by creating an alumni account.');
+        if ($request->user()->alumnus()->initial_setup == 0)
+            Session::flash('success', 'Thanks for verifying your email!  Please continue by creating an alumni account.');
+        else
+            Session::flash('success', 'Thanks for verifying your email!');
         return redirect($this->redirectAfterVerification());
     }
 }

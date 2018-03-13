@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Education;
 use App\Occupation;
-use App\Role;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Jrean\UserVerification\Facades\UserVerification;
 use Yajra\DataTables\DataTables;
 use \Carbon\Carbon;
+use Image;
+use ImageOptimizer;
 use Html;
 
 class UserController extends Controller
@@ -100,11 +102,32 @@ class UserController extends Controller
 
         if ($user->hasRole('admin'))
         {
+            // Save photo url for profile picture
+            if ($request->has('photo_url'))
+            {
+                File::delete(public_path($user->photo_url));
+                $image = $request->file('photo_url');
+                $extension = $image->getClientOriginalExtension();
+                if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif')
+                {
+                    $filename = bin2hex(random_bytes(12)) . '.' . $extension;
+                    $img = Image::make($image);
+                    $file = $image->move(public_path('images/users'), $filename);
+                    $img->resize(null, 200, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($file);
+                    ImageOptimizer::optimize($file);
+                    $user->photo_url = '/images/users/'. $file->getFilename();
+                }
+                else
+                {
+                    Session::flash('error', 'Please upload a .jpeg, .jpg, .gif or .png file');
+                    return redirect()->back()->withInput();
+                }
+            }
             $user->name = $request->name;
             $user->save();
         }
-
-        $user->save();
 
         Session::flash('success', 'Your account was successfully updated!');
         return redirect()->route('users.show', compact('user'));

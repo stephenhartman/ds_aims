@@ -7,12 +7,12 @@
                 event.preventDefault();
                 swal({
                     title: "Change your email?",
-                    text: 'If you change your email address you will no longer be able to log in with social media.  You will also be prompted to change your password after email verification.',
+                    text: 'If you change your email address and you previously registered with social media, you will no longer be able to log in with social media and you will be prompted to change your password after email verification.',
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
-                }).then((willDelete) => {
-                    if(willDelete) {
+                }).then((ok) => {
+                    if(ok) {
                         $("#form-change").off("submit").submit();
                     }
                 });

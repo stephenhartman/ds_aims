@@ -23,11 +23,13 @@ class EventSignUpChildController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param $parent_id Parent event id
+     * @param $child_id Child event id
      * @return \Illuminate\Http\Response
      */
-    public function index(Event $event, $child_id)
+    public function index($parent_id, $child_id)
     {
-
+        $event = Event::withTrashed()->find($parent_id);
         return view('events.event_child.sign_ups.index', compact('event', 'child_id'));
     }
 
@@ -36,10 +38,11 @@ class EventSignUpChildController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Event $event, $child_id)
+    public function create($parent_id, $child_id)
     {
         $user = Auth::user()->id;
 
+        $event = Event::withTrashed()->find($parent_id);
         $child = EventChild::find($child_id);
 
         $start_date = new Carbon($child->start_date);
@@ -60,18 +63,29 @@ class EventSignUpChildController extends Controller
      */
     public function store(Request $request)
     {
-        $enroll = new EventSignUpChild;
-        $enroll->user_id = $request->user_id;
-        $enroll->event_id = $request->event_id;
-        $enroll->child_id = $request->child_id;
-        $enroll->number_attending = $request->number_attending;
-        $enroll->notes = $request->notes;
+        $child = EventChild::find($request->child_id);
+        $start_date = new Carbon($child->start_date);
+        $sd = $start_date->toDateString();
+        $today = Carbon::now()->toDateString();
 
+        if($sd < $today) {
+            Session::flash('error', "You can't sign up for an event that's already over!");
+            return redirect()->route('events.index');
+        }else{
 
-        $enroll->save();
+            $enroll = new EventSignUpChild;
+            $enroll->user_id = $request->user_id;
+            $enroll->event_id = $request->event_id;
+            $enroll->child_id = $request->child_id;
+            $enroll->number_attending = $request->number_attending;
+            $enroll->notes = $request->notes;
+            
+            $enroll->save();
 
-        Session::flash('success', 'You have been signed up!.');
-        return redirect()->route('events.index');
+            Session::flash('success', 'You have been signed up!');
+            return redirect()->route('events.index');
+        }
+
     }
 
     /**
@@ -91,9 +105,10 @@ class EventSignUpChildController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event, $child_id, $enroll_id)
+    public function edit($parent_id, $child_id, $enroll_id)
     {
         $user = Auth::user()->id;
+        $event = Event::withTrashed()->find($parent_id);
         $child = EventChild::find($child_id);
         $enroll = EventSignUpChild::where('id', $enroll_id)->first();
 
@@ -135,7 +150,7 @@ class EventSignUpChildController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Event $event, $child_id, $enroll_id)
+    public function destroy($event_id, $child_id, $enroll_id)
     {
         $enroll = EventSignUpChild::where('id', $enroll_id)->first();
         $enroll->delete();
@@ -144,11 +159,11 @@ class EventSignUpChildController extends Controller
         return redirect()->route('events.index');
     }
 
-    public function event_sign_ups_child_data(Event $event, $child_id)
+    public function event_sign_ups_child_data($event_id, $child_id)
     {
         $volunteers = DB::table('event_sign_ups_child')
             ->join('users', 'event_sign_ups_child.user_id', '=', 'users.id' )
-            ->where('event_sign_ups_child.event_id', $event->id)
+            ->where('event_sign_ups_child.event_id', $event_id)
             ->where('event_sign_ups_child.child_id', $child_id)
             ->where('event_sign_ups_child.deleted_at', null)
             ->select(['users.id','users.name','users.email', 'event_sign_ups_child.number_attending', 'event_sign_ups_child.notes']);

@@ -54,11 +54,13 @@
                                         $('#type_edit').prop('disabled', !this.checked);
                                         $('#event_updates_edit').show();
                                         $('#updates_label').show();
+                                        $('#event_location_edit').prop('readonly', !this.checked);
                                     }
 
                                     $('#all_events_id').on('change', function(){
                                         $('#title_edit').prop('readonly', !this.checked);
                                         $('#type_edit').prop('disabled', !this.checked);
+                                        $('#event_location_edit').prop('readonly', !this.checked);
                                         $('#event_description_edit').toggle(this.checked);
                                         $('#event_updates_edit').toggle(!this.checked);
                                         $('#desc_label').toggle(this.checked);
@@ -75,7 +77,7 @@
                             </div>
                             <div class="col-md-4 col-md-offset-2">
                                 {{Form::label('event_type','Event Type')}}<br>
-                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community Event' => 'Community Event'], $event->type, ['id' => 'type_edit', 'class' => 'form-control'])}}
+                                {{Form::select('event_type', ['Volunteer' => 'Volunteer', 'Reunion' => 'Reunion', 'Community' => 'Community'], $event->type, ['id' => 'type_edit', 'class' => 'form-control'])}}
                             </div>
                         </div>
                     </div>
@@ -98,12 +100,22 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            {{Form::label ('updates', 'Updates', ['id' => 'updates_label', 'style' => 'display:none'])}}
-                            {{Form::textarea('updates', null, ['class' => 'form-control', 'id' => 'event_updates_edit', 'style' => 'display:none'])}}
-                            {{Form::label ('event_description', 'Event Description', ['style' => 'display:none', 'id' => 'desc_label'])}}
-                            {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'style' => 'display:none', 'id' => 'event_description_edit') )}}
-                            <hr>
-                            <br>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    {{Form::label ('event_location', 'Location', ['id' => 'location_label'])}}
+                                    {{Form::text ('event_location', $event->location, ['class' => 'form-control', 'id' =>'event_location_edit', 'required'])}}
+                                    <br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{Form::label ('updates', 'Updates', ['id' => 'updates_label', 'style' => 'display:none'])}}
+                                    {{Form::textarea('updates', null, ['class' => 'form-control', 'id' => 'event_updates_edit', 'style' => 'display:none'])}}
+                                    {{Form::label ('event_description', 'Event Description', ['style' => 'display:none', 'id' => 'desc_label'])}}
+                                    {{Form::textarea('event_description', $event->description, array('class' => 'form-control', 'required', 'style' => 'display:none', 'id' => 'event_description_edit') )}}
+                                    <hr>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
