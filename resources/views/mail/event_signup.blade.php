@@ -10,6 +10,10 @@ The event will be taking place on {{ Carbon::parse($event->start_date)->format('
 
 Event Location: {{ $event->location }}
 
+@component('mail::button', ['url' => $event->location_url, 'target' => '_blank', 'color' => 'green'])
+    Click here to view the event location
+@endcomponent
+
 Event Description: {{ $event->description }}
 
 Number attending: {{ $event_signup->number_attending }}
@@ -18,10 +22,6 @@ Notes: {{ $event_signup->notes }}
 
 @component('mail::button', ['url' => route('events.index')])
     Click here to view the event
-@endcomponent
-
-@component('mail::button', ['url' => $event->location_url, 'target' => '_blank'])
-    Click here to view the event location
 @endcomponent
 
 We hope to see you there!

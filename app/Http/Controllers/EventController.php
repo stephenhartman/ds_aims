@@ -25,7 +25,6 @@ class EventController extends Controller
      */
     public function index()
     {
-
         $events = [];
         $data = Event::all();
         $data2 = EventChild::all();

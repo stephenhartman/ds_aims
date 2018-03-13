@@ -72,6 +72,7 @@
                     </div>
                     <div id="modalBody" class="modal-body"> </div>
                     <div class="modal-footer">
+                        <a class="btn btn-primary" id="location" target="_blank"></a>
                         @if (Auth::user()->hasRole('admin'))
                             <a class="btn btn-info" id="eventUrl"></a>
                             <a class="btn btn-success" id="index"></a>

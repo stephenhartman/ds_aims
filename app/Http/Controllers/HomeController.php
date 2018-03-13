@@ -47,6 +47,8 @@ class HomeController extends Controller
             $events = [];
             $data = Event::all();
             $data2 = EventChild::all();
+
+            //create js events for Events
             if($data->count()) {
                 foreach ($data as $key => $value) {
                     $start_date = new Carbon($value->start_date);
@@ -54,6 +56,8 @@ class HomeController extends Controller
                     $end_date = new Carbon($value->end_date);
                     $ed = $end_date->toDateTimeString();
                     $exists = $this->signUp_exists($value->id);
+
+                    //if user is not signed up
                     if ($exists == 0) {
                         $events[] = Calendar::event(
                             $value->title,
@@ -62,14 +66,18 @@ class HomeController extends Controller
                             $ed,
                             $value->id,
                             [
+                                'location' => $value->location,
+                                'location_url' => $value->location_url,
                                 'description' => $value->description,
                                 'color' => $this->getColor($value->type, $exists),
                                 'link' => route('events.edit', $value->id),
                                 'sign_up' => route('events.event_sign_ups.create', $value->id),
                                 'button' => 'Sign up for an event',
                                 'enroll_index' => route('events.event_sign_ups.index', $value->id),
+                                'child' => '0'
                             ]
                         );
+                        //if user is signed up
                     }else
                     {
                         $enroll = $this->getSignUp($value->id);
@@ -83,18 +91,22 @@ class HomeController extends Controller
                             $ed,
                             $value->id,
                             [
+                                'location' => $value->location,
+                                'location_url' => $value->location_url,
                                 'description' => $value->description,
                                 'color' => $this->getColor($value->type, $exists),
                                 'link' => route('events.edit', $value->id),
                                 'sign_up' => route('events.event_sign_ups.edit', compact('event_id', 'enroll_id')),
                                 'button' => 'Unenroll or Edit',
                                 'enroll_index' => route('events.event_sign_ups.index', $value->id),
-
+                                'child' => '0'
                             ]
                         );
                     }
                 }
             }
+
+            //create js events for EventChilds
             if($data2->count()){
                 foreach ($data2 as $key => $value) {
                     $parent = Event::withTrashed()->where('id', $value->parent_id)->first();
@@ -105,6 +117,8 @@ class HomeController extends Controller
                     $end_date = new Carbon($value->end_date);
                     $ed = $end_date->toDateTimeString();
                     $exists = $this->child_sign_up_exists($parent_id ,$value->id);
+
+                    //if user is signed up
                     if($exists == 0)
                     {
                         $events[] = Calendar::event(
@@ -114,14 +128,19 @@ class HomeController extends Controller
                             $ed,
                             $value->id,
                             [
+                                'location' => $parent->location,
+                                'location_url' => $parent->location_url,
                                 'description' => $parent->description,
                                 'color' => $this->getColor($parent->type, $exists),
                                 'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                                 'sign_up' => route('events.event_child.sign_ups.create', [$parent->id, $value->id]),
                                 'button' => 'Sign up for an event',
                                 'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                                'child' => '1',
+                                'updates' => $value->updates
                             ]
                         );
+                        //if user is not signed up
                     }else
                     {
                         $enroll = $this->get_child_sign_up($parent_id, $value->id);
@@ -134,12 +153,16 @@ class HomeController extends Controller
                             $ed,
                             $value->id,
                             [
+                                'location' => $parent->location,
+                                'location_url' => $parent->location_url,
                                 'description' => $parent->description,
                                 'color' => $this->getColor($parent->type, $exists),
                                 'link' => route('events.event_child.edit', compact('parent_id', 'child_id')),
                                 'sign_up' => route('events.event_child.sign_ups.edit', compact('parent_id', 'child_id','enroll_id')),
                                 'button' => 'Unenroll or Edit',
                                 'enroll_index' => route('events.event_child.sign_ups.index', [$parent->id, $value->id]),
+                                'child' => '1',
+                                'updates' => $value->updates
                             ]
                         );
                     }
@@ -157,13 +180,25 @@ class HomeController extends Controller
                 ->setCallbacks([
                     'eventClick' => 'function(event, jsEvent, view) {
                                 $("#modalTitle").html("<strong>" + event.title + "</strong>");
-                                $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm:ss a") + "<br>" + "<strong>Description:</strong> " + event.description);
+                                if (event.child == 1){
+                                    if(event.updates != null){
+                                        $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description + "<br>" + "<strong>Updates:</strong> " + event.updates);
+                                    }else{
+                                        $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description);
+                                    }
+                                }else{
+                                    $("#modalBody").html("<strong>Start time:</strong> " + moment(event.start).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>End time:</strong> " + moment(event.end).format("dddd, MMMM Do YYYY, h:mm a") + "<br>" + "<strong>Location:</strong> " + event.location + "<br>" + "<strong>Description:</strong> " + event.description);
+                                }
+                                $("#location").attr("href", event.location_url).html("Event location");
                                 $("#eventUrl").attr("href", event.link).html("Edit this event");
                                 $("#index").attr("href", event.enroll_index).html("View enrollment");
-                                $("#sign_up").attr("href", event.sign_up).html(event.button);
+                                if (moment().format("YYYYMMDD") <= moment(event.start).format("YYYYMMDD"))
+                                    $("#sign_up").attr("href", event.sign_up).html(event.button).show();
+                                else
+                                    $("#sign_up").hide();
                                 $("#delete").attr("href", event.delete).html(event.delete_btn);
                                 $("#calendarModal").modal();
-                                }',
+                                }'
                 ]);
 
             if ($request->user()->hasRole('admin'))
