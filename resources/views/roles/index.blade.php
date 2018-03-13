@@ -61,7 +61,7 @@
                 order: [[ '2', 'asc']]
             });
 
-            table.on('click', '.btn-ajax', function (e) {
+            table.on('click', '.btn-ajax', async function (e) {
                 e.preventDefault();
 
                 var id = $(this).attr('data-id');
@@ -94,7 +94,7 @@
                 }).always(function (data) {
                     $(table).DataTable().draw(false);
                 });
-                table.ajax.reload();
+                await table.ajax.reload();
             });
         });
     </script>
