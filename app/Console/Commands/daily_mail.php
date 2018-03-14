@@ -61,7 +61,7 @@ class daily_mail extends Command
                 $diff = $date->diffInDays($now);
                 switch ($event->type)
                 {
-                    case 'Community Event':
+                    case 'Community':
                         if($diff == 30 || $diff == 7)
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, $event_signup));
@@ -91,7 +91,7 @@ class daily_mail extends Command
                 $diff = $date->diffInDays($now);
                 switch ($event->type)
                 {
-                    case 'Community Event':
+                    case 'Community':
                         if($diff == 30 || $diff == 7)
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
