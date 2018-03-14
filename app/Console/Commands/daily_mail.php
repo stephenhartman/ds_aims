@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Mail\EventSignupMail;
-use App\Mail\ReunionEventMail;
 use App\Mail\UpdateUser;
 use App\User;
 use Carbon\Carbon;
@@ -62,19 +61,31 @@ class daily_mail extends Command
                 switch ($event->type)
                 {
                     case 'Community':
-                        if($diff == 30 || $diff == 7)
+                        if($diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, $event_signup));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                     case 'Reunion':
-                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7)
+                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, $event_signup));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                     case 'Volunteer':
-                        if($diff == 30 || $diff == 7)
+                        if($diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, $event_signup));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                 }
             }
@@ -92,19 +103,31 @@ class daily_mail extends Command
                 switch ($event->type)
                 {
                     case 'Community':
-                        if($diff == 30 || $diff == 7)
+                        if($diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event_child->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                     case 'Reunion':
-                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7)
+                        if($diff == 365 || $diff == 180 || $diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event_child->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                     case 'Volunteer':
-                        if($diff == 30 || $diff == 7)
+                        if($diff == 30 || $diff == 7){
                             Mail::to($user->email)
                                 ->send(new EventSignupMail($event, null, $event_child, $event_signup_child));
+                            $this->output->writeln('Sent email to ' . $user->email
+                                . ' for event ' . $event->title . ' on ' .
+                                Carbon::parse($event_child->start_date)->format('m/d/Y \a\t h:m A'));
+                        }
                         break;
                 }
             }
@@ -114,9 +137,11 @@ class daily_mail extends Command
             $date = Carbon::parse($user->created_at);
             $diff = $date->diffInDays($now);
             $year = $date->diffInYears($now);
-            if ($diff % 365 == 0)
+            if ($diff % 365 == 0 && $year > 0){
                 Mail::to($user->email)
                     ->send(new UpdateUser($user, $year));
+                $this->output->writeln('Sent email to ' . $user->email);
+            }
         }
 
     }
