@@ -163,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-		
+		ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -280,6 +280,7 @@ return [
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
-    ],
+		'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+	],
 
 ];
