@@ -166,7 +166,7 @@
             });
             yadcf.init(table, [{
                 column_number: 2,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }, {
                 column_number: 3,
                 filter_type: 'text'
@@ -175,13 +175,13 @@
                 filter_type: 'text',
             }, {
                 column_number: 5,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }, {
                 column_number: 6,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }, {
                 column_number: 8,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }]);
         });
     </script>

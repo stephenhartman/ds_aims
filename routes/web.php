@@ -31,6 +31,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('charts/education', 'ChartController@education')->name('charts.education');
     Route::get('charts/volunteer', 'ChartController@volunteer')->name('charts.volunteer');
     Route::get('charts/loyal_lion', 'ChartController@loyal_lion')->name('charts.loyal_lion');
+    Route::get('charts/year_graduated', 'ChartController@year_graduated')->name('charts.year_graduated');
     Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');

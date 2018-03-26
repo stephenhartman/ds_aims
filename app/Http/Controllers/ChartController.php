@@ -9,19 +9,19 @@ class ChartController extends Controller
 {
     public function occupation()
     {
-		$chart = Charts::database(Occupation::all(), 'pie', 'fusioncharts')
-		->elementLabel("Total")
-        ->height(500)
-		->responsive(false)
-		->groupBy('type')
-        ->title('Occupation Type Data');
+        $chart = Charts::database(Occupation::all('type'), 'pie', 'fusioncharts')
+            ->elementLabel("Total")
+            ->height(500)
+            ->responsive(false)
+            ->groupBy('type')
+            ->title('Occupation Type Data');
 
         return view('charts.load', ['chart' => $chart]);
     }
 
     public function education()
     {
-        $chart = Charts::database(Education::all(), 'pie', 'fusioncharts')
+        $chart = Charts::database(Education::all('type'), 'pie', 'fusioncharts')
             ->elementLabel("Total")
             ->height(500)
             ->responsive(false)
@@ -33,7 +33,7 @@ class ChartController extends Controller
 
     public function volunteer()
     {
-        $chart = Charts::database(Alumnus::all(), 'pie', 'fusioncharts')
+        $chart = Charts::database(Alumnus::all('volunteer'), 'pie', 'fusioncharts')
             ->elementLabel("Total")
             ->height(500)
             ->responsive(false)
@@ -46,13 +46,25 @@ class ChartController extends Controller
 
     public function loyal_lion()
     {
-        $chart = Charts::database(Alumnus::all(), 'pie', 'fusioncharts')
+        $chart = Charts::database(Alumnus::all('loyal_lion'), 'pie', 'fusioncharts')
             ->elementLabel("Total")
             ->height(500)
             ->responsive(false)
             ->groupBy('loyal_lion')
             ->title('Loyal Lion Data')
             ->labels(['No', 'Yes']);
+
+        return view('charts.load', ['chart' => $chart]);
+    }
+
+    public function year_graduated()
+    {
+        $chart = Charts::database(Alumnus::all()->sortBy('year_graduated'), 'bar', 'fusioncharts')
+            ->elementLabel("Total")
+            ->height(500)
+            ->responsive(false)
+            ->groupBy('year_graduated')
+            ->title('Alumni Graduation Years');
 
         return view('charts.load', ['chart' => $chart]);
     }

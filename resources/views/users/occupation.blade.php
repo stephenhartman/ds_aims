@@ -172,13 +172,13 @@
                 filter_type: 'text'
             }, {
                 column_number: 4,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }, {
                 column_number: 5,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }, {
                 column_number: 7,
-                filter_default_label: ''
+                filter_default_label: 'All'
             }]);
         });
     </script>

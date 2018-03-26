@@ -60,7 +60,7 @@
                    </div>
                   <div class="col-md-2">
                       <div class="form-group">
-                          <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                          <button type="button" class="btn btn-sm btn-primary btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                               Charts <span class="caret"></span>
                           </button>
                           <ul class="dropdown-menu chart">
@@ -68,6 +68,7 @@
                               <li><a href="{{ route('charts.occupation') }}">Occupation</a></li>
                               <li><a href="{{ route('charts.volunteer') }}">Volunteers</a></li>
                               <li><a href="{{ route('charts.loyal_lion') }}">Loyal Lions</a></li>
+                              <li><a href="{{ route('charts.year_graduated') }}">Graduation Years</a></li>
                           </ul>
                       </div>
                   </div>
