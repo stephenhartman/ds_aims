@@ -127,23 +127,27 @@
          </div>
       </div>
    </div>
-   <div id="calendarModal" class="modal fade">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
-               <h4 id="modalTitle" class="modal-title"></h4>
+    <div id="calendarModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
+                    <h4 id="modalTitle" class="modal-title"></h4>
+                </div>
+                <div id="modalBody" class="modal-body"> </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" id="location" target="_blank"></a>
+                    @if (Auth::user()->hasRole('admin'))
+                        <a class="btn btn-info" id="eventUrl"></a>
+                        <a class="btn btn-success" id="index"></a>
+                    @endif
+                    @if (!Auth::user()->hasRole('admin'))
+                        <a class="btn btn-success" id="sign_up"></a>
+                    @endif
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
+                </div>
             </div>
-            <div id="modalBody" class="modal-body"> </div>
-            <div class="modal-footer">
-               @if (Auth::user()->hasRole('admin'))
-               <a class="btn btn-info" id="eventUrl"></a>
-               <a class="btn btn-success" id="index"></a> @endif @if (!Auth::user()->hasRole('admin'))
-               <a class="btn btn-success" id="sign_up"></a> @endif
-               <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
-            </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
 @endsection
