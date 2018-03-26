@@ -27,8 +27,10 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
     Route::resource('photos', 'PhotoController', ['except' => 'index']);
-	Route::resource('charts', 'ChartController', ['except' => 'index']);
-	Route::resource('charts.education', 'ChartEducationController', ['except' => 'index']);
+	Route::get('charts/occupation', 'ChartController@occupation')->name('charts.occupation');
+    Route::get('charts/education', 'ChartController@education')->name('charts.education');
+    Route::get('charts/volunteer', 'ChartController@volunteer')->name('charts.volunteer');
+    Route::get('charts/loyal_lion', 'ChartController@loyal_lion')->name('charts.loyal_lion');
     Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
@@ -55,8 +57,6 @@ Route::group(['middleware' => ['isVerified']], function () {
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
     Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
     Route::resource('photos', 'PhotoController', ['only' => 'index']);
-	Route::resource('charts', 'ChartController', ['only' => 'index']);
-	Route::resource('charts.education', 'ChartEducationController', ['only' => 'index']);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');

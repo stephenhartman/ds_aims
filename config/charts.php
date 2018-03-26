@@ -9,17 +9,17 @@ return [
     */
 
     'default' => [
-        'type' => 'line', // The default chart type.
+        'type' => 'pie', // The default chart type.
         'library' => 'material', // The default chart library.
         'element_label' => 'Element', // The default chart element label.
         'empty_dataset_label' => 'No Data Set',
         'empty_dataset_value' => 0,
         'title' => 'Student Data', // Default chart title.
-        'height' => 400, // 0 Means it will take 100% of the division height.
+        'height' => 0, // 0 Means it will take 100% of the division height.
         'width' => 0, // 0 Means it will take 100% of the division width.
         'responsive' => false, // Not recommended since all libraries have diferent sizes.
         'background_color' => 'inherit', // The chart division background color.
-        'colors' => [], // Default chart colors if using no template is set.
+        'colors' => ['#ff7f00', '#053D63', '#7F3F00', '#009900'], // Default chart colors if using no template is set.
         'one_color' => false, // Only use the first color in all values.
         'template' => 'material', // The default chart color template.
         'legend' => true, // Whether to enable the chart legend (where applicable).
@@ -28,7 +28,7 @@ return [
         'loader' => [
             'active' => true, // Determines the if loader is active by default.
             'duration' => 500, // In milliseconds.
-            'color' => '#000000', // Determines the default loader color.
+            'color' => '#FF7F00', // Determines the default loader color.
         ],
     ],
 

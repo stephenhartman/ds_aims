@@ -1,16 +1,43 @@
-@extends('layouts.app') 
-@section('title', 'DePaul Alumni Outreach') 
+@extends('layouts.app')
+
+@section('title', 'DePaul Alumni Outreach')
+
 @push('scripts') 
-{!! $calendar->script() !!} 
-@endpush @push('styles')
+{!! $calendar->script() !!}
+<script>
+    $(function() {
+        $('body').on('click', '.chart a', function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+            getChart(url);
+            $("html, body").animate({ scrollTop: 63 }, 250);
+        });
+
+        function getChart(url) {
+            $.ajax({
+                type: "GET",
+                url: url
+            }).done(function (data) {
+                $('#div-chart').html(data);
+            }).fail(function () {
+                alert('Charts could not be loaded.');
+            });
+        }
+    });
+</script>
+@endpush
+
+@push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
    .fc-list-item {
    cursor: pointer;
    }
 </style>
-@endpush @section('content')
+@endpush
+
+@section('content')
 <div class="container-fluid">
    <div class="row">
       <div class="col-md-8 col-md-offset-2">
@@ -20,45 +47,36 @@
                   <div class="col-md-3">
                      <div class="panel-title">Dashboard</div>
                   </div>
-                  <div class="col-md-3">
-                     <a class="btn btn-sm btn-block btn-primary" href="{{ route('posts.create') }}"><i class="fa fa-plus-square"></i> Create new post</a>
+                  <div class="col-md-2">
+                     <a class="btn btn-sm btn-block btn-primary" href="{{ route('posts.create') }}"><i class="fa fa-plus-square"></i> New post</a>
                   </div>
-                  <div class="col-md-3">
-                     <a class="btn btn-sm btn-block btn-primary" href="{{ route('events.create') }}"><i class="fa fa-plus-square"></i> Create new event</a>
+                  <div class="col-md-2">
+                     <a class="btn btn-sm btn-block btn-primary" href="{{ route('events.create') }}"><i class="fa fa-plus-square"></i> New event</a>
                   </div>
-                  <div class="col-md-3">
-                     <div class="col-md-3">
-                        <script type="text/javascript" src="jquery.dropdown.js"></script>
-                     </div>
-                     <link type="text/css" rel="stylesheet" href="jquery.dropdown.css" />
-					 
-                     <script type="text/javascript">
-                        function changeEventHandler(event) {
-                        if(event.target.value == "")							
-							$("#div1").load("{{ route('charts.index', Auth::user()   )   }}");
-                        else if(event.target.value == "occupation")
-							$("#div1").load("{{ route('charts.index', Auth::user()   )   }}");
-						else if(event.target.value == "education")
- 						$("#div1").load("{{ route('charts.education.index', Auth::user()   ) }}");
-                        else{};
-						}
-                     </script>
-
-                     <select size="1" onclick="changeEventHandler(event);">
-                        <option value="">Select a chart </option>
-                        <option>education</option>
-                        <option>occupation</option>
-                     </select>
+                   <div class="col-md-2">
+                       <a class="btn btn-sm btn-block btn-primary" href="{{ route('photos.create') }}"><i class="fa fa-plus-square"></i> New Photo</a>
+                   </div>
+                  <div class="col-md-2">
+                      <div class="form-group">
+                          <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                              Charts <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu chart">
+                              <li><a href="{{ route('charts.education') }}">Education</a></li>
+                              <li><a href="{{ route('charts.occupation') }}">Occupation</a></li>
+                              <li><a href="{{ route('charts.volunteer') }}">Volunteers</a></li>
+                              <li><a href="{{ route('charts.loyal_lion') }}">Loyal Lions</a></li>
+                          </ul>
+                      </div>
                   </div>
                </div>
             </div>
             <div class="panel-body">
-               You are logged in!
+               <div id="div-chart">
+                  <!-- AJAX CHART LOADS HERE -->
+               </div>
             </div>
          </div>
-      </div>
-      <div id="div1">
-	        <!-- AJAX CHART LOADS HERE -->
       </div>
    </div>
    <div class="row">
@@ -72,7 +90,8 @@
                </div>
             </div>
             <div>
-               <br> @include('layouts.posts', ['posts' => $posts])
+               <br>
+               @include('layouts.posts', ['posts' => $posts])
             </div>
             <div class="row">
                <div class="col-md-8 col-md-offset-2">
