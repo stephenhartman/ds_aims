@@ -1,8 +1,6 @@
-{!! Charts::styles(['fusioncharts']) !!}
+{!! $chart->script() !!}
 
 <div style="height:500px">
     {!! $chart->html() !!}
 </div>
 
-{!! Charts::scripts(['fusioncharts']) !!}
-{!! $chart->script() !!}

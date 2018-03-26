@@ -4,6 +4,7 @@
 
 @push('scripts') 
 {!! $calendar->script() !!}
+{!! Charts::scripts(['fusioncharts']) !!}
 <script>
     $(function() {
         $('body').on('click', '.chart a', function (e) {
@@ -21,7 +22,7 @@
             }).done(function (data) {
                 $('#div-chart').html(data);
             }).fail(function () {
-                alert('Charts could not be loaded.');
+                alert('Chart could not be loaded.');
             });
         }
     });
@@ -30,6 +31,7 @@
 
 @push('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css" />
+{!! Charts::styles(['fusioncharts']) !!}
 <style>
    .fc-list-item {
    cursor: pointer;
