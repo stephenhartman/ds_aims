@@ -22,6 +22,38 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+    # Cache-control headers
+        # 4 HOURS
+        #<filesMatch "*">
+            Header set Cache-Control "max-age=14800, must-revalidate"
+        #</filesMatch>
+
+        # 480 weeks - 290304000
+        # 2 WEEKS
+        <filesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|swf)$">
+            Header set Cache-Control "max-age=1209600, public"
+        </filesMatch>
+
+        # 1 DAY
+        <filesMatch "\.(css)$">
+            Header set Cache-Control "max-age=86400, public, must-revalidate"
+            #Header set Cache-Control "max-age=0, public, must-revalidate"
+        </filesMatch>
+
+        # 2 DAYS
+        <filesMatch "\.(xml|txt)$">
+            Header set Cache-Control "max-age=172800, public, must-revalidate"
+        </filesMatch>
+
+        # 2 HOURS
+        <filesMatch "\.(html|htm)$">
+            Header set Cache-Control "max-age=7200, must-revalidate"
+        </filesMatch>
+
+        <FilesMatch "\.(gif|jpg|png|ico|css|js|pdf|txt)$">
+            Header append Cache-Control "public"
+    </FilesMatch>
+
     # Security Headers
     Header always append X-Frame-Options SAMEORIGIN
     Header set X-XSS-Protection "1; mode=block"
@@ -30,8 +62,8 @@
     Header set Referrer-Policy strict-origin-when-cross-origin
 
     # Content Security Policy
-    Header set Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
-    Header set X-Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
-    Header set X-WebKit-CSP: "default-src 'self'; script-src 'self' 'unsafe-inline' https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
+    Header set Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.fusioncharts.com/ https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
+    Header set X-Content-Security-Policy: "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.fusioncharts.com/ https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
+    Header set X-WebKit-CSP: "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.fusioncharts.com/ https://code.jquery.com/ cdn.tinymce.com/ https://cdn.datatables.net/ https://cdnjs.cloudflare.com/; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com/ https://code.jquery.com/ https://cdnjs.cloudflare.com/ https://cdn.datatables.net/ https://fonts.googleapis.com/ https://cdn.tinymce.com/; img-src 'self'; font-src 'self' https://fonts.gstatic.com/ https://cdn.tinymce.com/"
 
 </IfModule>
