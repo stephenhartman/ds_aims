@@ -56,7 +56,7 @@
                             <li><span class="signed-up"></span> Signed Up</li>
                         </ul>
                     </div>
-                    <hr class="posts">
+                    <hr>
                     <div class="panel-body">
                         {!! $calendar->calendar() !!}
                     </div>

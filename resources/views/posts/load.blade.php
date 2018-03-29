@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="row">
-            <hr class="posts">
+            <hr>
         </div>
     @endforeach
     <div class="text-center">

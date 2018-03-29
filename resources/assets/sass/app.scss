@@ -113,23 +113,6 @@
 .legend .community { background-color: #7f3f00; }
 .legend .signed-up { background-color: #009900; }
 
-hr.posts {
-    height: 10px;
-    border: 0 solid #e7e7e7;
-    border-top-width: 1px;
-    border-radius: 5px;
-}
-
-hr.posts:before {
-    display: block;
-    content: "";
-    height: 30px;
-    margin-top: -31px;
-    border: 0 solid #e7e7e7;
-    border-bottom-width: 1px;
-    border-radius: 5px;
-}
-
 .required:after{
     content:'*';
     color:red;

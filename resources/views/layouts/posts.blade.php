@@ -25,6 +25,6 @@
                 <p>{!! $post->body !!}</p>
             </div>
         </div>
-        <hr class="posts">
+        <hr>
     @endforeach
 </div>
