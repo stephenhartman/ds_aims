@@ -72,17 +72,9 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            @if (Auth::user()->alumnus !== null)
-                                @if (Auth::user()->alumnus->initial_setup == 1)
-                                    <li class="{{ Request::is('users/*') ? 'active' : '' }}">
-                                        <a href="{{ route('users.show', Auth::user()) }}">Edit Profile</a>
-                                    </li>
-                                @endif
-                            @elseif (Auth::user()->hasRole('admin'))
-                                <li class="{{ Request::is('users/*') ? 'active' : '' }}">
-                                    <a href="{{ route('users.show', Auth::user()) }}">Edit Profile</a>
-                                </li>
-                            @endif
+                            <li class="{{ Request::is('users/*') ? 'active' : '' }}">
+                                <a href="{{ route('users.show', Auth::user()) }}">Edit Profile</a>
+                            </li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();

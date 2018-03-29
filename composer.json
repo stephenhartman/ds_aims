@@ -7,6 +7,7 @@
     "require": {
         "php": ">=7.1",
         "ext-gd": "*",
+        "consoletvs/charts": "5.*",
         "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
