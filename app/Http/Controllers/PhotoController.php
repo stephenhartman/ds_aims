@@ -50,7 +50,7 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'caption'         => 'required|max:255',
+            'caption'         => 'max:255',
             'photo_url'       => 'required'
         ));
 
