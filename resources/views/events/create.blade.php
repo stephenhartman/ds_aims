@@ -61,7 +61,6 @@
                             <label>{{Form::checkbox('repeats', 1, false, array('id' =>'repeats', 'onchange' => ''))}} This is a repeating event</label>
                         </div>
                         <script>
-
                             $(document).ready(function(){
                                 if($('#repeats').is(':checked'))
                                 {

@@ -18,6 +18,17 @@
                 });
             });
         });
+        $(document).ready(function(){
+            if($('#parent').is(':checked'))
+            {
+                $('#parent_name_label').show();
+                $('#parent_name').show();
+            }
+            $('#parent').on('change', function(){
+                $('#parent_name_label').toggle(this.checked);
+                $('#parent_name').toggle(this.checked);
+            })
+        })
     </script>
 @endpush
 

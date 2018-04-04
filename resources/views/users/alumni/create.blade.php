@@ -2,6 +2,22 @@
 
 @section('title', 'Alumni Demographic Form')
 
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            if($('#parent').is(':checked'))
+            {
+                $('#parent_name_label').show();
+                $('#parent_name').show();
+            }
+            $('#parent').on('change', function(){
+                $('#parent_name_label').toggle(this.checked);
+                $('#parent_name').toggle(this.checked);
+            })
+        })
+    </script>
+@endpush
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -15,12 +31,19 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-2">
-                                    {{ Form::checkbox('is_parent', 1, null, ['class' => 'checkbox-inline'] ) }}
+                                    {{ Form::checkbox('is_parent', 1, null, ['id' => 'parent', 'class' => 'checkbox-inline'] ) }}
                                     {{ Form::label('is_parent', 'Check this box if you are a parent signing up for your child', ['class' => 'checkbox-inline', 'style' => 'font-weight:800']) }}
                                 </div>
                             </div>
                         </div>
-                        <br>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{Form::label ('parent_name', 'Parent Name', ['id' => 'parent_name_label', 'style' => 'display:none'])}}
+                                    {{Form::text('parent_name', null, ['id' => 'parent_name', 'class' => 'form-control', 'style' => 'display:none'])}}
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

@@ -4,6 +4,14 @@
     </div>
     <div class="panel-body">
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{Form::label ('parent_name', 'Parent Name', ['id' => 'parent_name_label', 'style' => 'display:none'])}}
+                    {{Form::text('parent_name', null, ['id' => 'parent_name', 'class' => 'form-control', 'style' => 'display:none'])}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     {{ Form::label('first_name', 'First Name', ['class' => 'required']) }}
@@ -37,7 +45,7 @@
             <div class="form-group">
                 <br>
                 <div class="col-md-1">
-                    {{ Form::checkbox('is_parent', $alumnus->is_parent == 1 ? true : null, null, ['class' => 'form-control'] ) }}
+                    {{ Form::checkbox('is_parent', $alumnus->is_parent == 1 ? true : null, null, ['class' => 'form-control', 'id' => 'parent'] ) }}
                 </div>
                 <div class="col-md-5">
                     {{ Form::label('is_parent', 'Check this box if you are a parent') }}
@@ -138,7 +146,7 @@
                     'WI'=>'Wisconsin',
                     'WY'=>'Wyoming',
                     ],
-                    null, ['class' => 'form-control']) }}
+                    $alumnus->state, ['class' => 'form-control']) }}
                 </div>
             </div>
             <div class="col-md-6">
