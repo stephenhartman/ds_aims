@@ -155,6 +155,9 @@ class UserController extends Controller
                 ->editColumn('email', function ($user) {
                     return Html::mailto($user->email) ;
                 })
+                ->addColumn('parent_name', function (User $user) {
+                    return $user->alumnus ? $user->alumnus->parent_name : '';
+                })
                 ->addColumn('state', function (User $user) {
                     return $user->alumnus ? $user->alumnus->state : '';
                 })
