@@ -72,6 +72,7 @@ class AlumnusController extends Controller
             $alumnus->zipcode = $request->zipcode;
             $alumnus->year_graduated = $request->year_graduated;
 
+
             // Save volunteer checkbox
             if(!$request->has('volunteer'))
                 $request->merge(['volunteer' => 0]);
@@ -87,10 +88,14 @@ class AlumnusController extends Controller
             $alumnus->loyal_lion = $request->loyal_lion;
 
             // Save is_parent checkbox
-            if(!$request->has('is_parent'))
+            if(!$request->has('is_parent')) {
                 $request->merge(['is_parent' => 0]);
-            else
+                $alumnus->parent_name = null;
+            }
+            else {
                 $request->merge(['is_parent' => 1]);
+                $alumnus->parent_name = $request->parent_name;
+            }
             $alumnus->is_parent = $request->is_parent;
 
             $this->upload_photo($request, $alumnus);
@@ -170,10 +175,14 @@ class AlumnusController extends Controller
         $alumnus->loyal_lion = $request->loyal_lion;
 
         // Save is_parent checkbox
-        if(!$request->has('is_parent'))
+        if(!$request->has('is_parent')) {
             $request->merge(['is_parent' => 0]);
-        else
+            $alumnus->parent_name = null;
+        }
+        else {
             $request->merge(['is_parent' => 1]);
+            $alumnus->parent_name = $request->parent_name;
+        }
         $alumnus->is_parent = $request->is_parent;
 
         $this->upload_photo($request, $alumnus);

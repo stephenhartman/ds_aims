@@ -18,6 +18,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Parent</th>
                     <th>Email</th>
                     <th>State</th>
                     <th>Zip Code</th>
@@ -153,6 +154,7 @@
                 },
                 columns: [
                     { data: 'name' },
+                    { data: 'parent_name', name: 'alumni.parent_name'},
                     { data: 'email' },
                     { data: 'state', name: 'alumni.state' },
                     { data: 'zipcode', name: 'alumni.zipcode' },
@@ -160,29 +162,29 @@
                     { data: 'volunteer', name: 'alumni.state' },
                     { data: 'loyal_lion', name: 'alumni.loyal_lion' },
                     { data: 'is_parent', name: 'alumni.is_parent' },
-                    { data: 'last_login_at', orderData: 9 },
+                    { data: 'last_login_at', orderData: 10 },
                     { data: 'date_sort', type: 'num', visible: false }
                 ],
             });
 
             yadcf.init(table, [{
-                column_number: 2,
-                filter_default_label: 'All'
-            }, {
                 column_number: 3,
-                filter_type: 'text'
+                filter_default_label: 'All'
             }, {
                 column_number: 4,
-                filter_type: 'range_number_slider',
-                filter_default_label: 'All'
+                filter_type: 'text'
             }, {
                 column_number: 5,
+                filter_type: 'range_number_slider',
                 filter_default_label: 'All'
             }, {
                 column_number: 6,
                 filter_default_label: 'All'
             }, {
                 column_number: 7,
+                filter_default_label: 'All'
+            }, {
+                column_number: 8,
                 filter_default_label: 'All'
             }]);
         });
