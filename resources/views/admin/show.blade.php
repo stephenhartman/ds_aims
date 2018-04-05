@@ -91,7 +91,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <img id="output" width="320px" height="auto" style="margin:auto">
+                            <img id="output" width="auto" height="200px" style="margin:auto">
                         </div>
                     </div>
                     <div class="modal-footer">
