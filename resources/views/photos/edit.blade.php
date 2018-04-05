@@ -82,7 +82,7 @@
             </div>
         </div>
         <div id="photoModal" class="modal fade">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            <img id="output" width="auto" height="500px" style="margin:auto">
+                            <img class="img img-responsive" id="output" width="auto" height="500px" style="margin:auto">
                         </div>
                     </div>
                     <div class="modal-footer">
