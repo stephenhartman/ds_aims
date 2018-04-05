@@ -10,7 +10,7 @@ $factory->define(App\Alumnus::class, function (Faker $faker) {
         'phone_number' => $faker->phoneNumber,
         'street_address' => $faker->streetAddress,
         'city' => $faker->city,
-        'state' => $faker->state,
+        'state' => $faker->stateAbbr,
         'zipcode' => $faker->postcode,
         'year_graduated' => $faker->numberBetween($min = 1980, $max = 2018),
         'volunteer' => $faker->randomElement($array = array(0,1)),

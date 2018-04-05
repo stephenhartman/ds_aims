@@ -61,7 +61,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
-                    {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
+                    {{ Form::selectYear('year_graduated', 1980, 2025, $alumnus->year_graduated, ['class' => 'form-control'] ) }}
                 </div>
             </div>
         </div>
