@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     {{ Form::label('photo_url', 'Upload a different profile picture') }}
-                    {{ Form::file('photo_url', ['accept' => 'image/*']) }}
+                    {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])", 'data-toggle' => "modal", 'data-target' => "#photoModal"], array('class' => 'form-control')) }}
                 </div>
             </div>
         </div>

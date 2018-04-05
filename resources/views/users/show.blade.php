@@ -17,8 +17,6 @@
                     }
                 });
             });
-        });
-        $(document).ready(function(){
             if($('#parent').is(':checked'))
             {
                 $('#parent_name_label').show();
@@ -28,7 +26,10 @@
                 $('#parent_name_label').toggle(this.checked);
                 $('#parent_name').toggle(this.checked);
             })
-        })
+        });
+        $("#photo_url").change(function(){
+            $("#photoModal").show();
+        });
     </script>
 @endpush
 
@@ -50,6 +51,24 @@
                </div>
                 <div class="col-md-6">
                     @include('layouts.milestones')
+                </div>
+            </div>
+        </div>
+        <div id="photoModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
+                        <h4 class="modal-title">Photo Preview</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <img id="output" width="320px" height="auto" style="margin:auto">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
+                    </div>
                 </div>
             </div>
         </div>
