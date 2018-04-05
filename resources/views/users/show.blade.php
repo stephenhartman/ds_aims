@@ -29,7 +29,7 @@
             $('#output').on('load', function () {
                 setTimeout(function(){
                     $("#photoModal").modal('show');
-                }, 2000);
+                }, 250);
             });
         });
     </script>
