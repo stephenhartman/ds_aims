@@ -26,31 +26,40 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group">
-                <div class="col-md-1">
+            <div class="col-md-2">
+                <div class="form-group">
                     {{ Form::checkbox('loyal_lion', $alumnus->loyal_lion == 1 ? true : null, null, ['class' => 'form-control'] ) }}
                 </div>
-                <div class="col-md-5">
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
                 </div>
-                <div class="col-md-1">
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
                     {{ Form::checkbox('volunteer', $alumnus->volunteer == 1 ? true : null, null, ['class' => 'form-control'] ) }}
                 </div>
-                <div class="col-md-5">
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="form-group">
-                <br>
-                <div class="col-md-1">
+            <div class="col-md-2">
+                <div class="form-group">
                     {{ Form::checkbox('is_parent', $alumnus->is_parent == 1 ? true : null, null, ['class' => 'form-control', 'id' => 'parent'] ) }}
                 </div>
-                <div class="col-md-5">
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
                     {{ Form::label('is_parent', 'Check this box if you are a parent') }}
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
                     {{ Form::label('year_graduated', 'Year you graduated from the DePaul School') }}
                     {{ Form::selectYear('year_graduated', 1980, 2025, Carbon::now()->year, ['class' => 'form-control'] ) }}
                 </div>
@@ -60,11 +69,31 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {{ Form::label('social_pref', 'Social Media Preference') }}
-                    {{ Form::select('social_pref', [
-                    'Facebook' => 'Facebook',
-                    'Twitter' => 'Twitter',
-                    'Instagram' => 'Instagram'],
-                     $alumnus->social_pref, ['class' => 'form-control', 'placeholder' => 'Select a Social Media Preference']) }}
+                    <div class="row">
+                        <div class="col-xs-3">
+                            {{ Form::checkbox('facebook', $alumnus->facebook == 1 ? true : null, null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="col-xs-9">
+                            {{ Form::label('facebook', 'Facebook', ['style' => 'margin-top:12px']) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            {{ Form::checkbox('twitter', $alumnus->twitter == 1 ? true : null, null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="col-xs-9">
+                            {{ Form::label('twitter', 'Twitter', ['style' => 'margin-top:12px']) }}
+                        </div>
+                        </label>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            {{ Form::checkbox('instagram', $alumnus->instagram == 1 ? true : null, null, ['class' => 'form-control']) }}
+                        </div>
+                        <div class="col-xs-9">
+                            {{ Form::label('instagram', 'Instagram', ['style' => 'margin-top:12px']) }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -158,13 +187,17 @@
         </div>
         <div class="row">
             <div class="col-md-3">
-                {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
-                {{ Form::close() }}
+                <div class="form-group">
+                    {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
+                    {{ Form::close() }}
+                </div>
             </div>
             <div class="col-md-3">
-                <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block">
-                    <span class="fa fa-ban"></span> Cancel
-                </a>
+                <div class="form-group">
+                    <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block">
+                        <span class="fa fa-ban"></span> Cancel
+                    </a>
+                </div>
             </div>
             <div class="text-center col-md-6">
                 <h5>
