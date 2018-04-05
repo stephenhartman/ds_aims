@@ -65,13 +65,31 @@ class AlumnusController extends Controller
             $alumnus->first_name = $request->first_name;
             $alumnus->last_name = $request->last_name;
             $alumnus->phone_number = $request->phone_number;
-            $alumnus->social_pref = $request->social_pref;
             $alumnus->street_address = $request->street_address;
             $alumnus->city = $request->city;
             $alumnus->state = $request->state;
             $alumnus->zipcode = $request->zipcode;
             $alumnus->year_graduated = $request->year_graduated;
 
+
+            // Social checkboxes
+            if(!$request->has('facebook'))
+                $request->merge(['facebook' => 0]);
+            else
+                $request->merge(['facebook' => 1]);
+            $alumnus->facebook = $request->facebook;
+
+            if(!$request->has('twitter'))
+                $request->merge(['twitter' => 0]);
+            else
+                $request->merge(['twitter' => 1]);
+            $alumnus->twitter = $request->twitter;
+
+            if(!$request->has('instagram'))
+                $request->merge(['instagram' => 0]);
+            else
+                $request->merge(['instagram' => 1]);
+            $alumnus->instagram = $request->instagram;
 
             // Save volunteer checkbox
             if(!$request->has('volunteer'))
@@ -153,12 +171,30 @@ class AlumnusController extends Controller
         $alumnus->first_name = $request->first_name;
         $alumnus->last_name = $request->last_name;
         $alumnus->phone_number = $request->phone_number;
-        $alumnus->social_pref = $request->social_pref;
         $alumnus->street_address = $request->street_address;
         $alumnus->city = $request->city;
         $alumnus->state = $request->state;
         $alumnus->zipcode = $request->zipcode;
         $alumnus->year_graduated = $request->year_graduated;
+
+        // Social checkboxes
+        if(!$request->has('facebook'))
+            $request->merge(['facebook' => 0]);
+        else
+            $request->merge(['facebook' => 1]);
+        $alumnus->facebook = $request->facebook;
+
+        if(!$request->has('twitter'))
+            $request->merge(['twitter' => 0]);
+        else
+            $request->merge(['twitter' => 1]);
+        $alumnus->twitter = $request->twitter;
+
+        if(!$request->has('instagram'))
+            $request->merge(['instagram' => 0]);
+        else
+            $request->merge(['instagram' => 1]);
+        $alumnus->instagram = $request->instagram;
 
         // Save volunteer checkbox
         if(!$request->has('volunteer'))
