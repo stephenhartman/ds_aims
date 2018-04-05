@@ -8,7 +8,6 @@ $factory->define(App\Alumnus::class, function (Faker $faker) {
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'phone_number' => $faker->phoneNumber,
-        'social_pref' => $faker->randomElement($array = array('Twitter', 'Facebook', 'Instagram')),
         'street_address' => $faker->streetAddress,
         'city' => $faker->city,
         'state' => $faker->state,
@@ -17,6 +16,9 @@ $factory->define(App\Alumnus::class, function (Faker $faker) {
         'volunteer' => $faker->randomElement($array = array(0,1)),
         'loyal_lion' => $faker->randomElement($array = array(0,1)),
         'is_parent' => $faker->randomElement($array = array(0,1)),
+        'facebook' => $faker->randomElement($array = array(0,1)),
+        'twitter' => $faker->randomElement($array = array(0,1)),
+        'instagram' => $faker->randomElement($array = array(0,1)),
         'initial_setup' => 1
     ];
 
