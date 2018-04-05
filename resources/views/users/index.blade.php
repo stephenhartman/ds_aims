@@ -57,6 +57,19 @@
                             var newHtml = jHtmlObject.text();
                             console.log('My header > ' + newHtml);
                             return newHtml;
+                        },
+                        body: function ( data, row, column, node ) {
+                            // Format zip codes with leading zeroes
+                            if ( column === 4 ) {
+                                if (data.startsWith("0"))
+                                    data = data + '\t';
+                            }
+                            if ( column === 0 || column === 1 || column === 2) {
+                                var temp = document.createElement("a");
+                                temp.innerHTML = data;
+                                data = temp.textContent || temp.innerText;
+                            }
+                            return data;
                         }
                     }
                 }
