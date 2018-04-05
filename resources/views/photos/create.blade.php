@@ -4,8 +4,10 @@
 
 @push('scripts')
     <script>
-        $("#photo_url").change(function(){
-            $("#photoModal").show();
+        $(document).ready(function() {
+            $('#output').on('load', function () {
+                $("#photoModal").modal('show');
+            });
         });
     </script>
 @endpush
@@ -23,7 +25,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ Form::label('photo_url', 'Upload Photo') }}
-                                {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])", 'data-toggle' => "modal", 'data-target' => "#photoModal"], array('class' => 'form-control')) }}
+                                {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"], array('class' => 'form-control')) }}
                             </div>
                         </div>
                         <div class="row">

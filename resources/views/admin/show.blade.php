@@ -19,9 +19,9 @@
                     }
                 });
             });
-        });
-        $("#photo_url").change(function(){
-            $("#photoModal").show();
+            $('#output').on('load', function () {
+                $("#photoModal").modal('show');
+            });
         });
     </script>
 @endpush
@@ -49,7 +49,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     {{ Form::label('photo_url', 'Upload a profile picture') }}
-                                    {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])", 'data-toggle' => "modal", 'data-target' => "#photoModal"], array('class' => 'form-control')) }}
+                                    {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"], array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('name', 'Name', ['class' => 'required']) }}

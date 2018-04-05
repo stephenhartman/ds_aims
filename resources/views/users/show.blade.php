@@ -26,9 +26,9 @@
                 $('#parent_name_label').toggle(this.checked);
                 $('#parent_name').toggle(this.checked);
             })
-        });
-        $("#photo_url").change(function(){
-            $("#photoModal").show();
+            $('#output').on('load', function () {
+                $("#photoModal").modal('show');
+            });
         });
     </script>
 @endpush
