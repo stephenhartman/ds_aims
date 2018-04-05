@@ -78,11 +78,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('social_pref', 'Social Media Preference') }}
-                                    {{ Form::select('social_pref', [
-                                    'Facebook' => 'Facebook',
-                                    'Twitter' => 'Twitter',
-                                    'Instagram' => 'Instagram'],
-                                     null, ['class' => 'form-control', 'placeholder' => 'Select a Social Media Preference']) }}
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            {{ Form::checkbox('facebook', 1, null, ['class' => 'form-control']) }}
+                                        </div>
+                                        <div class="col-xs-9">
+                                            {{ Form::label('facebook', 'Facebook', ['style' => 'margin-top:12px']) }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            {{ Form::checkbox('twitter', 1, null, ['class' => 'form-control']) }}
+                                        </div>
+                                        <div class="col-xs-9">
+                                            {{ Form::label('twitter', 'Twitter', ['style' => 'margin-top:12px']) }}
+                                        </div>
+                                        </label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            {{ Form::checkbox('instagram', 1, null, ['class' => 'form-control']) }}
+                                        </div>
+                                        <div class="col-xs-9">
+                                            {{ Form::label('instagram', 'Instagram', ['style' => 'margin-top:12px']) }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
