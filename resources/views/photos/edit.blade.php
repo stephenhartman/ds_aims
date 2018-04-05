@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Photo')
+@section('title', 'Edit Photo')
 
 @push('scripts')
     <script>
@@ -21,6 +21,9 @@
                     }
                 });
             });
+        });
+        $("#photo_url").change(function(){
+            $("#photoModal").show();
         });
     </script>
 @endpush
@@ -45,7 +48,7 @@
                             </div>
                             <div class="col-md-7">
                                 {{ Form::label('photo_url', 'Upload New Photo') }}
-                                {{ Form::file('photo_url', ['accept' => 'image/*'], array('class' => 'form-control', 'id' => 'uploadFile')) }}
+                                {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])", 'data-toggle' => "modal", 'data-target' => "#photoModal"], array('class' => 'form-control')) }}
                             </div>
                         </div>
                         <div class="row">
@@ -74,6 +77,24 @@
                             </div>
                         </div>
                         {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="photoModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
+                        <h4 class="modal-title">Photo Preview</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <img id="output" width="auto" height="500px" style="margin:auto">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
                     </div>
                 </div>
             </div>
