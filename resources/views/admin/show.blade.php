@@ -20,7 +20,9 @@
                 });
             });
             $('#output').on('load', function () {
-                $("#photoModal").modal('show');
+                setTimeout(function(){
+                    $("#photoModal").modal('show');
+                }, 2000);
             });
         });
     </script>
