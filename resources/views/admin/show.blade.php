@@ -19,6 +19,9 @@
                     }
                 });
             });
+            $('#output').on('load', function () {
+                $("#photoModal").modal('show');
+            });
         });
     </script>
 @endpush
@@ -46,7 +49,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     {{ Form::label('photo_url', 'Upload a profile picture') }}
-                                    {{ Form::file('photo_url', ['accept' => 'image/*', 'id' => 'cropper']) }}
+                                    {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"], array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('name', 'Name', ['class' => 'required']) }}
@@ -75,6 +78,24 @@
                                     indicates a required field.</h5>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="photoModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-window-close"></i></span> <span class="sr-only">close</span></button>
+                        <h4 class="modal-title">Photo Preview</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <img id="output" width="auto" height="200px" style="margin:auto">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-lg btn-block" data-dismiss="modal"><i class="fa fa-window-close"></i> Close</button>
                     </div>
                 </div>
             </div>

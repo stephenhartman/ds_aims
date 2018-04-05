@@ -39,122 +39,88 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.2/jquery.dataTables.yadcf.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
     <script>
-        $(function() {
-            'use strict';
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $(document).ready(function() {
+            var buttonCommon = {
+                exportOptions: {
+                    columns: ':visible',
+                    format: {
+                        header: function (mDataProp, columnIdx) {
+                            var htmlText = '<span>' + mDataProp + '</span>';
+                            var jHtmlObject = jQuery(htmlText);
+                            jHtmlObject.find('div').remove();
+                            var newHtml = jHtmlObject.text();
+                            console.log('My header > ' + newHtml);
+                            return newHtml;
+                        }
+                    }
                 }
+            };
+            $(function () {
+                'use strict';
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                function getFormattedDate() {
+                    var date = new Date();
+
+                    var year = date.getFullYear();
+
+                    var month = (1 + date.getMonth()).toString();
+                    month = month.length > 1 ? month : '0' + month;
+
+                    var day = date.getDate().toString();
+                    day = day.length > 1 ? day : '0' + day;
+
+                    return month + '-' + day + '-' + year;
+                }
+
+                var table = $('#signup-table').DataTable({
+                    dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    buttons: [
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'copyHtml5',
+                            text: '<i class="fa fa-files-o"></i> Copy',
+                        }),
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'excelHtml5',
+                            text: '<i class="fa fa-table"></i> Export Excel',
+                            title: 'alumni_data_' + getFormattedDate(),
+                        }),
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'print',
+                            text: '<i class="fa fa-print"></i> Print',
+                        }),
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'csvHtml5',
+                            text: '<i class="fa fa-table"></i> Export CSV',
+                            title: 'alumni_data_' + getFormattedDate(),
+                        }),
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'colvis',
+                            text: '<i class="fa fa-columns"></i> Visible Columns'
+                        })
+                    ],
+                    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                    processing: true,
+                    ajax: {
+                        "url": '{{ url('/events/'.$event->id.'/event_child/'.$child_id.'/event_sign_ups_child_data') }}',
+                        "type": 'POST',
+                    },
+                    columns: [
+                        {data: 'name', name: 'users.name'},
+                        {data: 'email', name: 'users.email'},
+                        {data: 'number_attending', name: 'event_sign_ups_child.number_attending'},
+                        {data: 'notes', name: 'event_sign_ups_child.notes'}
+                    ],
+                });
+
             });
-
-            function getFormattedDate() {
-                var date = new Date();
-
-                var year = date.getFullYear();
-
-                var month = (1 + date.getMonth()).toString();
-                month = month.length > 1 ? month : '0' + month;
-
-                var day = date.getDate().toString();
-                day = day.length > 1 ? day : '0' + day;
-
-                return month + '-' + day + '-' + year;
-            }
-
-            var table = $('#signup-table').DataTable({
-                dom: "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                buttons: [
-                    {
-                        extend:    'copyHtml5',
-                        text:      '<i class="fa fa-files-o"></i> Copy',
-                        exportOptions : {
-                            columns : ':visible',
-                            format : {
-                                header : function (mDataProp, columnIdx) {
-                                    var htmlText = '<span>' + mDataProp + '</span>';
-                                    var jHtmlObject = jQuery(htmlText);
-                                    jHtmlObject.find('div').remove();
-                                    var newHtml = jHtmlObject.text();
-                                    console.log('My header > ' + newHtml);
-                                    return newHtml;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend:    'excelHtml5',
-                        text:      '<i class="fa fa-table"></i> Export Excel',
-                        exportOptions : {
-                            columns : ':visible',
-                            format : {
-                                header : function (mDataProp, columnIdx) {
-                                    var htmlText = '<span>' + mDataProp + '</span>';
-                                    var jHtmlObject = jQuery(htmlText);
-                                    jHtmlObject.find('div').remove();
-                                    var newHtml = jHtmlObject.text();
-                                    console.log('My header > ' + newHtml);
-                                    return newHtml;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend:    'csvHtml5',
-                        text:      '<i class="fa fa-table"></i> Export CSV',
-                        title:     '{{ snake_case($event->title) }}_signups_' + getFormattedDate(),
-                        exportOptions : {
-                            columns : ':visible',
-                            format : {
-                                header : function (mDataProp, columnIdx) {
-                                    var htmlText = '<span>' + mDataProp + '</span>';
-                                    var jHtmlObject = jQuery(htmlText);
-                                    jHtmlObject.find('div').remove();
-                                    var newHtml = jHtmlObject.text();
-                                    console.log('My header > ' + newHtml);
-                                    return newHtml;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend:    'print',
-                        text:      '<i class="fa fa-print"></i> Print',
-                        exportOptions : {
-                            columns : ':visible',
-                            format : {
-                                header : function (mDataProp, columnIdx) {
-                                    var htmlText = '<span>' + mDataProp + '</span>';
-                                    var jHtmlObject = jQuery(htmlText);
-                                    jHtmlObject.find('div').remove();
-                                    var newHtml = jHtmlObject.text();
-                                    console.log('My header > ' + newHtml);
-                                    return newHtml;
-                                }
-                            }
-                        }
-                    },
-                    {
-                        extend:     'colvis',
-                        text:       '<i class="fa fa-columns"></i> Visible Columns'
-                    },
-                ],
-                lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-                processing: true,
-                ajax: {
-                    "url": '{{ url('/events/'.$event->id.'/event_child/'.$child_id.'/event_sign_ups_child_data') }}',
-                    "type": 'POST',
-                },
-                columns: [
-                    { data: 'name', name: 'users.name' },
-                    { data: 'email', name: 'users.email' },
-                    { data: 'number_attending', name: 'event_sign_ups_child.number_attending' },
-                    { data: 'notes', name: 'event_sign_ups_child.notes' }
-                ],
-            });
-
         });
     </script>
 @endpush
