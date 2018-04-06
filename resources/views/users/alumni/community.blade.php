@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>DePaul Community Information</h4>
@@ -22,32 +22,38 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3>
+                                    <h3 class="text-center">
                                         Thank you for signing up with the DePaul Alumni Outreach System.  Here are a few additional bits of information.
                                     </h3>
                                 </div>
                             </div>
+                            <hr>
                             <div class="row">
                                 <div class="form-group">
-                                    <div class="col-md-1">
+                                    <div class="col-sm-2 col-sm-offset-2 col-xs-2">
                                         {{ Form::checkbox('loyal_lion', null, null, ['class' => 'form-control'] ) }}
                                     </div>
-                                    <div class="col-md-5">
-                                        {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?') }}
-                                    </div>
-                                    <div class="col-md-1">
-                                        {{ Form::checkbox('volunteer', null, null, ['class' => 'form-control'] ) }}
-                                    </div>
-                                    <div class="col-md-5">
-                                        {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?') }}
+                                    <div class="col-sm-6 col-xs-10">
+                                        {{ Form::label('loyal_lion', 'Would you like to sign up for the Loyal Lion Program?', array('style' => 'margin-top:12px')) }}
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-2 col-sm-offset-2 col-xs-2">
+                                        {{ Form::checkbox('volunteer', null, null, ['class' => 'form-control'] ) }}
+                                    </div>
+                                    <div class="col-sm-6 col-xs-10">
+                                        {{ Form::label('volunteer', 'Would you like to volunteer for the DePaul School?', array('style' => 'margin-top:12px')) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-md-6">
                                     <figure class="figure text-center">
                                         <a href="https://clear-give.com/egive3/donate/index.cfm?LocID=536001" target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/cleargive.png') }}">
+                                            <img class="img-responsive" style="display:inherit; border: 3px solid #e7e7e7; border-radius: 5px; padding: 0;" src="{{ url('images/cleargive.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Gift a whole or partial tuition</h4>
@@ -61,9 +67,10 @@
                                     </a>
                                 </div>
                                 <div class="col-md-6">
+                                    <hr class="hidden-md hidden-lg">
                                     <figure class="figure text-center">
                                         <a href="http://www.smile.amazon.com/" target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/amazon_smile.png') }}">
+                                            <img class="img-responsive" style="display:inherit; border: 3px solid #e7e7e7; border-radius:5px; padding: 0;" src="{{ url('images/amazon_smile.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Use Amazon to shop</h4>
@@ -77,13 +84,13 @@
                                     </a>
                                 </div>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <figure class="figure text-center">
                                         <a href="https://smile.amazon.com/registry/wishlist/C9G0108K8GEM/ref=cm_sw_r_cp_ep_ws_gpBPzbG3V92Q1"
                                            target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/donate_supplies.png') }}">
+                                            <img class="img-responsive" style="display:inherit" src="{{ url('images/donate_supplies.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Help stock our classrooms</h4>
@@ -96,10 +103,11 @@
                                     </figure>
                                     </a>
                                 </div>
-                                <div class="col-md-6 text-center">
+                                <div class="col-md-6">
+                                    <hr class="hidden-md hidden-lg">
                                     <figure class="figure text-center">
                                         <a href="mailto:?subject=DePaul%20School%20Referral&body=I%20want%20to%20show%20you%20https%3A%2F%2Fwww.depaulalumni.com&cc=info@depaulschool.com" target="_top">
-                                            <img class="img-responsive" src="{{ url('images/send_email.png') }}">
+                                            <img class="img-responsive" style="display:inherit" src="{{ url('images/send_email.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Send an email to a friend!</h4>
@@ -111,9 +119,10 @@
                                     </figure>
                                 </div>
                             </div>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
-                                    {{ Form::button('<i class="fa fa-save"></i> Submit', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
+                                    {{ Form::button('<i class="fa fa-save"></i> Complete Registration', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
                                     {{ Form::close() }}
                                 </div>
                             </div>
@@ -125,12 +134,12 @@
                                 </div>
                                 <div class="col-md-5 col-sm-5 col-xs-3"></div>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <figure class="figure text-center">
                                         <a href="https://clear-give.com/egive3/donate/index.cfm?LocID=536001" target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/cleargive.png') }}">
+                                            <img class="img-responsive" style="display:inherit; border: 3px solid #e7e7e7; border-radius:5px; padding: 0;" src="{{ url('images/cleargive.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Gift a whole or partial tuition</h4>
@@ -144,9 +153,10 @@
                                     </a>
                                 </div>
                                 <div class="col-md-6">
+                                    <hr class="hidden-md hidden-lg">
                                     <figure class="figure text-center">
                                         <a href="http://www.smile.amazon.com/" target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/amazon_smile.png') }}">
+                                            <img class="img-responsive" style="display:inherit; border: 3px solid #e7e7e7; border-radius:5px; padding: 0;" src="{{ url('images/amazon_smile.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Use Amazon Smile to shop</h4>
@@ -160,13 +170,13 @@
                                     </a>
                                 </div>
                             </div>
-                            <br>
+                            <hr>
                             <div class="row">
                                 <div class="col-md-6">
                                     <figure class="figure text-center">
                                         <a href="https://smile.amazon.com/registry/wishlist/C9G0108K8GEM/ref=cm_sw_r_cp_ep_ws_gpBPzbG3V92Q1"
                                            target="_blank">
-                                            <img class="img-responsive" src="{{ url('images/donate_supplies.png') }}">
+                                            <img class="img-responsive" style="display:inherit" src="{{ url('images/donate_supplies.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Help stock our classrooms</h4>
@@ -179,10 +189,11 @@
                                     </figure>
                                     </a>
                                 </div>
-                                <div class="col-md-6 text-center">
+                                <div class="col-md-6">
+                                    <hr class="hidden-md hidden-lg">
                                     <figure class="figure text-center">
                                         <a href="mailto:?subject=DePaul%20School%20Referral&body=I%20want%20to%20show%20you%20https%3A%2F%2Fwww.depaulalumni.com&cc=info@depaulschool.com" target="_top">
-                                            <img class="img-responsive" src="{{ url('images/send_email.png') }}">
+                                            <img class="img-responsive" style="display:inherit" src="{{ url('images/send_email.png') }}">
                                         </a>
                                         <figcaption class="figure-caption">
                                             <h4>Send an email to a friend!</h4>

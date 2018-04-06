@@ -149,4 +149,10 @@
     background-color: #f8f8f8;
 }
 
-.form-control { box-shadow: none }
+.form-control { box-shadow: none !important }
+
+table.community-table,
+table.community-table > tbody > tr,
+table.community-table > tbody > tr > td { border: 3px solid #e7e7e7 }
+
+table.community-table > tbody > tr > td { width: 50% }
