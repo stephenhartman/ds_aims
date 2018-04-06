@@ -186,19 +186,6 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="form-group">
-                    {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
-                    {{ Form::close() }}
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block">
-                        <span class="fa fa-ban"></span> Cancel
-                    </a>
-                </div>
-            </div>
             <div class="text-center col-md-6">
                 <h5>
                     A <span class="required"></span>

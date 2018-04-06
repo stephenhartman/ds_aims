@@ -37,7 +37,7 @@
 
 @section('content')
     <div class="container">
-       <div class="row">
+        <div class="row">
             <div class="col-md-6">
                 {{ Form::model($user, ['route' => array('users.update', $user),
                 'method' => 'PATCH', 'id' => 'form-change']) }}
@@ -48,11 +48,33 @@
                 @include('layouts.alumnus')
             </div>
             <div class="row">
-               <div class="col-md-6">
-                  @include('layouts.photo')
-               </div>
+                <div class="col-md-6">
+                    @include('layouts.photo')
+                </div>
                 <div class="col-md-6">
                     @include('layouts.milestones')
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Submit Changes</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::button('<i class="fa fa-save"></i> Save', ['type' => 'submit', 'class' => 'btn btn-success btn-lg btn-block']) }}
+                                    {{ Form::close() }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <a href="{{ action('HomeController@index') }}" class="btn btn-warning btn-lg btn-block">
+                                        <span class="fa fa-ban"></span> Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

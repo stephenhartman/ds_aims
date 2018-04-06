@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
+use ImageOptimizer;
 
 class TinymceController extends Controller
 {
@@ -22,6 +22,7 @@ class TinymceController extends Controller
         $filename = str_replace(' ', '', $filename);
         $file = $image->move(public_path('images/posts'), $filename);
         ImageOptimizer::optimize($file);
+        sleep(1);
 
         return mce_back($filename);
     }

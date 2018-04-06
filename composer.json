@@ -6,15 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=7.1",
-        "ext-gd": "*",
         "consoletvs/charts": "5.*",
-        "davejamesmiller/laravel-breadcrumbs": "^4.2",
         "doctrine/dbal": "^2.6",
         "fideloper/proxy": "~3.3",
         "fzaninotto/faker": "~1.4",
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.4",
-        "jrean/laravel-user-verification": "5.0",
+        "jrean/laravel-user-verification": "~5.0",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
@@ -26,13 +24,11 @@
         "sentry/sentry-laravel": "^0.8.0",
         "spatie/laravel-image-optimizer": "^1.1",
         "spatie/laravel-tags": "^2.0",
-        "yajra/laravel-datatables": "^1.0",
-        "yajra/laravel-datatables-oracle": "^8.0"
+        "yajra/laravel-datatables": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",
         "filp/whoops": "~2.0",
-        "laravel/homestead": "^6.2",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0"
     },

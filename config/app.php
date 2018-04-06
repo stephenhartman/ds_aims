@@ -163,7 +163,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-		ConsoleTVs\Charts\ChartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -178,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 		App\Providers\TinymceServiceProvider::class,
+
         /*
          * Laravel Collective Providers...
          */
@@ -199,11 +199,6 @@ return [
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
         /*
-         * Reverse seed generator
-         */
-        Orangehill\Iseed\IseedServiceProvider::class,
-
-        /*
          * Photo upload dependencies
          */
         Intervention\Image\ImageServiceProvider::class,
@@ -214,14 +209,14 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
 
         /*
-         * Sentry
-         */
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
-
-        /*
          * Email verification
          */
         Jrean\UserVerification\UserVerificationServiceProvider::class,
+
+        /*
+         * Charts
+         */
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
     ],
 
     /*
@@ -278,7 +273,6 @@ return [
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
 		'Image' => Intervention\Image\Facades\Image::class,
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 		'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
 	],

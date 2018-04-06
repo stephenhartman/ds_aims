@@ -106,6 +106,10 @@
                             text: '<i class="fa fa-table"></i> Export CSV',
                             title: 'education_data_' + getFormattedDate(),
                         }),
+                        $.extend(true, {}, buttonCommon, {
+                            extend: 'colvis',
+                            text: '<i class="fa fa-columns"></i> Visible Columns'
+                        })
                     ],
                     lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
                     processing: true,
