@@ -420,17 +420,6 @@ class EventController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  Event $event
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Event $event)
-    {
-        return view('events.show', compact('event'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param Event $event

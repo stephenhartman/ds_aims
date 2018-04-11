@@ -37,19 +37,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-
-    /**
-     * Redirect authenticated users
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function authenticated(Request $request)
-    {
-        Session::flash('success', 'You have successfully logged in!  Welcome to the DePaul Alumni Outreach System!');
-        if($request->user()->hasRole('alumni'))
-            return redirect('/home');
-        else if($request->user()->hasRole('admin'))
-            return redirect('/admin/home');
-    }
 }

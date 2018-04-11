@@ -201,10 +201,7 @@ class HomeController extends Controller
                                 }'
                 ]);
 
-            if ($request->user()->hasRole('admin'))
-                return view('admin.home', compact('posts', 'calendar'));
-            else
-                return view('home', compact('posts', 'calendar'));
+            return view('home', compact('posts', 'calendar'));
         }
     }
 

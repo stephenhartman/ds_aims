@@ -24,7 +24,6 @@ Route::get('resend-verification/{id}', 'HomeController@resendVerification')->nam
 
 //Admin Routes
 Route::middleware(['admin'])->group(function () {
-    Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('posts', 'PostController', ['except' => ['index', 'show']]);
     Route::resource('photos', 'PhotoController', ['except' => 'index']);
 	Route::get('charts/occupation', 'ChartController@occupation')->name('charts.occupation');
@@ -34,7 +33,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('charts/year_graduated', 'ChartController@year_graduated')->name('charts.year_graduated');
     Route::resource('events', 'EventController', ['except' => ['index', 'show']]);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
-    Route::resource('events.event_child', 'EventChildController');
+    Route::resource('events.event_child', 'EventChildController', ['except' => 'show']);
     Route::resource('events.event_child.sign_ups', 'EventSignUpChildController');
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('/admin/roles', 'RoleController', ['only' => 'index']);
@@ -56,7 +55,7 @@ Route::middleware(['admin'])->group(function () {
 Route::group(['middleware' => ['isVerified']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('posts', 'PostController', ['only' => ['index', 'show']]);
-    Route::resource('events', 'EventController', ['only' => ['index', 'show']]);
+    Route::resource('events', 'EventController', ['only' => 'index']);
     Route::resource('photos', 'PhotoController', ['only' => 'index']);
     Route::resource('events.event_sign_ups', 'EventSignUpController');
     Route::resource('events.event_child', 'EventChildController');
