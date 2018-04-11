@@ -19,8 +19,9 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        redirectPath as laravelRedirectPath;
+    }
 
     /**
      * Where to redirect users after login.
@@ -36,5 +37,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        // Do your logic to flash data to session...
+        session()->flash('success', 'Welcome back to the DePaul Alumni Outreach System!');
+
+        // Return the results of the method we are overriding that we aliased.
+        return $this->laravelRedirectPath();
     }
 }

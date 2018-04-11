@@ -69,7 +69,7 @@ class SocialController extends Controller
         $authUser = User::where('provider_id', $user->id)->first();
         $emailUser = User::where('email', $user->email)->first();
         if($authUser ) {
-            Session::flash('success', 'Successfully logged in!  Welcome back '.$authUser->name.'!');
+            session()->flash('success', 'Welcome back to the DePaul Alumni Outreach System!');
             return $authUser;
         }
 
@@ -77,7 +77,7 @@ class SocialController extends Controller
             return $emailUser;
         }
 
-        Session::flash('success', 'You have successfully registered with your '.studly_case($provider).' Account.');
+        Session::flash('success', 'You have successfully registered with your '.studly_case($provider).' account.');
         $user =  User::create([
             'name'          => $user->name,
             'email'         => $user->email,
