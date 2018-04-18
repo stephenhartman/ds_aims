@@ -21,10 +21,10 @@
                     }
                 });
             });
-            $('#output').on('load', function() {
-                setTimeout(function(){
+            $('#output').on('load', function () {
+                $('#output').promise().done(function() {
                     $("#photoModal").modal('show');
-                }, 250);
+                });
             });
         });
     </script>

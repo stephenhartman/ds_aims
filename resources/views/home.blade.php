@@ -16,14 +16,22 @@
             });
 
             function getChart(url) {
-                $.ajax({
-                    type: "GET",
-                    url: url
-                }).done(function (data) {
-                    $('#div-chart').html(data);
-                }).fail(function () {
-                    alert('Chart could not be loaded.');
-                });
+                if (url === "#") {
+                    $('#div-chart').slideUp();
+                }
+                else {
+                    $('#div-chart').slideDown();
+                    $('#div-chart').promise().done(function() {
+                        $.ajax({
+                            type: "GET",
+                            url: url
+                        }).done(function (data) {
+                            $('#div-chart').html(data);
+                        }).fail(function () {
+                            alert('Chart could not be loaded.');
+                        });
+                    });
+                }
             }
         });
     </script>
@@ -64,6 +72,7 @@
                                             <li><a href="{{ route('charts.volunteer') }}">Volunteers</a></li>
                                             <li><a href="{{ route('charts.loyal_lion') }}">Loyal Lions</a></li>
                                             <li><a href="{{ route('charts.year_graduated') }}">Graduation Years</a></li>
+                                            <li><a href="#"><i class="fa fa-window-close"></i> Close</a></li>
                                         </ul>
                                     </div>
                                 </div>
