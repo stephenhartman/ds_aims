@@ -3,6 +3,7 @@
 @section('title', 'Edit Event')
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#form-delete').submit(function (event) {
@@ -24,6 +25,10 @@
             });
         });
     </script>
+@endpush
+
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"/>
 @endpush
 
 @section('content')
@@ -70,15 +75,22 @@
                             {{Form::label ('event_start_date', 'Event Date')}}
                             {{Form::date('event_start_date', $sd, array('class' => 'form-control') )}}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 date">
                             {{Form::label ('event_start_time', 'Event Start Time')}}
-                            {{Form::time('event_start_time', $st, array('class' => 'form-control') )}}
+                            {{Form::text('event_start_time', $st, array('class' => 'form-control timepicker') )}}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 date">
                             {{Form::label ('event_end_time', 'Event End Time')}}
-                            {{Form::time('event_end_time', $et, array('class' => 'form-control') )}}
+                            {{Form::text('event_end_time', $et, array('class' => 'form-control timepicker') )}}
                         </div>
                     </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('.timepicker').datetimepicker({
+                                format: 'LT'
+                            });
+                        });
+                    </script>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">

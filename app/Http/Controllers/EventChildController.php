@@ -77,16 +77,19 @@ class EventChildController extends Controller
     public function update(Request $request, $parent_id, EventChild $event_child)
     {
 
+        $event_start_time = date( "H:m", strtotime( $request->event_start_time ) );
+        $event_end_time = date( "H:m", strtotime( $request->event_end_time ) );
+
         if($request->all_events == 0){
 
             $this->validate($request, [
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i',
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time'
+                'event_start_time' => 'required',
+                'event_end_time' => 'required|after:event_start_time'
             ]);
 
-            $event_child->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event_child->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event_child->start_date = $request->event_start_date . " " . $event_start_time;
+            $event_child->end_date  = $request->event_start_date . " " . $event_end_time;
             $event_child->updates = $request->updates;
             $event_child->save();
         }else{
@@ -95,9 +98,9 @@ class EventChildController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d',
-                'event_start_time' => 'required|date_format:H:i',
+                'event_start_time' => 'required',
                 'event_location' => 'required',
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_end_time' => 'required|after:event_start_time',
                 'event_description' => 'required'
             ]);
 
@@ -109,8 +112,8 @@ class EventChildController extends Controller
 
             $event->title = $request->event_title;
             $event->type = $request->event_type;
-            $event->start_date = $ed . " " . $request->event_start_time;
-            $event->end_date = $ed . " " . $request->event_end_date;
+            $event->start_date = $ed . " " . $event_start_time;
+            $event->end_date  = $ed . " " . $event_end_time;
             $event->location = $request->event_location;
             $event->description = $request->event_description;
             $event->save();
@@ -133,8 +136,11 @@ class EventChildController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\EventChild  $eventChild
+     * @param Request $request
+     * @param $parent_id
+     * @param EventChild $event_child
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Request $request, $parent_id, EventChild $event_child)
     {

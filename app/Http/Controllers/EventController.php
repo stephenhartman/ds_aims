@@ -315,6 +315,9 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $event_start_time = date( "H:m", strtotime( $request->event_start_time ) );
+        $event_end_time = date( "H:m", strtotime( $request->event_end_time ) );
+
         //if single event
         if ($request->repeats == 0)
         {
@@ -326,26 +329,26 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
-                'event_start_time' => 'required|date_format:H:i',
+                'event_start_time' => 'required',
                 'event_location' => [
                     "required",
                     "regex:/[A-Za-z0-9'\.\-\s\,]+/"
                 ],
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_end_time' => 'required|after:event_start_time',
                 'event_description' => 'required'
 
             ]);
             $event = new Event;
             $event->title = $request->event_title;
             $event->type = $request->event_type;
-            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->start_date = $request->event_start_date . " " . $event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $event_end_time;
             $event->location = $request->event_location;
             $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
             $event->repeats = 0;
             $event->repeat_freq = 0;
-            $event->repeat_until = $request->event_start_date . " " . $request->event_end_time;
+            $event->repeat_until = $request->event_start_date . " " . $event_end_time;
             $event->save();
 
             return redirect()->route('events.index');
@@ -360,8 +363,8 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
-                'event_start_time' => 'required|date_format:H:i',
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_start_time' => 'required',
+                'event_end_time' => 'required|after:event_start_time',
                 'event_location' => [
                     "required",
                     "regex:/[A-Za-z0-9'\.\-\s\,]+/"
@@ -380,8 +383,8 @@ class EventController extends Controller
             $event = new Event;
             $event->title = $request->event_title;
             $event->type = $request->event_type;
-            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->start_date = $request->event_start_date . " " . $event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $event_end_time;
             $event->location = $request->event_location;
             $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
@@ -408,8 +411,8 @@ class EventController extends Controller
                 $date_holder_format = $date_holder_clone->format('Y-m-d');
                 $event_child = new EventChild;
                 $event_child->parent_id = $parent_id;
-                $event_child->start_date = $date_holder_format . " " . $request->event_start_time;
-                $event_child->end_date = $date_holder_format . " " . $request->event_end_time;
+                $event_child->start_date = $date_holder_format . " " . $event_start_time;
+                $event_child->end_date = $date_holder_format . " " . $event_end_time;
                 $event_child->save();
             }
 
@@ -448,6 +451,8 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         $id = $event->id;
+        $event_start_time = date( "H:m", strtotime( $request->event_start_time ) );
+        $event_end_time = date( "H:m", strtotime( $request->event_end_time ) );
 
         //if only editing parent event
         if($request->all_events == 0){
@@ -459,8 +464,8 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
-                'event_start_time' => 'required|date_format:H:i',
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_start_time' => 'required',
+                'event_end_time' => 'required|after:event_start_time',
                 'event_location' => [
                     "required",
                     "regex:/[A-Za-z0-9'\.\-\s\,]+/"
@@ -470,8 +475,8 @@ class EventController extends Controller
 
             $event->title = $request->event_title;
             $event->type = $request->event_type;
-            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->start_date = $request->event_start_date . " " . $event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $event_end_time;
             $event->location = $request->event_location;
             $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
@@ -487,16 +492,16 @@ class EventController extends Controller
                 'event_title' => 'required',
                 'event_type' => 'required',
                 'event_start_date' => 'required|date_format:Y-m-d|after:yesterday',
-                'event_start_time' => 'required|date_format:H:i',
-                'event_end_time' => 'required|date_format:H:i|after:event_start_time',
+                'event_start_time' => 'required',
+                'event_end_time' => 'required|after:event_start_time',
                 'event_location' => 'required',
                 'event_description' => 'required'
             ]);
 
             $event->title = $request->event_title;
             $event->type = $request->event_type;
-            $event->start_date = $request->event_start_date . " " . $request->event_start_time;
-            $event->end_date  = $request->event_start_date . " " . $request->event_end_time;
+            $event->start_date = $request->event_start_date . " " . $event_start_time;
+            $event->end_date  = $request->event_start_date . " " . $event_end_time;
             $event->location = $request->event_location;
             $event->location_url = $this->getLocationURL($request);
             $event->description = $request->event_description;
