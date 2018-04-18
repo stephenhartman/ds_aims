@@ -1,6 +1,15 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h4>Edit Profile Photo</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Edit Profile Photo</h4>
+            </div>
+            <div class="col-md-4 col-md-offset-2">
+                @if ($alumnus->photo_url !== null)
+                    <a href="{{ route('photo_delete', array($user, $alumnus)) }}" class="btn btn-danger btn-block" id="photo-delete"><i class="fa fa-trash"></i> Delete Photo</a>
+                @endif
+            </div>
+        </div>
     </div>
     <div class="panel-body">
         <div class="row">

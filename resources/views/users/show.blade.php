@@ -17,6 +17,19 @@
                     }
                 });
             });
+            $('#photo-delete').click(function (event) {
+                event.preventDefault();
+                var link = $(this).attr('href');
+                swal({
+                    title: "Delete profile photo?",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((ok) => {
+                    if(ok)
+                        window.location.href = link;
+                });
+            });
             if($('#parent').is(':checked'))
             {
                 $('#parent_name_label').show();

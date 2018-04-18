@@ -307,4 +307,23 @@ class AlumnusController extends Controller
             }
         }
     }
+
+    /**
+     * Delete profile photo
+     *
+     * @param Request $request
+     * @param User $user
+     * @param Alumnus $alumnus
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function photo_delete(User $user, Alumnus $alumnus)
+    {
+        File::delete(public_path($alumnus->photo_url));
+        $alumnus->photo_url = null;
+
+        $alumnus->save();
+
+        session()->flash('alert', 'Profile photo was successfully deleted.');
+        return redirect()->route('users.show', compact('user'));
+    }
 }

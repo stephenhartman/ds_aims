@@ -65,6 +65,7 @@ Route::group(['middleware' => ['isVerified']], function () {
     Route::get('users/{user}/alumni/{alumnus}/community', 'AlumnusController@community')->name('community');
     Route::post('users/{user}/alumni/{alumnus}/final_store', 'AlumnusController@final_store')->name('final_store');
     Route::resource('users.alumni', 'AlumnusController', ['except' => ['index', 'destroy']]);
+    Route::get('users/{user}/alumni/{alumnus}/photo_delete', 'AlumnusController@photo_delete')->name('photo_delete');
     Route::resource('users.alumni.milestones', 'MilestoneController', ['only' => 'index']);
     Route::resource('users.alumni.education', 'EducationController', ['except' => ['index']]);
     Route::resource('users.alumni.occupation', 'OccupationController', ['except' => ['index']]);
