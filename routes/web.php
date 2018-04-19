@@ -38,6 +38,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/home', 'HomeController@index')->name('admin/home');
     Route::resource('/admin/roles', 'RoleController', ['only' => 'index']);
     Route::post('/admin/roles/change', 'RoleController@updateRole');
+    Route::get('community', 'HomeController@community')->name('home.community');
     //DataTables
     Route::get('/admin/alumni', 'UserController@index')->name('alumni');
     Route::match(['get', 'post'], '/alumni-data', 'UserController@alumni_data');

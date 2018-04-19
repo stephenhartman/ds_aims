@@ -39,6 +39,9 @@
                         <li class="{{ Request::is('photos*') ? 'active' : '' }}">
                             <a href="{{ URL::to('photos') }}">Photo Gallery</a>
                         </li>
+                        <li class="{{ Request::is('community') ? 'active' : '' }}">
+                            <a href="{{ route('home.community') }}">Community</a>
+                        </li>
                     @else
                         <li class="{{ Request::is('posts*') ? 'active' : '' }}">
                             <a href="{{ URL::to('posts') }}">Browse Posts</a>
@@ -51,7 +54,7 @@
                         </li>
                         @if (Auth::user()->alumnus !== null)
                             @if (Auth::user()->alumnus->initial_setup == 1)
-                                <li class="{{ Request::is('community') ? 'active' : '' }}">
+                                <li class="{{ Request::is('users/*/alumni/*/community') ? 'active' : '' }}">
                                     <a href="{{ route('community', array(Auth::user(), Auth::user()->alumnus)) }}">Community</a>
                                 </li>
                             @endif

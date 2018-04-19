@@ -272,4 +272,14 @@ class HomeController extends Controller
 
         return $enroll;
     }
+
+    /**
+     * Community Page view for admin roles
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function community()
+    {
+        return view('community');
+    }
 }
