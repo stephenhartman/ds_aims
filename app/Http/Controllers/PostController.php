@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\File;
 use Session;
 use Purifier;
 use Auth;
+use HTMLDomParser;
 
 
 class PostController extends Controller
@@ -137,6 +139,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $html = HTMLDomParser::str_get_html($post->body);
+        foreach($html->find('img') as $element)
+        {
+            File::delete(public_path($element->src));
+        }
 
         $post->delete();
 

@@ -217,6 +217,11 @@ return [
          * Charts
          */
         ConsoleTVs\Charts\ChartsServiceProvider::class,
+
+        /*
+         * HTML DOM parser
+         */
+        Ammadeuss\LaravelHtmlDomParser\ServiceProvider::class,
     ],
 
     /*
@@ -275,6 +280,7 @@ return [
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 		'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'HTMLDomParser' => Ammadeuss\LaravelHtmlDomParser\Facade::class
 	],
 
 ];
