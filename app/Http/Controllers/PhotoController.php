@@ -50,8 +50,8 @@ class PhotoController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'caption'         => 'max:500',
-            'photo_url'       => 'required'
+            'caption' => 'max:500',
+            'photo_url' => 'required|mimes:jpeg,jpg,png,gif|between:0,5120'
         ));
 
         $photo = new Photo;
@@ -86,7 +86,8 @@ class PhotoController extends Controller
     public function update(Request $request, Photo $photo)
     {
         $this->validate($request, array(
-            'caption'         => 'max:500',
+            'caption' => 'max:500',
+            'photo_url' => 'required|mimes:jpeg,jpg,png,gif|between:0,5120'
         ));
 
         $photo->caption = $request->caption;

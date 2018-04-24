@@ -78,6 +78,7 @@ class UserController extends Controller
         //validate
         $this->validate($request, array(
             'email' => 'required|email',
+            'photo_url' => 'mimes:jpeg,jpg,png,gif|between:0,5120'
         ));
 
         if ($request->email !== $user->email)

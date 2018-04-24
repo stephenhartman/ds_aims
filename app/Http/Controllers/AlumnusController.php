@@ -58,6 +58,7 @@ class AlumnusController extends Controller
             $this->validate($request, array(
                 'first_name' => 'required',
                 'last_name' => 'required',
+                'photo_url' => 'mimes:jpeg,jpg,png,gif|between:0,5120'
             ));
             //store
             $alumnus = new Alumnus;
@@ -165,6 +166,7 @@ class AlumnusController extends Controller
         $this->validate($request, array(
             'first_name' => 'required',
             'last_name' => 'required',
+            'photo_url' => 'mimes:jpeg,jpg,png,gif|between:0,5120'
         ));
 
         //store
