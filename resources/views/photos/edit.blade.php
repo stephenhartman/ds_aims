@@ -49,7 +49,7 @@
                                 </figure>
                             </div>
                             <div class="col-md-7">
-                                {{ Form::label('photo_url', 'Upload New Photo') }}
+                                {{ Form::label('photo_url', 'Upload New Photo (No Larger than 5 MB)') }}
                                 {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"], array('class' => 'form-control')) }}
                             </div>
                         </div>

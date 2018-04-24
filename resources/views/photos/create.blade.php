@@ -26,7 +26,7 @@
                         {!! Form::open(['route' => ['photos.store'], 'enctype' => 'multipart/form-data']) !!}
                         <div class="row">
                             <div class="col-md-12">
-                                {{ Form::label('photo_url', 'Upload Photo') }}
+                                {{ Form::label('photo_url', 'Upload Photo (No Larger than 5 MB)') }}
                                 {{ Form::file('photo_url', ['accept' => 'image/*', 'onchange' => "document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"], array('class' => 'form-control')) }}
                             </div>
                         </div>
