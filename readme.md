@@ -4,6 +4,10 @@
 
 This is a client project for the DePaul School of Jacksonville.
 
+### Staging Application Demo
+
+https://depaul-dsaims.herokuapp.com/
+
 ### Group Members
 
 - [Kevin Bell](https://github.com/jawsofdoom)
