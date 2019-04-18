@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Event::class, function (Faker $faker) {
 
-    $unix_timestamp = '1524926067';  // April 28th
+    $unix_timestamp = '1571377335';  // April 28th
     $sd = $faker->dateTimeBetween('now', $unix_timestamp);
     $ed = $faker->dateTimeInInterval($start_date = $sd, $interval = ' + 2 hours');
 
@@ -27,7 +27,9 @@ $factory->define(App\Event::class, function (Faker $faker) {
         'description' => $faker->sentence($nbWords = 9, $variableNbWords = true),
         'repeats' => 0,
         'repeat_freq' => 0,
-        'repeat_until' => $ed
+        'repeat_until' => $ed,
+        'location' => '1000 Ponte Vedra Blvd',
+        'location_url' => 'https://www.google.com'
 
 
     ];

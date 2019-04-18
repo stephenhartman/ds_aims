@@ -32,6 +32,6 @@ class CreateUserSignUpChild extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sign_ups');
+        Schema::dropIfExists('event_sign_ups_child');
     }
 }

@@ -18,7 +18,6 @@ $factory->define(App\Post::class, function (Faker $faker) {
     return [
         'title' => $faker->catchPhrase,
         'body' => '<h4>' .$faker->catchPhrase . '</h4><p>' . $faker->realText($maxNbChars = 150) . '</p>',
-        'alumni' => $faker->randomElement($array = array('Alumnus', 'Admin')),
         'user_id' => 1,
     ];
 });

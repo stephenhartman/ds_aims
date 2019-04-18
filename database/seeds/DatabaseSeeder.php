@@ -18,15 +18,15 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTableSeeder::class);
 
-        /*
-         * Development seeds
-         *
-         * User seeder will use the roles above created.
-         * $this->call(UserTableSeeder::class);
-         * $events = factory(App\Event::class, 15)->create();
-         * $posts = factory(App\Post::class, 23)->create();
-         * Call inverse posts seeds
-         * $this->call(PostsTableSeeder::class);
-         */
+        
+        //Development seeds
+         
+        // User seeder will use the roles above created.
+        $this->call(UserTableSeeder::class);
+        $events = factory(App\Event::class, 15)->create();
+        $posts = factory(App\Post::class, 23)->create();
+        //Call inverse posts seeds
+        $this->call(PostsTableSeeder::class);
+        
     }
 }
