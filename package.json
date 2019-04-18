@@ -11,11 +11,11 @@
     },
     "devDependencies": {
         "axios": "^0.16.2",
-        "bootstrap-sass": "^3.3.7",
+        "bootstrap-sass": ">=3.4.1",
         "cross-env": "^5.0.5",
         "jquery": "^3.3.1",
         "laravel-mix": "^1.4.5",
-        "lodash": "^4.17.4",
+        "lodash": "^4.17.11",
         "vue": "^2.1.10"
     },
     "dependencies": {
@@ -23,10 +23,21 @@
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.8.2",
         "jszip": "^3.1.5",
-        "marked": "^0.3.12",
+        "marked": "^0.6.2",
+        "mime": "^2.0.3",
         "moment": "^2.20.1",
         "node": "^9.5.0",
         "sweetalert": "^2.1.0",
-        "tinymce-emoji": "^0.1.4"
+        "tinymce-emoji": "^0.1.4",
+        "url-parse": "^1.4.3",
+        "macaddress": ">=0.2.9",
+        "sshpk": ">=1.13.2",
+        "deep-extend": ">=0.5.1",
+        "atob": ">=2.1.0",
+        "cryptiles": ">=4.1.2",
+        "hoek": ">=4.2.1",
+        "extend": ">=3.0.2",
+        "webpack-dev-server": ">=3.1.11",
+        "randomatic": ">=3.0.0"
     }
 }
