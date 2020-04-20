@@ -11,7 +11,7 @@ https://depaul-dsaims.herokuapp.com/
 ### Group Members
 
 - [Kevin Bell](https://github.com/jawsofdoom)
-- [Andrew Greer](https://github.com/Initech9)
+- [Andrew Greer](https://github.com/Initech10)
 - [Stephen Hartman](https://github.com/stephenhartman)
 - [Lindsey Wanta](https://github.com/lindseywanta)
 
@@ -117,4 +117,4 @@ php artisan db:seed
 
 We graduated!
 
-flat Earth!
+flat Earth
