@@ -116,5 +116,3 @@ php artisan db:seed
 - http://localhost:8000
 
 We graduated!
-
-flat Earth
