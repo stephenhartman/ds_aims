@@ -7369,8 +7369,8 @@ tinymce-emoji@^0.1.4:
     tinymce "^4.6.5"
 
 tinymce@^4.6.5:
-  version "4.9.9"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.9.tgz#329659d2a8008170aba5c936a8d07bd3c07478cb"
+  version "4.9.11"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.11.tgz#e3dae099722294c5b8d84ba7ef18dd126de6b582"
 
 to-absolute-glob@^0.1.1:
   version "0.1.1"
