@@ -23,7 +23,7 @@
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.8.2",
         "jszip": "^3.1.5",
-        "marked": "^0.6.2",
+        "marked": "^4.0.10",
         "mime": "^2.0.3",
         "moment": "^2.20.1",
         "node": "^9.5.0",
