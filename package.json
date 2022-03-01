@@ -29,7 +29,7 @@
         "node": "^9.5.0",
         "sweetalert": "^2.1.0",
         "tinymce-emoji": "^0.1.4",
-        "url-parse": "^1.4.3",
+        "url-parse": "^1.5.9",
         "macaddress": ">=0.2.9",
         "sshpk": ">=1.13.2",
         "deep-extend": ">=0.5.1",
