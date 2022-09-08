@@ -22,7 +22,7 @@
         "bootswatch": "^3.3.7",
         "font-awesome": "^4.7.0",
         "fullcalendar": "^3.8.2",
-        "jszip": "^3.1.5",
+        "jszip": "^3.7.0",
         "marked": "^0.6.2",
         "mime": "^2.0.3",
         "moment": "^2.20.1",
